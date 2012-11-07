@@ -23,11 +23,6 @@
 
 #import "neon_matrix_impl.h"
 
-#ifdef __thumb__
-#error "This file should be compiled in ARM mode only."
-// Note in Xcode, right click file, Get Info->Build, Other compiler flags = "-marm"
-#endif
-
 #ifdef _ARM_ARCH_7
 
 void NEON_Matrix4Mul(const float* a, const float* b, float* output)

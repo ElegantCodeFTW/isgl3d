@@ -14,5 +14,5 @@ Pod::Spec.new do |s|
   s.frameworks  = 'Foundation', 'QuartzCore', 'OpenGLES', 'UIKit', 'CoreGraphics', 'GLKit'
   s.requires_arc = false
   s.prefix_header_file = 'isgl3d/isgl3d-Apps-Prefix.pch'
-  # s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
+  s.xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BUILD_OGLES2' }
 end
