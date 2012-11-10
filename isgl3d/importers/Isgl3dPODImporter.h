@@ -168,6 +168,15 @@
 - (Isgl3dMeshNode *) meshNodeWithName:(NSString *)nodeName;
 
 /**
+ * Returns the node (mesh or generic structural node) corresponding to a node name (as
+ * defined in the POD file).
+ * All node names can be obtained via printPODInfo.
+ * @param nodeName the name of the node as defined in the POD file.
+ * @return The Corresponding Isgl3dMeshNode.
+ */
+- (Isgl3dNode *) nodeWithName:(NSString *)nodeName;
+
+/**
  * Returns the Isgl3dMaterial corresponding to a material name (as defined in the POD file).
  * All material names can be obtained via printPODInfo.
  * @param materialName the name of the material as defined in the POD file.

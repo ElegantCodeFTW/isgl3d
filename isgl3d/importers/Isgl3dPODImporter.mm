@@ -49,6 +49,7 @@
 	
 	NSMutableArray *_meshes;
 	NSMutableDictionary *_meshNodes;
+    NSMutableDictionary *_nodesByName;
 	NSMutableDictionary *_boneNodes;
 	NSMutableDictionary *_indexedNodes;
 	NSMutableArray *_boneNodeIndices;
@@ -136,6 +137,7 @@
 
 		_meshes = [[NSMutableArray alloc] init];
 		_meshNodes = [[NSMutableDictionary alloc] init];
+        _nodesByName = [[NSMutableDictionary alloc] init];;
 		_boneNodes = [[NSMutableDictionary alloc] init];
 		_indexedNodes = [[NSMutableDictionary alloc] init];
 		_boneNodeIndices = [[NSMutableArray alloc] init];
@@ -161,6 +163,8 @@
     _meshes = nil;
 	[_meshNodes release];
     _meshNodes = nil;
+    [_nodesByName release];
+    _nodesByName = nil;
 	[_boneNodes release];
     _boneNodes = nil;
 	[_indexedNodes release];
@@ -281,12 +285,12 @@
 	}
 	
 	// Link meshes to materials: iterate through nodes, include only meshes (at beginning of array)
-	for (int i = 0; i < _podModel->nNumMeshNode; i++) {
+	for (int i = 0; i < _podModel->nNumNode; i++) {
 		SPODNode &nodeInfo = _podModel->pNode[i];
 
 		Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"Adding node: %s:", nodeInfo.pszName);
 		
-		Isgl3dNode *node = [_meshNodes objectForKey:[NSString stringWithUTF8String:nodeInfo.pszName]];
+		Isgl3dNode *node = [_nodesByName objectForKey:[NSString stringWithUTF8String:nodeInfo.pszName]];
 		
 		if (nodeInfo.nIdxParent == -1) {
 			[scene addChild:node];
@@ -296,17 +300,8 @@
 			if (parent) {
 				[parent addChild:node];
 			} else {
-                SPODNode &parentNode = _podModel->pNode[nodeInfo.nIdxParent];
-                
-                // Not sure if helpers may have a transformation matrix, this is unfortunately not documented inside the
-                // PowerVR SDK. So just in case get and assign the world matrix for the node.
-                PVRTMat4 podTransformation;
-                _podModel->GetWorldMatrix(podTransformation, parentNode);
-                [node setTransformationFromOpenGLMatrix:podTransformation.f];
-                
-                Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"node with non-mesh node parent (%d) %s:", nodeInfo.nIdxParent, parentNode.pszName);
-                [scene addChild:node];
-			}
+                Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"Missing node %s parent %d", nodeInfo.pszName, nodeInfo.nIdxParent);
+            }
 		}
 	}
 
@@ -322,6 +317,14 @@
         Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Unable to find mesh node with name %@", nodeName);
 	}
 	return node;
+}
+
+- (Isgl3dNode *)nodeWithName:(NSString *)nodeName {
+    Isgl3dNode *node = _nodesByName[nodeName];
+    if (!node) {
+        Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Unable to find mesh node with name %@", nodeName);
+	}
+    return node;
 }
 
 - (Isgl3dGLMesh *)meshFromNodeWithName:(NSString *)nodeName {
@@ -600,68 +603,61 @@
 	}
 	
 	// Create all mesh nodes, link to materials and meshes.
-	for (int i = 0; i < _podModel->nNumMeshNode; i++) {
-		SPODNode &meshNodeInfo = _podModel->pNode[i];
-		SPODMesh &meshInfo = _podModel->pMesh[meshNodeInfo.nIdx];
-	
-		// Get the mesh
-		Isgl3dGLMesh *mesh = [_meshes objectAtIndex:meshNodeInfo.nIdx];
-		Isgl3dMaterial *material = nil;
-
-		// Set the material
-		if (meshNodeInfo.nIdxMaterial >= 0 && meshNodeInfo.nIdxMaterial < [_materials count]) {
-			material = [_materials objectAtIndex:meshNodeInfo.nIdxMaterial];
-		} else {
-			Isgl3dClassDebugLog(Isgl3dLogLevelWarn, @"No material for mesh: %s", meshNodeInfo.pszName);
-		}
-
-
-		// Check to see if the mesh has bone data
-		Isgl3dMeshNode * node;
-		if (meshInfo.sBoneIdx.pData && meshInfo.sBoneWeight.pData) {
-			node = [self createAnimatedMeshNode:i meshId:meshNodeInfo.nIdx mesh:mesh material:material];
-			[_meshNodes setObject:node forKey:[NSString stringWithUTF8String:meshNodeInfo.pszName]];
-		
-		} else {
-		
-			Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"Bulding mesh node: %s:", meshNodeInfo.pszName);
-			node = [Isgl3dMeshNode nodeWithMesh:mesh andMaterial:material];
-			[_meshNodes setObject:node forKey:[NSString stringWithUTF8String:meshNodeInfo.pszName]];
-		}			
-
-		[_indexedNodes setObject:node forKey:[NSNumber numberWithInteger:meshNodeInfo.nIdx]];
-
-        if (material != nil) {
-            // Add node alpha
-            SPODMaterial & materialInfo = _podModel->pMaterial[meshNodeInfo.nIdxMaterial];
-            node.alpha = materialInfo.fMatOpacity;
-            node.transparent = node.alpha < 1.0 ? YES : NO;
-        } else {
-            node.isVisible = NO;
-            node.alpha = 1.0;
-            node.transparent = NO;
+	for (int i = 0; i < _podModel->nNumNode; i++) {
+        if (_indexedNodes[@(i)]) {
+            continue; // skip node creation if already made by recursion
         }
+        
+		SPODNode &meshNodeInfo = _podModel->pNode[i];
+        NSString *name = [NSString stringWithUTF8String:meshNodeInfo.pszName];
+        Isgl3dNode *newNode = nil;
+        if (i < _podModel->nNumMeshNode) {
+            SPODMesh &meshInfo = _podModel->pMesh[meshNodeInfo.nIdx];
+        
+            // Get the mesh
+            Isgl3dGLMesh *mesh = [_meshes objectAtIndex:meshNodeInfo.nIdx];
+            Isgl3dMaterial *material = nil;
 
+            // Set the material
+            if (meshNodeInfo.nIdxMaterial >= 0 && meshNodeInfo.nIdxMaterial < [_materials count]) {
+                material = [_materials objectAtIndex:meshNodeInfo.nIdxMaterial];
+            } else {
+                Isgl3dClassDebugLog(Isgl3dLogLevelWarn, @"No material for mesh: %s", meshNodeInfo.pszName);
+            }
+
+
+            // Check to see if the mesh has bone data
+            Isgl3dMeshNode * node;
+            if (meshInfo.sBoneIdx.pData && meshInfo.sBoneWeight.pData) {
+                node = [self createAnimatedMeshNode:i meshId:meshNodeInfo.nIdx mesh:mesh material:material];
+            } else {
+                Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"Bulding mesh node: %s:", meshNodeInfo.pszName);
+                node = [Isgl3dMeshNode nodeWithMesh:mesh andMaterial:material];
+            }			
+            [_meshNodes setObject:node forKey:name];
+
+            if (material != nil) {
+                // Add node alpha
+                SPODMaterial & materialInfo = _podModel->pMaterial[meshNodeInfo.nIdxMaterial];
+                node.alpha = materialInfo.fMatOpacity;
+                node.transparent = node.alpha < 1.0 ? YES : NO;
+            } else {
+                node.isVisible = NO;
+                node.alpha = 1.0;
+                node.transparent = NO;
+            }
+            newNode = node;
+        } else {
+            newNode = [Isgl3dNode node];
+        }
+        [_indexedNodes setObject:newNode forKey:[NSNumber numberWithInteger:i]];
+        _nodesByName[name] = newNode; // if node creation skipped could have unindexed named node
 		// Set the default node transformation
 		_podModel->SetFrame(0);
 		PVRTMat4 podTransformation;
 		_podModel->GetTransformationMatrix(podTransformation, meshNodeInfo);
-		[node setTransformationFromOpenGLMatrix:podTransformation.f];
-		
-	}
-	
-	// Create all non-mesh nodes
-	for (int i = 0; i < _podModel->nNumNode; i++) {
-		SPODNode & nodeInfo = _podModel->pNode[i];
-		
-		// See if node already exists as a mesh node, otherise create simple node
-		if (![_indexedNodes objectForKey:[NSNumber numberWithInteger:nodeInfo.nIdx]]) {
-			Isgl3dNode *node = [Isgl3dNode node];
-			[_indexedNodes setObject:node forKey:[NSNumber numberWithInteger:nodeInfo.nIdx]];
-		}
-		
-	}
-	
+		[newNode setTransformationFromOpenGLMatrix:podTransformation.f];
+	}		
 	
 	_buildMeshNodesComplete = YES;
 }
