@@ -24,6 +24,7 @@
  */
 
 #import "Isgl3dBoneNode.h"
+#import "Isgl3dAnimatedMeshNode.h"
 #import "Isgl3dPrimitiveFactory.h"
 #import "Isgl3dColorMaterial.h"
 #import "Isgl3dMatrix.h"
@@ -66,7 +67,10 @@
 	for (Isgl3dNode * node in _children) {
 		if ([node isKindOfClass:[Isgl3dBoneNode class]]) {
 			[(Isgl3dBoneNode *)node setFrame:frameNumber];
+		} else if ([node isKindOfClass:[Isgl3dAnimatedMeshNode class]]) {
+			[(Isgl3dAnimatedMeshNode *)node setFrame:frameNumber];
 		}
+
 	}
 }
 

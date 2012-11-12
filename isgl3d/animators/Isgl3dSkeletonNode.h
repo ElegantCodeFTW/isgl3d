@@ -23,9 +23,7 @@
  *
  */
 
-#import "Isgl3dNode.h"
-
-@class Isgl3dBoneNode;
+#import "Isgl3dBoneNode.h"
 
 /**
  * The Isgl3DSkeletonNode provides a parent container class for both Isgl3dAnimatedMeshes and Isgl3dBoneNodes.
@@ -36,7 +34,7 @@
  * By passing an instance of an Isgl3dSkeletonNode to the Isgl3dAnimationController, the whole of the animation
  * process can be automated.
  */
-@interface Isgl3dSkeletonNode : Isgl3dNode {
+@interface Isgl3dSkeletonNode : Isgl3dBoneNode {
 
 @private
 
@@ -66,6 +64,7 @@
  * @param frameNumber The desired frame number
  * Note that this is called automatically by the Isgl3dAnimationController if this is in use. 
  */
-- (void)setFrame:(unsigned int)frameNumber;
+// implemented by super class
+//- (void)setFrame:(unsigned int)frameNumber;
 
 @end

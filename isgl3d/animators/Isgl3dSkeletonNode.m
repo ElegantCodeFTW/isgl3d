@@ -50,15 +50,5 @@
 	return (Isgl3dBoneNode *)[self addChild:[Isgl3dBoneNode boneNode]];
 }
 
-- (void)setFrame:(unsigned int)frameNumber {
-	for (Isgl3dNode * node in _children) {
-		if ([node isKindOfClass:[Isgl3dBoneNode class]]) {
-			[(Isgl3dBoneNode *)node setFrame:frameNumber];
-		} else if ([node isKindOfClass:[Isgl3dAnimatedMeshNode class]]) {
-			[(Isgl3dAnimatedMeshNode *)node setFrame:frameNumber];
-		}
-	}
-}
-
 
 @end

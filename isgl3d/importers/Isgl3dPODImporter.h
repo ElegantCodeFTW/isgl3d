@@ -95,28 +95,40 @@
 - (void)printPODInfo;
 
 /**
+ * Returns the number of mesh nodes in the scene.
+ * @return The number of mesh nodes in the scene.
+ */
+@property (readonly) unsigned int numberOfMeshNodes;
+
+/**
+ * Returns the number of nodes in the scene.
+ * @return The number of nodes in the scene.
+ */
+@property (readonly) unsigned int numberOfNodes;
+
+/**
  * Returns the number of meshes in the scene.
  * @return The number of meshes in the scene.
  */
-- (unsigned int) numberOfMeshes;
+@property (readonly) unsigned int numberOfMeshes;
 
 /**
  * Returns the number of cameras in the scene.
  * @return The number of cameras in the scene.
  */
-- (unsigned int) numberOfCameras;
+@property (readonly) unsigned int numberOfCameras;
 
 /**
  * Returns the number of lights in the scene.
  * @return The number of lights in the scene.
  */
-- (unsigned int) numberOfLights;
+@property (readonly) unsigned int numberOfLights;
 
 /**
  * Returns the number of frames in the scene (for the bone/mesh animation).
  * @return The number of frames in the scene (for the bone/mesh animation).
  */
-- (unsigned int) numberOfFrames;
+@property (readonly) unsigned int numberOfFrames;
 
 /**
  * Builds all the scene objects in the POD file without adding them to the scene. The POD objects can
@@ -133,7 +145,11 @@
  * @param scene The node to which the POD scene contents are added to as children.
  */
 - (void)addMeshesToScene:(Isgl3dNode *)scene;
-
+/** 
+ * Adds all nodes, includes meshes, bones, cameras, and lights.
+ * @param scene The node to which the POD scene contents are added to as children.
+*/
+- (void)addNodesToScene:(Isgl3dNode *)scene;
 /**
  * Adds Isgl3dBoneNodes to an Isgl3dSkeletonNode from the data in the POD file.
  * The bone nodes contain the animation transformations used for the skinning but this is not necessary
