@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "isgl3d"
-  s.version      = "1.3.4"
+  s.version      = "1.3.5"
   s.summary      = "iSGL3D (iOS Scene Graph Library) is a 3D framework for the iPhone, iPad and iPod touch written in Objective-C."
   s.homepage     = "http://isgl3d.com/"
   s.license      = { :type => 'MIT'} # , :file => 'LICENSE.isgl3d' }
