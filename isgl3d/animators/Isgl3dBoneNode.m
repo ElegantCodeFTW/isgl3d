@@ -30,7 +30,9 @@
 #import "Isgl3dMatrix.h"
 #import "Isgl3dArray.h"
 
-@implementation Isgl3dBoneNode
+@implementation Isgl3dBoneNode {
+    NSUInteger _frameCount;
+}
 
 + (id)boneNode {
 	return [[[self alloc] init] autorelease];
@@ -39,6 +41,7 @@
 - (id)init {
     if ((self = [super initWithMesh:[[Isgl3dPrimitiveFactory sharedInstance] boneMesh] andMaterial:[[[Isgl3dColorMaterial alloc] initWithHexColors:@"FFFF00" diffuse:@"FFFF00" specular:@"FFFF00" shininess:0] autorelease]])) {
 		_frameTransformations = IA_ALLOC_INIT(Isgl3dMatrix4);
+        
     }
 	
     return self;
@@ -58,11 +61,14 @@
 	Isgl3dMatrix4 matrix;
 	im4SetTransformationFromOpenGLMatrix(&matrix, transformation);
 	IA_ADD(_frameTransformations, matrix);
+    _frameCount++;
 }
 
 - (void)setFrame:(unsigned int)frameNumber {
-	Isgl3dMatrix4 * matrix = IA_GET_PTR(Isgl3dMatrix4 *, _frameTransformations, frameNumber);
-	[self setTransformation:*matrix];
+    if (_frameCount > 1) {
+        Isgl3dMatrix4 * matrix = IA_GET_PTR(Isgl3dMatrix4 *, _frameTransformations, frameNumber);
+        [self setTransformation:*matrix];
+    }
 	
 	for (Isgl3dNode * node in _children) {
 		if ([node isKindOfClass:[Isgl3dBoneNode class]]) {

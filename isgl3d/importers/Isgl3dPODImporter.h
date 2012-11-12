@@ -9,10 +9,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -36,12 +36,12 @@
 /**
  * The Isgl3dPODImporter provides an example of how to obtain data from a POWERVR POD
  * scene data file and convert the data into iSGL3D objects.
- * 
+ *
  * Essentially, the Isgl3dPODImporter provides an interface to the POWERVR POD importer tools available from
  * the Imagination Technologies Limited, POWERVR SDK (http://www.imgtec.com/powervr/insider/powervr-sdk.asp),
- * of which some of the C++ tools classes are contained here in the pvrtools directory with kind permission 
+ * of which some of the C++ tools classes are contained here in the pvrtools directory with kind permission
  * of Imagination Technologies Limited.
- * 
+ *
  * With this importer, full scene details can be retrieved and reproduced in iSGL3D including:
  * <ul>
  * <li>Simple non-animated meshes</li>
@@ -51,15 +51,15 @@
  * <li>Lights</li>
  * <li>Cameras</li>
  * </ul>
- * 
+ *
  * For meshes and materials, skinning data is obtained from the pod as are bones. Both animated meshes and
- * bones (or rather joints) can be rendered. 
- * 
+ * bones (or rather joints) can be rendered.
+ *
  * Texture names contained in the POD data can be overridden to use user-defined textures.
- * 
+ *
  * Note, Isgl3dPODImporter.h is not included in the main isgl3d.h file to avoid compilation errors arising
  * from the use of C++ classes.
- *  
+ *
  */
 @interface Isgl3dPODImporter : NSObject {
 	
@@ -129,6 +129,16 @@
  * @return The number of frames in the scene (for the bone/mesh animation).
  */
 @property (readonly) unsigned int numberOfFrames;
+/**
+ * Returns the scene ambient color (rgb) as defined in the POD file.
+ * @return the scene ambient color (rgb) as defined in the POD file.
+ */
+@property (readonly) float *ambientColor;
+/**
+ * Returns the scene background color (rgb) as defined in the POD file.
+ * @return the scene background color (rgb) as defined in the POD file.
+ */
+@property (readonly) float *backgroundColor;
 
 /**
  * Builds all the scene objects in the POD file without adding them to the scene. The POD objects can
@@ -145,10 +155,10 @@
  * @param scene The node to which the POD scene contents are added to as children.
  */
 - (void)addMeshesToScene:(Isgl3dNode *)scene;
-/** 
+/**
  * Adds all nodes, includes meshes, bones, cameras, and lights.
  * @param scene The node to which the POD scene contents are added to as children.
-*/
+ */
 - (void)addNodesToScene:(Isgl3dNode *)scene;
 /**
  * Adds Isgl3dBoneNodes to an Isgl3dSkeletonNode from the data in the POD file.
@@ -216,11 +226,6 @@
  */
 - (Isgl3dLight *) lightAtIndex:(unsigned int)lightIndex;
 
-/**
- * Returns the scene ambient color (rgb) as defined in the POD file.
- * @return the scene ambient color (rgb) as defined in the POD file.
- */
-- (float *) ambientColor;
 
 /**
  * Takes the transformation matrix of a node in the POD file and applies it to
@@ -239,5 +244,3 @@
 
 
 @end
-
-
