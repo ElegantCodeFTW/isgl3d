@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "http://isgl3d.com/"
   s.license      = { :type => 'MIT'} # , :file => 'LICENSE.isgl3d' }
   s.author       = { "Stuart Caunt" => "isgl3d@gmail.com" }
-  s.source       = { :git => "https://github.com/ElegantCodeFTW/isgl3d.git", :tag => "1.3.2" } #, "0.0.1" }
+  s.source       = { :git => "https://github.com/ElegantCodeFTW/isgl3d.git", :tag => "1.3.3" } #, "0.0.1" }
   s.platform     = :ios, '5.0'
   s.source_files = 'isgl3d/**/*.{h,m,c,mm,cpp}', 'isgl3dbullet/**/*.{h,m,c,mm,cpp}', 'external/**/*.{h,m,c,mm,cpp}', 'external/**/**/*.{h,m,c,mm,cpp}' 
   s.header_mappings_dir = '.'
