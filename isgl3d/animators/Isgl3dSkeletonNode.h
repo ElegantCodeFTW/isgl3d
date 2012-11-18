@@ -26,6 +26,8 @@
 #import "Isgl3dBoneNode.h"
 
 /**
+ * DEPRECATED: Animation has been moved up into the Isgl3d class, all node hierarchies are animatable.
+ *
  * The Isgl3DSkeletonNode provides a parent container class for both Isgl3dAnimatedMeshes and Isgl3dBoneNodes.
  * 
  * Given an Isgl3dAnimated mesh and/or Isgl3dBoneNodes, the Isgl3dSkeletonNode provides a simple interface

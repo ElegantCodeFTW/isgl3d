@@ -24,15 +24,10 @@
  */
 
 #import "Isgl3dBoneNode.h"
-#import "Isgl3dAnimatedMeshNode.h"
 #import "Isgl3dPrimitiveFactory.h"
 #import "Isgl3dColorMaterial.h"
-#import "Isgl3dMatrix.h"
-#import "Isgl3dArray.h"
 
-@implementation Isgl3dBoneNode {
-    NSUInteger _frameCount;
-}
+@implementation Isgl3dBoneNode 
 
 + (id)boneNode {
 	return [[[self alloc] init] autorelease];
@@ -40,44 +35,17 @@
 
 - (id)init {
     if ((self = [super initWithMesh:[[Isgl3dPrimitiveFactory sharedInstance] boneMesh] andMaterial:[[[Isgl3dColorMaterial alloc] initWithHexColors:@"FFFF00" diffuse:@"FFFF00" specular:@"FFFF00" shininess:0] autorelease]])) {
-		_frameTransformations = IA_ALLOC_INIT(Isgl3dMatrix4);
-        
     }
 	
     return self;
 }
 
 - (void)dealloc {
-	[_frameTransformations release];
-	
 	[super dealloc];
 }
 
 - (Isgl3dBoneNode *) createBoneNode {
 	return (Isgl3dBoneNode *)[self addChild:[Isgl3dBoneNode boneNode]];
-}
-
-- (void)addFrameTransformationFromOpenGLMatrix:(float *)transformation {
-	Isgl3dMatrix4 matrix;
-	im4SetTransformationFromOpenGLMatrix(&matrix, transformation);
-	IA_ADD(_frameTransformations, matrix);
-    _frameCount++;
-}
-
-- (void)setFrame:(unsigned int)frameNumber {
-    if (_frameCount > 1) {
-        Isgl3dMatrix4 * matrix = IA_GET_PTR(Isgl3dMatrix4 *, _frameTransformations, frameNumber);
-        [self setTransformation:*matrix];
-    }
-	
-	for (Isgl3dNode * node in _children) {
-		if ([node isKindOfClass:[Isgl3dBoneNode class]]) {
-			[(Isgl3dBoneNode *)node setFrame:frameNumber];
-		} else if ([node isKindOfClass:[Isgl3dAnimatedMeshNode class]]) {
-			[(Isgl3dAnimatedMeshNode *)node setFrame:frameNumber];
-		}
-
-	}
 }
 
 @end

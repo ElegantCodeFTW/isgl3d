@@ -48,6 +48,7 @@
 @implementation Isgl3dPODImporter {
     CPVRTModelPOD *_podModel;
 	NSString *_podPath;
+    BOOL _highlightParents;
     
     NSMutableDictionary *_nodesByName;
 	NSMutableDictionary *_boneNodes;
@@ -72,8 +73,16 @@
 }
 
 - (id)initWithResource:(NSString *)name {
+    return [self initWithResource:name highlightParents:NO];
+}
+
+- (id)initWithResource:(NSString *)name highlightParents:(BOOL)highlightParents {
     if ((name == nil) || (name.length == 0)) {
         [NSException raise:NSInvalidArgumentException format:@"invalid resource name specified"];
+    }
+    _highlightParents = highlightParents;
+    if (highlightParents) {
+        Isgl3dClassDebugLog(Isgl3dLogLevelInfo, @"Rendering highlight spheres on parent nodes");
     }
     
     NSString *resourcePath = [[NSBundle mainBundle] pathForResource:name ofType:nil];
@@ -521,7 +530,7 @@
 		node = [self buildCameraAtIndex:nodeIndex];
 	} else {
         // Finally general nodes, including structural nodes or targets for lights or cameras
-        node = [Isgl3dBoneNode node];
+        node = _highlightParents ? [Isgl3dBoneNode node] : [Isgl3dNode node];
         [_targetIndices addObject:@-1];
     }
     // now populate with common node data, transform, animation
@@ -555,9 +564,8 @@
             PVRTMatrixMultiply(mOut, mOut, mTmp);
         }
         //TODO: All nodes, cameras and lights, should be animatable, currently only nodes
-        if (frameCount > 1 && [node isKindOfClass:[Isgl3dBoneNode class]]) {
-            // are these world transforms or local??
-            [(Isgl3dBoneNode *)node addFrameTransformationFromOpenGLMatrix:mOut.f];
+        if (frameCount > 1) {
+            [node addFrameTransformationFromOpenGLMatrix:mOut.f];
         } else {
             [node setTransformationFromOpenGLMatrix:mOut.f];
             break;

@@ -26,10 +26,41 @@
 #import "Isgl3dAnimationController.h"
 #import "Isgl3dSkeletonNode.h"
 
-@implementation Isgl3dAnimationController
+@implementation Isgl3dAnimationController {
+	Isgl3dNode * _node;
+	unsigned int _currentFrame;
+	unsigned int _numberOfFrames;
+    
+	BOOL _repeat;
+	float _frameRate;
+	BOOL _animating;
+	
+    NSTimer * _animationTimer;
+	
+}
 
 @synthesize repeat = _repeat;
 @synthesize frameRate = _frameRate;
+
++ (id)controllerWithNode:(Isgl3dNode *)node andNumberOfFrames:(unsigned int)numberOfFrames {
+	return [[[self alloc] initWithNode:node andNumberOfFrames:numberOfFrames] autorelease];
+}
+
+- (id)initWithNode:(Isgl3dNode *)node andNumberOfFrames:(unsigned int)numberOfFrames {
+    if ((self = [super init])) {
+		_node = [node retain];
+		_numberOfFrames = numberOfFrames;
+		_currentFrame = 0;
+		
+		_frameRate = 30;
+		_repeat = YES;
+		_animating = NO;
+		_animationTimer = nil;
+    }
+	
+    return self;
+}
+
 
 + (id)controllerWithSkeleton:(Isgl3dSkeletonNode *)skeleton andNumberOfFrames:(unsigned int)numberOfFrames {
 	return [[[self alloc] initWithSkeleton:skeleton andNumberOfFrames:numberOfFrames] autorelease];
@@ -37,7 +68,7 @@
 
 - (id)initWithSkeleton:(Isgl3dSkeletonNode *)skeleton andNumberOfFrames:(unsigned int)numberOfFrames {
     if ((self = [super init])) {
-		_skeleton = [skeleton retain];
+		_node = [skeleton retain];
 		_numberOfFrames = numberOfFrames;
 		_currentFrame = 0;
 		
@@ -51,7 +82,7 @@
 }
 
 - (void)dealloc {
-	[_skeleton release];
+	[_node release];
 	if (_animating) {
 		[self pause];
 	}
@@ -62,7 +93,7 @@
 - (void)setFrame:(unsigned int)frame {
 	if (frame < _numberOfFrames) {
 		_currentFrame = frame;
-		[_skeleton setFrame:_currentFrame];
+		[_node setFrame:_currentFrame];
 	}
 }
 
@@ -72,14 +103,14 @@
 		
 		if (_repeat) {
 			_currentFrame = 0;
-			[_skeleton setFrame:_currentFrame];
+			[_node setFrame:_currentFrame];
 		
 		} else {
 			_currentFrame = _numberOfFrames - 1;
 			[self pause];
 		}
 	} else {
-		[_skeleton setFrame:_currentFrame];
+		[_node setFrame:_currentFrame];
 	}
 	
 }

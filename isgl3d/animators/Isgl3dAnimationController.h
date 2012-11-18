@@ -24,6 +24,7 @@
  */
 
 #import <Foundation/Foundation.h>
+@class Isgl3dNode;
 @class Isgl3dSkeletonNode;
 
 /**
@@ -37,20 +38,7 @@
  * Pausing the animation will retain the current frame number for the next start command. Stopping the
  * animationg will reset the frame number to 0.
  */
-@interface Isgl3dAnimationController : NSObject {
-
-@private
-	Isgl3dSkeletonNode * _skeleton;
-	unsigned int _currentFrame;
-	unsigned int _numberOfFrames;
-
-	BOOL _repeat;
-	float _frameRate;
-	BOOL _animating;
-	
-    NSTimer * _animationTimer;
-	
-}
+@interface Isgl3dAnimationController : NSObject 
 
 /**
  * Specifies whether the animation should be repeated or not. 
@@ -64,6 +52,19 @@
  */
 @property (nonatomic) float frameRate;
 
+/**
+ * Allocates and initialises (autorelease) animation controller with a given node and specifies the number of frames.
+ * @param node The node to be animated (may contain animated Isgl3dNodes and/or Isgl3dAnimatedMeshes).
+ * @param numberOfFrames The number of frames contained in the animation sequence.
+ */
++ (id)controllerWithNode:(Isgl3dNode *)node andNumberOfFrames:(unsigned int)numberOfFrames;
+
+/**
+ * Initialises the animation controller with a given skeleton and specifies the number of frames.
+ * @param node The node to be animated (containing Isgl3dBoneNodes and/or Isgl3dAnimatedMeshes).
+ * @param numberOfFrames The number of frames contained in the animation sequence.
+ */
+- (id)initWithNode:(Isgl3dNode *)node andNumberOfFrames:(unsigned int)numberOfFrames;
 
 /**
  * Allocates and initialises (autorelease) animation controller with a given skeleton and specifies the number of frames.

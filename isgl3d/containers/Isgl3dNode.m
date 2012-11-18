@@ -39,6 +39,10 @@
 #import "Isgl3dMathUtils.h"
 #import "Isgl3dMatrix4.h"
 
+#import "Isgl3dAnimatedMeshNode.h"
+#import "Isgl3dMatrix.h"
+#import "Isgl3dArray.h"
+
 
 static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanceAndAngle;
 
@@ -51,7 +55,10 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 
 #pragma mark -
-@implementation Isgl3dNode
+@implementation Isgl3dNode {
+    NSUInteger _frameCount;
+    Isgl3dArray * _frameTransformations;
+}
 
 @synthesize worldTransformation = _worldTransformation;
 @synthesize parent = _parent;
@@ -112,6 +119,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (void)dealloc {
+    [_frameTransformations release];
 	[_children release];
 
 	[[Isgl3dActionManager sharedInstance] stopAllActionsForTarget:self];
@@ -753,6 +761,29 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)stopAllActions {
 	[[Isgl3dActionManager sharedInstance] stopAllActionsForTarget:self];
+}
+
+- (void)addFrameTransformationFromOpenGLMatrix:(float *)transformation {
+	Isgl3dMatrix4 matrix;
+	im4SetTransformationFromOpenGLMatrix(&matrix, transformation);
+	IA_ADD(_frameTransformations, matrix);
+    _frameCount++;
+}
+
+- (void)setFrame:(unsigned int)frameNumber {
+    if (_frameCount > 1) {
+        Isgl3dMatrix4 * matrix = IA_GET_PTR(Isgl3dMatrix4 *, _frameTransformations, frameNumber);
+        [self setTransformation:*matrix];
+    }
+	
+	for (Isgl3dNode * node in _children) {
+		if ([node isKindOfClass:[Isgl3dBoneNode class]]) {
+			[(Isgl3dBoneNode *)node setFrame:frameNumber];
+		} else if ([node isKindOfClass:[Isgl3dAnimatedMeshNode class]]) {
+			[(Isgl3dAnimatedMeshNode *)node setFrame:frameNumber];
+		}
+        
+	}
 }
 
 @end

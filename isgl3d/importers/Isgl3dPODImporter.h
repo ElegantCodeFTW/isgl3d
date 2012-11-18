@@ -61,15 +61,19 @@
  * from the use of C++ classes.
  *
  */
-@interface Isgl3dPODImporter : NSObject {
-	
-}
-
+@interface Isgl3dPODImporter : NSObject
 /**
  * Allocates and initialises (autorelease) an importer with the POD data file from the main bundle resources.
  * @param path The name of the resource file.
  */
 + (id)podImporterWithResource:(NSString *)name;
+
+/**
+ * Allocates and initialises (autorelease) an importer with the POD data file from the main bundle resources.
+ * @param path The name of the resource file.
+ * @param highlightParents Highlights parent nodes with a yellow bone mesh sphere for debugging.
+ */
++ (id)podImporterWithResource:(NSString *)name highlightParents:(BOOL)highlightParents;
 
 /**
  * Allocates and initialises (autorelease) an importer with the POD data file path.
@@ -241,6 +245,5 @@
  * @param replacementFileName The user-defined texture file name.
  */
 - (void)modifyTexture:(NSString *)podTextureFileName withTexture:(NSString *)replacementFileName;
-
 
 @end

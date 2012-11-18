@@ -668,4 +668,21 @@
  */
 - (void)stopAllActions;
 
+/**
+ * Adds a matrix transformation to the array of transformations (indexed by frame number).
+ * Creates a matrix from the raw float data (column-major as is the norm for OpenGL) and
+ * adds this matrix to the array of matrices. Each array index corresponds to the transformation
+ * for the same frame number.
+ * @param transformation The column-major transformation matrix in raw float format for the frame.
+ */
+- (void)addFrameTransformationFromOpenGLMatrix:(float *)transformation;
+
+/*
+ * Sets the frame number and accordingly the transformation for each bone.
+ * @param frameNumber The desired frame number
+ * Note that this is called internally in iSGL3D by the Isgl3dSkeletonNode which iterates over all bone batches
+ * associated with the mesh.
+ */
+- (void)setFrame:(unsigned int)frameNumber;
+
 @end
