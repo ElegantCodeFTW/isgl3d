@@ -49,6 +49,7 @@
     CPVRTModelPOD *_podModel;
 	NSString *_podPath;
     BOOL _highlightParents;
+    BOOL _flipTextures;
     
     NSMutableDictionary *_nodesByName;
 	NSMutableDictionary *_boneNodes;
@@ -73,10 +74,11 @@
 }
 
 - (id)initWithResource:(NSString *)name {
-    return [self initWithResource:name highlightParents:NO];
+    return [self initWithResource:name highlightParents:NO flipTextures:NO];
 }
 
-- (id)initWithResource:(NSString *)name highlightParents:(BOOL)highlightParents {
+- (id)initWithResource:(NSString *)name highlightParents:(BOOL)highlightParents flipTextures:(BOOL)flipTextures {
+    _flipTextures = flipTextures;
     if ((name == nil) || (name.length == 0)) {
         [NSException raise:NSInvalidArgumentException format:@"invalid resource name specified"];
     }
@@ -433,7 +435,7 @@
 		
 		NSString * extension = [textureFileName pathExtension];
 		// Image formats supported by UIImage and pvr
-		NSArray * acceptedFormats = [NSArray arrayWithObjects:@"png", @"jpg", @"jpeg", @"tiff", @"tif", @"gif", @"bmp", @"BMPf", @"ico", @"cur", @"xbm", @"pvr", nil];
+		NSArray *acceptedFormats = @[@"png", @"jpg", @"jpeg", @"tiff", @"tif", @"gif", @"bmp", @"BMPf", @"ico", @"cur", @"xbm", @"pvr", @"tga"];
 		if (![acceptedFormats containsObject:extension]) {
 			Isgl3dClassDebugLog(Isgl3dLogLevelError, @"POD %@ contains texture image with format that is not supported : %@", _podPath, textureFileName);
 		}
@@ -455,7 +457,7 @@
 			if (materialInfo.nIdxTexDiffuse >= 0 && materialInfo.nIdxTexDiffuse < [_textures count]) {
 				NSString * textureFileName = [_textures objectAtIndex:materialInfo.nIdxTexDiffuse];
 				
-				material = [Isgl3dTextureMaterial materialWithTextureFile:textureFileName shininess:0 precision:Isgl3dTexturePrecisionMedium repeatX:YES repeatY:YES];
+				material = [Isgl3dTextureMaterial materialWithTextureFile:textureFileName shininess:0 precision:Isgl3dTexturePrecisionMedium repeatX:YES repeatY:YES mirrorX:NO mirrorY:NO flip:_flipTextures];
 				
 			} else {
 				material = [Isgl3dColorMaterial materialWithHexColors:@"FFFFFF" diffuse:@"FFFFFF" specular:@"FFFFFF" shininess:0];

@@ -104,7 +104,6 @@
  * @param repeatY Indicates whether the material will be repeated (tessellated) across the rendered object in the y-direction.
  */
 + (id)materialWithTextureFile:(NSString *)fileName shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY;
-
 /**
  * Allocates and initialises (autorelease) texture material from an image file.
  * @param fileName The name of the image file.
@@ -116,6 +115,19 @@
  * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
  */
 + (id)materialWithTextureFile:(NSString *)fileName shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY;
+
+/**
+ * Allocates and initialises (autorelease) texture material from an image file.
+ * @param fileName The name of the image file.
+ * @param shininess The shininess of the material.
+ * @param precision The precision of the texture material being one of Isgl3dTexturePrecisionLow, Isgl3dTexturePrecisionMedium and Isgl3dTexturePrecisionHigh
+ * @param repeatX Indicates whether the material will be repeated (tessellated) across the rendered object in the x-direction.
+ * @param repeatY Indicates whether the material will be repeated (tessellated) across the rendered object in the y-direction.
+ * @param mirrorX Indicates whether the material will be mirrored when repeated across the rendered object in the x-direction.
+ * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
+ * @param flip Flip the texture. 
+ */
++ (id)materialWithTextureFile:(NSString *)fileName shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip;
 
 /**
  * Allocates and initialises (autorelease) texture material from an image file using default values of 0 shininess, Isgl3dTexturePrecisionMedium precision and no repeats.
@@ -141,7 +153,6 @@
  */
 + (id)materialWithTextureUIImage:(UIImage *)image key:(NSString *)key shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY;
 
-
 /**
  * Allocates and initialises (autorelease) texture material from an UIImage object.
  * @param image UIImage object for the new texture.
@@ -154,6 +165,20 @@
  * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
  */
 + (id)materialWithTextureUIImage:(UIImage *)image key:(NSString *)key shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY;
+
+/**
+ * Allocates and initialises (autorelease) texture material from an UIImage object.
+ * @param image UIImage object for the new texture.
+ * @param key The key of the image object.
+ * @param shininess The shininess of the material.
+ * @param precision The precision of the texture material being one of Isgl3dTexturePrecisionLow, Isgl3dTexturePrecisionMedium and Isgl3dTexturePrecisionHigh
+ * @param repeatX Indicates whether the material will be repeated (tessellated) across the rendered object in the x-direction.
+ * @param repeatY Indicates whether the material will be repeated (tessellated) across the rendered object in the y-direction.
+ * @param mirrorX Indicates whether the material will be mirrored when repeated across the rendered object in the x-direction.
+ * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
+ * @param flip Flip the texture. 
+ */
++ (id)materialWithTextureUIImage:(UIImage *)image key:(NSString *)key shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip;
 
 /**
  * Allocates and initialises (autorelease) texture material from an UIImage object using default values of 0 shininess, Isgl3dTexturePrecisionMedium precision and no repeats.
@@ -187,7 +212,6 @@
  * @param repeatY Indicates whether the material will be repeated (tessellated) across the rendered object in the y-direction.
  */
 - (id)initWithTextureFile:(NSString *)fileName shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY;
-
 /**
  * Initialises the texture material from an image file.
  * @param fileName The name of the image file.
@@ -199,6 +223,18 @@
  * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
  */
 - (id)initWithTextureFile:(NSString *)fileName shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY;
+/**
+ * Initialises the texture material from an image file.
+ * @param fileName The name of the image file.
+ * @param shininess The shininess of the material.
+ * @param precision The precision of the texture material being one of Isgl3dTexturePrecisionLow, Isgl3dTexturePrecisionMedium and Isgl3dTexturePrecisionHigh
+ * @param repeatX Indicates whether the material will be repeated (tessellated) across the rendered object in the x-direction.
+ * @param repeatY Indicates whether the material will be repeated (tessellated) across the rendered object in the y-direction.
+ * @param mirrorX Indicates whether the material will be mirrored when repeated across the rendered object in the x-direction.
+ * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
+ * @param flip Flip the texture.
+ */
+- (id)initWithTextureFile:(NSString *)fileName shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip;
 
 /**
  * Initialises the texture material from an image file using default values of 0 shininess, Isgl3dTexturePrecisionMedium precision and no repeats.
@@ -223,7 +259,6 @@
  * @param repeatY Indicates whether the material will be repeated (tessellated) across the rendered object in the y-direction.
  */
 - (id)initWithTextureUIImage:(UIImage *)image key:(NSString *)key shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY;
-
 /**
  * Initialises the texture material from an UIImage object.
  * @param image UIImage object
@@ -236,6 +271,20 @@
  * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
  */
 - (id)initWithTextureUIImage:(UIImage *)image key:(NSString *)key shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY;
+
+/**
+ * Initialises the texture material from an UIImage object.
+ * @param image UIImage object
+ * @param key The key of the image object.
+ * @param shininess The shininess of the material.
+ * @param precision The precision of the texture material being one of Isgl3dTexturePrecisionLow, Isgl3dTexturePrecisionMedium and Isgl3dTexturePrecisionHigh
+ * @param repeatX Indicates whether the material will be repeated (tessellated) across the rendered object in the x-direction.
+ * @param repeatY Indicates whether the material will be repeated (tessellated) across the rendered object in the y-direction.
+ * @param mirrorX Indicates whether the material will be mirrored when repeated across the rendered object in the x-direction.
+ * @param mirrorY Indicates whether the material will be mirrored when repeated across the rendered object in the y-direction.
+ * @param flip Flip the texture. 
+ */
+- (id)initWithTextureUIImage:(UIImage *)image key:(NSString *)key shininess:(float)shininess precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip;
 
 /**
  * Initialises the texture material from an UIImage object using default values of 0 shininess, Isgl3dTexturePrecisionMedium precision and no repeats.

@@ -9,10 +9,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -37,7 +37,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 - (id)initSingleton;
 - (Isgl3dGLTexture *) createTextureFromCompressedFile:(NSString *)file precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY;
 - (UIImage *) loadImage:(NSString *)path;
-- (void)copyImage:(UIImage *)image toRawData:(void *)data width:(unsigned int)width height:(unsigned int)height;
+- (void)copyImage:(UIImage *)image toRawData:(void *)data width:(unsigned int)width height:(unsigned int)height flip:(BOOL)flip;
 - (BOOL) imageIsHD:(NSString *)path;
 - (NSString *) textureKeyForFile:(NSString *)file precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY;
 - (unsigned int) nearestPowerOf2:(unsigned int)value;
@@ -64,11 +64,11 @@ static Isgl3dGLTextureFactory * _instance = nil;
 }
 
 - (void)dealloc {
-
+    
 	[_textures release];
-
+    
 	if (_state) {
-		[_state release]; 
+		[_state release];
 	}
 	
 	[super dealloc];
@@ -81,7 +81,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 			_instance = [[Isgl3dGLTextureFactory alloc] initSingleton];
 		}
 	}
-		
+    
 	return _instance;
 }
 
@@ -93,7 +93,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 }
 
 - (void)setState:(Isgl3dGLTextureFactoryState *)state {
-
+    
 	if (state != _state) {
 		if (_state) {
 			[_state release];
@@ -119,6 +119,10 @@ static Isgl3dGLTextureFactory * _instance = nil;
 }
 
 - (Isgl3dGLTexture *) createTextureFromFile:(NSString *)file precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY {
+    return [self createTextureFromFile:file precision:precision repeatX:repeatX repeatY:repeatY mirrorX:mirrorX mirrorY:mirrorY flip:NO];
+}
+
+- (Isgl3dGLTexture *) createTextureFromFile:(NSString *)file precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip {
 	NSString * extension = [file pathExtension];
 	if ([extension isEqualToString:@"pvr"]) {
 		return [self createTextureFromCompressedFile:file precision:precision repeatX:repeatX repeatY:repeatY];
@@ -130,7 +134,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		if (texture) {
 			return texture;
 		}
-	
+        
 		
 		UIImage * image = [self loadImage:file];
 		if (!image) {
@@ -141,9 +145,9 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		// Get nearest power of 2 dimensions
 		unsigned int width = [self nearestPowerOf2:CGImageGetWidth(image.CGImage)];
 		unsigned int height = [self nearestPowerOf2:CGImageGetHeight(image.CGImage)];
-	
+        
 		void * data = malloc(width * height * 4);
-		[self copyImage:image toRawData:data width:width height:height];
+		[self copyImage:image toRawData:data width:width height:height flip:flip];
 		unsigned int textureId = [_state createTextureFromRawData:data width:width height:height mipmap:YES precision:precision repeatX:repeatX repeatY:repeatY mirrorX:mirrorX mirrorY:mirrorY];
 		free(data);
 		
@@ -156,9 +160,9 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		
 		[_textures setObject:texture forKey:textureKey];
 		
-		return texture;		
+		return texture;
 	}
-
+    
 	Isgl3dDebugLog(Isgl3dLogLevelError, @"createTextureFromFile: not initialised with factory state");
 	return nil;
 }
@@ -172,6 +176,10 @@ static Isgl3dGLTextureFactory * _instance = nil;
 }
 
 - (Isgl3dGLTexture *) createTextureFromUIImage:(UIImage *)image key:(NSString *)key  precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY {
+    return [self createTextureFromUIImage:image key:key precision:precision repeatX:repeatX repeatY:repeatY mirrorX:mirrorX mirrorY:mirrorY flip:NO];
+}
+
+- (Isgl3dGLTexture *) createTextureFromUIImage:(UIImage *)image key:(NSString *)key  precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip {
 	
 	if (_state) {
 		NSString * textureKey = [self textureKeyForFile:key precision:precision repeatX:repeatX repeatY:repeatY];
@@ -185,7 +193,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		unsigned int height = [self nearestPowerOf2:CGImageGetHeight(image.CGImage)];
         
 		void * data = malloc(width * height * 4);
-		[self copyImage:image toRawData:data width:width height:height];
+		[self copyImage:image toRawData:data width:width height:height flip:flip];
 		unsigned int textureId = [_state createTextureFromRawData:data width:width height:height mipmap:YES precision:precision repeatX:repeatX repeatY:repeatY mirrorX:mirrorX mirrorY:mirrorY];
 		free(data);
 		
@@ -197,7 +205,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		
 		[_textures setObject:texture forKey:textureKey];
 		
-		return texture;		
+		return texture;
 	}
     
 	Isgl3dDebugLog(Isgl3dLogLevelError, @"createTextureFromUIImage: not initialised with factory state");
@@ -224,14 +232,14 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 		CGContextRef context = CGBitmapContextCreate(data, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 		CGColorSpaceRelease(colorSpace);
-	
+        
 		CGContextTranslateCTM(context, 0.0f, height);
 		CGContextScaleCTM(context, 1.0f, -1.0f);
 		UIGraphicsPushContext(context);
-//		CGContextSetGrayFillColor(context, 0.5f, 1.0f);
-//		CGContextFillRect(context, CGRectMake (0.0, 0.0, dimensions.width, dimensions.height));
+        //		CGContextSetGrayFillColor(context, 0.5f, 1.0f);
+        //		CGContextFillRect(context, CGRectMake (0.0, 0.0, dimensions.width, dimensions.height));
 		CGContextSetGrayFillColor(context, 1.0f, 1.0f);
-	
+        
 		UIFont * uiFont = [UIFont fontWithName:name size:size];
 	    [text drawInRect:CGRectMake(0, 0, dimensions.width, dimensions.height) withFont:uiFont lineBreakMode:UILineBreakModeWordWrap alignment:alignment];
 		
@@ -244,11 +252,11 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		
 		CGContextRelease(context);
 		free(data);
-
-		return [Isgl3dGLTexture textureWithId:textureId width:width height:height contentSize:contentSize];		
-
+        
+		return [Isgl3dGLTexture textureWithId:textureId width:width height:height contentSize:contentSize];
+        
 	}
-
+    
 	Isgl3dDebugLog(Isgl3dLogLevelError, @"createTextureFromText: not initialized with factory state");
 	return nil;
 }
@@ -265,29 +273,29 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		if (texture) {
 			return texture;
 		}
-
+        
 		// cut filename into name and extension
 		NSString * extension = [file pathExtension];
 		NSString * origFileName = [file stringByDeletingPathExtension];
-
+        
 		NSString * fileName = origFileName;
 		if ([Isgl3dDirector sharedInstance].retinaDisplayEnabled) {
 			fileName = [origFileName stringByAppendingString:@"-hd"];
 		}
-	
-
-		NSString * filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];  
+        
+        
+		NSString * filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
 		
 		BOOL isHD = [Isgl3dDirector sharedInstance].retinaDisplayEnabled;
 		if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
 			Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Compressed image file not found %@.%@", fileName, extension);
-
+            
 			if ([Isgl3dDirector sharedInstance].retinaDisplayEnabled) {
 				fileName = origFileName;
-				filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];  
-
+				filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
+                
 				Isgl3dClassDebugLog(Isgl3dLogLevelInfo, @"Trying %@...", file);
-	
+                
 				isHD = NO;
 				if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
 					Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Compressed image file not found %@.%@", fileName, extension);
@@ -301,18 +309,18 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		
 		unsigned int width=0, height=0;
 		unsigned int textureId = [_state createTextureFromPVR:filePath outWidth:&width outHeight:&height];
-
+        
 		texture = [Isgl3dGLTexture textureWithId:textureId width:width height:height];
 		texture.isHighDefinition = isHD;
 		
 		[_textures setObject:texture forKey:textureKey];
-
-		return texture;		
+        
+		return texture;
 	} else {
 		Isgl3dDebugLog(Isgl3dLogLevelError, @"createTextureFromCompressedFile: not initialized with factory state");
 	}
-
-	return nil;	
+    
+	return nil;
 }
 
 - (Isgl3dGLTexture *) createCubemapTextureFromFiles:(NSArray *)files precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY {
@@ -321,41 +329,41 @@ static Isgl3dGLTextureFactory * _instance = nil;
 
 
 - (Isgl3dGLTexture *) createCubemapTextureFromFiles:(NSArray *)files precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY {
-
+    
 	if (_state) {
 		NSMutableArray * images = [[NSMutableArray alloc] init];
-
+        
 		BOOL compressed = NO;
-
+        
 		for (NSString * file in files) {
 			[images addObject:[self loadImage:file]];
-
+            
 			NSString * extension = [file pathExtension];
 			if ([extension isEqualToString:@"pvr"]) {
 				compressed = YES;
 			}
 		}
-
+        
 		if (compressed) {
 			Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Cubemaps using compressed images is not yet available");
 			[images release];
 			return nil;
 		}
-
-
+        
+        
 		if ([images count] != 6) {
 			Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Generation of cubmap texture requires 6 images: only %i given", [images count]);
 			[images release];
 			return nil;
 		}
-	
+        
 		UIImage * posXImage = [images objectAtIndex:0];
 		UIImage * negXImage = [images objectAtIndex:1];
 		UIImage * posYImage = [images objectAtIndex:2];
 		UIImage * negYImage = [images objectAtIndex:3];
 		UIImage * posZImage = [images objectAtIndex:4];
 		UIImage * negZImage = [images objectAtIndex:5];
-	
+        
 		unsigned int imageWidth = CGImageGetWidth(posXImage.CGImage);
 		unsigned int imageHeight = CGImageGetHeight(posXImage.CGImage);
 		// Get nearest power of 2 dimensions
@@ -384,30 +392,30 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		}
 		
 		
-		unsigned int stride = width * height * 4; 
+		unsigned int stride = width * height * 4;
 		void * data = malloc(stride * 6);
 		unsigned int offset = 0;
-	
-		[self copyImage:posXImage toRawData:data + offset width:width height:height];
+        
+		[self copyImage:posXImage toRawData:data + offset width:width height:height flip:NO];
 		offset += stride;
-		[self copyImage:negXImage toRawData:data + offset width:width height:height];
+		[self copyImage:negXImage toRawData:data + offset width:width height:height flip:NO];
 		offset += stride;
-		[self copyImage:posYImage toRawData:data + offset width:width height:height];
+		[self copyImage:posYImage toRawData:data + offset width:width height:height flip:NO];
 		offset += stride;
-		[self copyImage:negYImage toRawData:data + offset width:width height:height];
+		[self copyImage:negYImage toRawData:data + offset width:width height:height flip:NO];
 		offset += stride;
-		[self copyImage:posZImage toRawData:data + offset width:width height:height];
+		[self copyImage:posZImage toRawData:data + offset width:width height:height flip:NO];
 		offset += stride;
-		[self copyImage:negZImage toRawData:data + offset width:width height:height];
-	
+		[self copyImage:negZImage toRawData:data + offset width:width height:height flip:NO];
+        
 		unsigned int textureId = [_state createCubemapTextureFromRawData:data width:width mipmap:YES precision:precision repeatX:repeatX repeatY:repeatY mirrorX:mirrorX mirrorY:mirrorY];
 		
 		free(data);
 		[images release];
 		
-		return [Isgl3dGLTexture textureWithId:textureId width:width height:height];		
+		return [Isgl3dGLTexture textureWithId:textureId width:width height:height];
 	}
-
+    
 	Isgl3dDebugLog(Isgl3dLogLevelError, @"createCubemapTextureFromFiles: not initialised with factory state");
 	return nil;
 }
@@ -416,7 +424,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 	if (_state) {
 		return [_state createDepthRenderTexture:width height:height];
 	}
-
+    
 	Isgl3dDebugLog(Isgl3dLogLevelError, @"createDepthRenderTexture: not initialised with factory state");
 	return nil;
 }
@@ -429,11 +437,11 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		
 		NSString * textureKey = nil;
 		for (NSString * key in _textures) {
-			 Isgl3dGLTexture * storedTexture = [_textures objectForKey:key];
-			 if (storedTexture.textureId == texture.textureId) {
+            Isgl3dGLTexture * storedTexture = [_textures objectForKey:key];
+            if (storedTexture.textureId == texture.textureId) {
 			 	textureKey = key;
 			 	break;
-			 }
+            }
 		}
 		
 		if (textureKey) {
@@ -461,13 +469,13 @@ static Isgl3dGLTextureFactory * _instance = nil;
 	NSString * filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
 	if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
 		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"image file not found %@.%@", fileName, extension);
-
+        
 		if ([Isgl3dDirector sharedInstance].retinaDisplayEnabled) {
 			fileName = origFileName;
-			filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];  
-
+			filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
+            
 			Isgl3dClassDebugLog(Isgl3dLogLevelInfo, @"Trying %@...", path);
-
+            
 			if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
 				Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Image file not found %@.%@", fileName, extension);
 				return nil;
@@ -481,7 +489,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 	
 	
 	filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
-
+    
 	if (!filePath) {
 		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Failed to load %@.%@", fileName, extension);
 		return nil;
@@ -490,12 +498,12 @@ static Isgl3dGLTextureFactory * _instance = nil;
 	NSData *texData = [[NSData alloc] initWithContentsOfFile:filePath];
     UIImage *image = [[UIImage alloc] initWithData:texData];
    	[texData release];
-
+    
 	if (image == nil) {
 		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Failed to load %@.%@", fileName, extension);
 	}
-    return [image autorelease];	
-
+    return [image autorelease];
+    
 }
 
 - (BOOL) imageIsHD:(NSString *)path {
@@ -511,20 +519,25 @@ static Isgl3dGLTextureFactory * _instance = nil;
 			
 			return YES;
 		}
-	
+        
 	}
-	return NO;	
+	return NO;
 }
 
-- (void)copyImage:(UIImage *)image toRawData:(void *)data width:(unsigned int)width height:(unsigned int)height {
+- (void)copyImage:(UIImage *)image toRawData:(void *)data width:(unsigned int)width height:(unsigned int)height flip:(BOOL)flip {
 	unsigned int imageWidth = CGImageGetWidth(image.CGImage);
 	unsigned int imageHeight = CGImageGetHeight(image.CGImage);
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-
+    
 	CGContextRef context = CGBitmapContextCreate(data, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 	CGColorSpaceRelease(colorSpace);
 	CGContextClearRect(context, CGRectMake(0, 0, width, height));
-	CGContextTranslateCTM(context, 0, height - imageHeight);
+    if (flip) {
+        CGContextScaleCTM(context, 1, -1);
+        CGContextTranslateCTM(context, 0, -(int)imageHeight);
+    } else {
+        CGContextTranslateCTM(context, 0, height - imageHeight);
+    }
 	CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), image.CGImage);
 	CGContextRelease(context);
 }

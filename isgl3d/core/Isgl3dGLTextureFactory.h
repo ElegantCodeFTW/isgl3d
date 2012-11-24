@@ -100,6 +100,18 @@
 - (Isgl3dGLTexture *) createTextureFromFile:(NSString *)file precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY;
 
 /**
+ * Creates a new instance of an Isgl3dGLTexture from a given file (or reuses an existing one if it already exists) with specified precision and repeating behaviour.
+ * @param file The name of the file containing the image information (.png, .jpg, .pvr, etc)
+ * @param precision The precision of the texture material being one of Isgl3dTexturePrecisionLow, Isgl3dTexturePrecisionMedium and Isgl3dTexturePrecisionHigh
+ * @param repeatX Indicates whether the texture will be repeated (tessellated) across the rendered object in the x-direction.
+ * @param repeatY Indicates whether the texture will be repeated (tessellated) across the rendered object in the y-direction.
+ * @param mirrorX Indicates whether the texture will be mirrored when repeated across the rendered object in the x-direction.
+ * @param mirrorY Indicates whether the texture will be mirrored when repeated across the rendered object in the y-direction.
+ * @param flip Flip the image. 
+ * @result an autoreleased Isgl3dGLTexture created from image file
+ */
+- (Isgl3dGLTexture *) createTextureFromFile:(NSString *)file precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip;
+/**
  * Creates a new instance of an Isgl3dGLTexture from a UIImage (or reuses an existing one if it already exists) with default precision (Isgl3dTexturePrecisionMedium),
  * without repeating in x and y.
  * @param image The UIImage to be converted into a texture
@@ -131,7 +143,19 @@
  * @result an autoreleased Isgl3dGLTexture created from image a UIImage
  */
 - (Isgl3dGLTexture *) createTextureFromUIImage:(UIImage *)image key:(NSString *)key  precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY;
-
+/**
+ * Creates a new instance of an Isgl3dGLTexture from a UIImage (or reuses an existing one if it already exists) with specified precision and repeating behaviour.
+ * @param image The UIImage to be converted into a texture
+ * @param key a unique identifier for the texture to avoid duplicating it for identical UIImages
+ * @param precision The precision of the texture material being one of Isgl3dTexturePrecisionLow, Isgl3dTexturePrecisionMedium and Isgl3dTexturePrecisionHigh
+ * @param repeatY Indicates whether the texture will be repeated (tessellated) across the rendered object in the y-direction.
+ * @param repeatX Indicates whether the texture will be repeated (tessellated) across the rendered object in the x-direction.
+ * @param mirrorX Indicates whether the texture will be mirrored when repeated across the rendered object in the x-direction.
+ * @param mirrorY Indicates whether the texture will be mirrored when repeated across the rendered object in the y-direction.
+ * @param flip Flip the image.
+ * @result an autoreleased Isgl3dGLTexture created from image a UIImage
+ */
+- (Isgl3dGLTexture *) createTextureFromUIImage:(UIImage *)image key:(NSString *)key  precision:(Isgl3dTexturePrecision)precision repeatX:(BOOL)repeatX repeatY:(BOOL)repeatY mirrorX:(BOOL)mirrorX mirrorY:(BOOL)mirrorY flip:(BOOL)flip;
 /**
  * Creates a new instance of an Isgl3dGLTexture from text with a given font name and size with default repeating behaviour (no repeating). 
  * Note that these textures are not stored in the dictionary.

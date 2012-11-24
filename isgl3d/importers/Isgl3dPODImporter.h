@@ -72,8 +72,9 @@
  * Allocates and initialises (autorelease) an importer with the POD data file from the main bundle resources.
  * @param path The name of the resource file.
  * @param highlightParents Highlights parent nodes with a yellow bone mesh sphere for debugging.
+ * @param flipTextures flip all POD textures.
  */
-+ (id)podImporterWithResource:(NSString *)name highlightParents:(BOOL)highlightParents;
++ (id)podImporterWithResource:(NSString *)name highlightParents:(BOOL)highlightParents flipTextures:(BOOL)flipTextures;
 
 /**
  * Allocates and initialises (autorelease) an importer with the POD data file path.
@@ -97,7 +98,6 @@
  * Prints to the console information about the structure and contents of the POD.
  */
 - (void)printPODInfo;
-
 /**
  * Returns the number of mesh nodes in the scene.
  * @return The number of mesh nodes in the scene.
