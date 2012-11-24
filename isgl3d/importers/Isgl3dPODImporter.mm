@@ -33,6 +33,7 @@
 #import "Isgl3dColorUtil.h"
 #import "Isgl3dTextureMaterial.h"
 #import "Isgl3dLight.h"
+#import "Isgl3dGLTextureFactory.h"
 #import "Isgl3dGLVBOData.h"
 #import "Isgl3dNodeCamera.h"
 #import "Isgl3dFollowCamera.h"
@@ -454,21 +455,28 @@
 	for (int i = 0; i < _podModel->nNumMaterial; i++) {
 		SPODMaterial &materialInfo = _podModel->pMaterial[i];
         
-		Isgl3dColorMaterial *material;
+		Isgl3dColorMaterial *material = nil;
 		Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"Creating material: %s:", materialInfo.pszName);
-		
 		if (!materialInfo.pszEffectFile) {
-			if (materialInfo.nIdxTexDiffuse >= 0 && materialInfo.nIdxTexDiffuse < [_textures count]) {
-				NSString * textureFileName = [_textures objectAtIndex:materialInfo.nIdxTexDiffuse];
-				
-				material = [Isgl3dTextureMaterial materialWithTextureFile:textureFileName shininess:0 precision:Isgl3dTexturePrecisionMedium repeatX:YES repeatY:YES mirrorX:NO mirrorY:NO flip:_flipTextures];
-				
-			} else {
-				material = [Isgl3dColorMaterial materialWithHexColors:@"FFFFFF" diffuse:@"FFFFFF" specular:@"FFFFFF" shininess:0];
-			}
-			
+            if (materialInfo.nIdxTexDiffuse >= 0 || materialInfo.nIdxTexBump >= 0 || materialInfo.nIdxTexSpecularLevel >= 0) {
+                Isgl3dTextureMaterial *textureMaterial = [[[Isgl3dTextureMaterial alloc] init] autorelease];
+                material = textureMaterial;
+                if (materialInfo.nIdxTexDiffuse >= 0) {
+                    NSString * textureFileName = [_textures objectAtIndex:materialInfo.nIdxTexDiffuse];
+                    textureMaterial.texture = [[Isgl3dGLTextureFactory sharedInstance] createTextureFromFile:textureFileName precision:Isgl3dTexturePrecisionMedium repeatX:YES repeatY:YES mirrorX:NO mirrorY:NO flip:_flipTextures];
+                }
+                if (materialInfo.nIdxTexBump >= 0) {
+                    NSString * textureFileName = [_textures objectAtIndex:materialInfo.nIdxTexBump];
+                    textureMaterial.normalMap = [[Isgl3dGLTextureFactory sharedInstance] createTextureFromFile:textureFileName precision:Isgl3dTexturePrecisionMedium repeatX:YES repeatY:YES mirrorX:NO mirrorY:NO flip:_flipTextures];
+                }
+                if (materialInfo.nIdxTexSpecularLevel >= 0) {
+                    NSString * textureFileName = [_textures objectAtIndex:materialInfo.nIdxTexSpecularLevel];
+                    textureMaterial.specularMap = [[Isgl3dGLTextureFactory sharedInstance] createTextureFromFile:textureFileName precision:Isgl3dTexturePrecisionMedium repeatX:YES repeatY:YES mirrorX:NO mirrorY:NO flip:_flipTextures];
+                }
+            } else {
+                material = [Isgl3dColorMaterial materialWithHexColors:@"FFFFFF" diffuse:@"FFFFFF" specular:@"FFFFFF" shininess:0];
+            }
 			// ignore other material types for the time being (ambient, specular, bump, ...)
-			
 			[material setAmbientColor:materialInfo.pfMatAmbient];
 			[material setDiffuseColor:materialInfo.pfMatDiffuse];
 			[material setSpecularColor:materialInfo.pfMatSpecular];
