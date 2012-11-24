@@ -61,7 +61,7 @@ static Isgl3dDirector * _instance = nil;
 
 #pragma mark -
 @implementation Isgl3dDirector
-
+@synthesize runLoopMode = _runLoopMode;
 @synthesize objectTouched = _objectTouched;
 @synthesize windowRect = _windowRect;
 @synthesize windowRectInPixels = _windowRectInPixels;
@@ -85,6 +85,7 @@ static Isgl3dDirector * _instance = nil;
 	if ((self = [super init])) {
         Isgl3dLog(Isgl3dLogLevelInfo, @"Engine started '%@', Copyright (C) 2012 Stuart Caunt, visit http://isgl3d.com", isgl3dVersion());
 
+        self.runLoopMode = NSDefaultRunLoopMode;
 		// Initialise timing method
 		_isAnimating = NO;
 		_isPaused = NO;
@@ -136,6 +137,9 @@ static Isgl3dDirector * _instance = nil;
 - (void)dealloc {
 	Isgl3dClassDebugLog(Isgl3dLogLevelInfo, @"dealloc");
 
+    [_runLoopMode release];
+    _runLoopMode = nil;
+    
 	[_gestureManager release];
 	_gestureManager = nil;
 	
@@ -316,7 +320,7 @@ static Isgl3dDirector * _instance = nil;
 
             _displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(mainLoop)];
             [_displayLink setFrameInterval:frameInterval];
-            [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:self.runLoopMode];
 
         } else {
             _animationTimer = [NSTimer scheduledTimerWithTimeInterval:_animationInterval target:self selector:@selector(mainLoop) userInfo:nil repeats:TRUE];

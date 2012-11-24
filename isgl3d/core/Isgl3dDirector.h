@@ -9,10 +9,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -45,32 +45,32 @@
 @end
 
 /**
- * The Isgl3dDirector singleton provides the control for the iSGL3D application. All animation, rendering and event handling is handled 
+ * The Isgl3dDirector singleton provides the control for the iSGL3D application. All animation, rendering and event handling is handled
  * by this class.
- * 
+ *
  * The Isgl3dDirector requires an Isgl3dEAGLView: this is used to determine the window size and create the OpenGL renderer.
- * 
+ *
  * The Isgl3dDirector contains an array of all views (Isgl3dView) to be rendered on the display. Each one is rendered in the
- * order in which they are added to ther Isgl3dDirector. 
- * 
+ * order in which they are added to ther Isgl3dDirector.
+ *
  * Device orientation is set through the Isgl3dDirector. Each Isgl3dView can have its own separate orientation, the resulting orientation
  * being the combination of the two. For example the device can have an orientation of 90 degrees clockwise and a view also of 90 degrees clockwise: the
  * resulting orientation of the view is 180 degrees relative to the default portrait orientation of the device.
- * 
+ *
  * The Isgl3dDirector can be set to display the FPS of the application. It also allows for a background color to be set. Individual views
  * can override this by having their own background color set.
  */
 @interface Isgl3dDirector : NSObject <Isgl3dTouchDelegate> {
-
+    
 @private
 	BOOL _isAnimating;
 	BOOL _isPaused;
-
+    
 	BOOL _displayLinkSupported;
-
+    
 	float _animationInterval;
 	float _oldAnimationInterval;
-
+    
 	id _displayLink;
 	NSTimer * _animationTimer;
 	
@@ -81,7 +81,7 @@
 	NSMutableArray * _views;
 	
 	// Active camera, used during rendering, represents camera used for each view
-	id<Isgl3dCamera> _activeCamera; 
+	id<Isgl3dCamera> _activeCamera;
 	
 	Isgl3dGLRenderer * _renderer;
 	
@@ -90,7 +90,7 @@
 	float _dt;
 	
 	float _backgroundColor[4];
-
+    
 	Isgl3dEvent3DHandler * _event3DHandler;
 	BOOL _objectTouched;
 	
@@ -105,6 +105,11 @@
 	
 	Isgl3dGestureManager *_gestureManager;
 }
+
+/**
+ * Returns the display link object if available (for changing runloop modes)
+ */
+@property (nonatomic, retain) NSString *runLoopMode;
 
 /**
  * Returns the window size in <em>points</em> which are identical on retina and non-retina devices.
@@ -152,7 +157,7 @@
 @property (nonatomic, readonly) BOOL isPaused;
 
 /**
- * Returns true if a rendered object has been touched. 
+ * Returns true if a rendered object has been touched.
  */
 @property (nonatomic, readonly) BOOL objectTouched;
 
@@ -164,8 +169,8 @@
  * <li>Isgl3dShadowPlanar: Planar shadows to be rendered.</li>
  * <li>Isgl3dShadowMaps: Shadow rendering using shadow maps (available only with OpenGL ES 2.0 and is experimental).</li>
  * </ul>
- * 
- * If shadow maps is the chosen shadow rendering method but the device is not OpenGL ES 2.0 capable, then planar shadows are rendered. 
+ *
+ * If shadow maps is the chosen shadow rendering method but the device is not OpenGL ES 2.0 capable, then planar shadows are rendered.
  * By default shadows are not rendered.
  */
 @property (nonatomic) isgl3dShadowType shadowRenderingMethod;
@@ -220,7 +225,7 @@
 
 /**
  * Sets the animation interval in seconds.
- * @param animationInterval The animation interval in seconds. 
+ * @param animationInterval The animation interval in seconds.
  */
 - (void)setAnimationInterval:(float)animationInterval;
 
@@ -237,14 +242,14 @@
 - (void)stopAnimation;
 
 /**
- * Starts the main loop and animation for the Isgl3dDirector. 
+ * Starts the main loop and animation for the Isgl3dDirector.
  * This is the main point of entry to run an iSGL3D application.
  */
 - (void)run;
 
 /**
- * Stops the animation and resets the Isgl3dDirector. 
- * This should only be used when the application ends. After being called the Isgl3dUIView and all Isgl3dViews need to 
+ * Stops the animation and resets the Isgl3dDirector.
+ * This should only be used when the application ends. After being called the Isgl3dUIView and all Isgl3dViews need to
  * be added again to the director.
  */
 - (void)end;
@@ -278,7 +283,7 @@
 /**
  * Sets the Isgl3dUIView.
  * From the Isgl3dEAGLView the Isgl3dDirector determines the size of the window and creates the renderers.
- * @param glView The Isgl3dEAGLView containing the OpenGL buffers. 
+ * @param glView The Isgl3dEAGLView containing the OpenGL buffers.
  */
 - (void)setOpenGLView:(UIView<Isgl3dGLView> *)glView;
 
@@ -291,13 +296,13 @@
 /**
  * Adds an Isgl3dView to the array of views to be rendered. Each view is rendered in the order of addition
  * to the Isgl3dDirector.
- * @param view The Isgl3dView to be added and rendered at each frame. 
+ * @param view The Isgl3dView to be added and rendered at each frame.
  */
 - (void)addView:(Isgl3dView *)view;
 
 /**
  * Removes and Isgl3dView from the Isgl3dDirector.
- * @param view The Isgl3dView to be removed. 
+ * @param view The Isgl3dView to be removed.
  */
 - (void)removeView:(Isgl3dView *)view;
 
@@ -310,7 +315,7 @@
 - (NSString *) getPixelString:(unsigned int)x y:(unsigned int)y;
 
 /**
- * Returns the node for the touch. 
+ * Returns the node for the touch.
  * @return The node for the touch.
  */
 - (Isgl3dNode *)nodeForTouch:(UITouch *)touch;
