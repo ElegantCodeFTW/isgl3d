@@ -73,6 +73,10 @@
 	return [[[self alloc] initWithFile:filePath] autorelease];
 }
 
++ (id)podImporterWithResource:(NSString *)name highlightParents:(signed char)highlightParents flipTextures:(signed char)flipTextures {
+    return [[[self alloc] initWithResource:name highlightParents:highlightParents flipTextures:flipTextures] autorelease];
+}
+
 - (id)initWithResource:(NSString *)name {
     return [self initWithResource:name highlightParents:NO flipTextures:NO];
 }
