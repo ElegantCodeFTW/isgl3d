@@ -10,7 +10,8 @@ Pod::Spec.new do |s|
   s.source_files = 'isgl3d/**/*.{h,m,c,mm,cpp}', 'isgl3dbullet/**/*.{h,m,c,mm,cpp}', 'external/**/*.{h,m,c,mm,cpp}', 'external/**/**/*.{h,m,c,mm,cpp}' 
   s.header_mappings_dir = '.'
   s.resources    = "Resources/**/*.{fsh,vsh}"
-  s.frameworks  = 'Foundation', 'QuartzCore', 'OpenGLES', 'UIKit', 'CoreGraphics', 'GLKit'
+  s.frameworks   = 'Foundation', 'QuartzCore', 'OpenGLES', 'UIKit', 'CoreGraphics', 'GLKit'
+  s.libraries    = 'c++'
   s.requires_arc = false
   s.prefix_header_file = 'isgl3d/isgl3d-Apps-Prefix.pch'
   s.xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BUILD_OGLES2' }
