@@ -130,6 +130,24 @@ typedef enum {
 @property (nonatomic) float spotFalloffExponent;
 
 /**
+ * Returns the current ambient light color as an rgba array of floats.
+ * @return the ambient light color as an rgba array of floats.
+ */
+@property (nonatomic) float *ambientLight;
+
+/**
+ * Returns the current diffuse light color as an rgba array of floats.
+ * @return the diffuse light color as an rgba array of floats.
+ */
+@property (nonatomic) float *diffuseLight;
+
+/**
+ * Returns the current specular light color as an rgba array of floats.
+ * @return the specular light color as an rgba array of floats.
+ */
+@property (nonatomic) float *specularLight;
+
+/**
  * Allocates and initialises (autorelease) light source with default values: white diffuse and specular, no ambient and no attenuation.
  */
 + (id)light;
@@ -171,23 +189,6 @@ typedef enum {
  */
 - (id)initWithHexColor:(NSString *)ambientColor diffuseColor:(NSString *)diffuseColor specularColor:(NSString *)specularColor attenuation:(float)attenuation;
 
-/**
- * Returns the current ambient light color as an rgba array of floats.
- * @return the ambient light color as an rgba array of floats.
- */
-- (float *) ambientLight;
-
-/**
- * Returns the current diffuse light color as an rgba array of floats.
- * @return the diffuse light color as an rgba array of floats.
- */
-- (float *) diffuseLight;
-
-/**
- * Returns the current specular light color as an rgba array of floats.
- * @return the specular light color as an rgba array of floats.
- */
-- (float *) specularLight;
 
 /**
  * For directional lights only, returns the light direction as a vector.

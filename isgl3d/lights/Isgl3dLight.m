@@ -40,6 +40,9 @@
 @synthesize lightType = _lightType;
 @synthesize spotCutoffAngle = _spotCutoffAngle;
 @synthesize spotFalloffExponent = _spotFalloffExponent;
+@synthesize ambientLight;
+@synthesize diffuseLight;
+@synthesize specularLight;
 
 + (id)light {
 	return [[[self alloc] init] autorelease];

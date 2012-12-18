@@ -168,8 +168,10 @@
  */
 @property (nonatomic) float scaleZ;
 
-
-
+/**
+ * Subclasses implement this instead of description for extra properties.
+ */
+@property (readonly) NSString *additionalDescription;
 
 /**
  * The children of this node. Returns an NSArray of Isgl3dNodes.

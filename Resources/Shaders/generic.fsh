@@ -65,7 +65,8 @@ void main() {
 	lowp vec4 specular = v_specular;
 
 #ifdef TEXTURE_MAPPING_ENABLED
-	lowp vec4 color = texture2D(s_texture, v_texCoord) * v_color;
+    lowp vec4 tex_color = texture2D(s_texture, v_texCoord);
+    lowp vec4 color = tex_color.a > 0.0  ? tex_color * v_color : v_color;
 #else
 	lowp vec4 color = v_color;
 #endif
