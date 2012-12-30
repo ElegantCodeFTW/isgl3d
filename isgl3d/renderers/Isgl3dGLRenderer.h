@@ -38,6 +38,7 @@
 #define CAPTURE_ON              (1 << 7)
 #define NORMAL_MAPPING_ON       (1 << 8)
 #define SPECULAR_MAPPING_ON     (1 << 9)
+#define ENVIRONMENT_MAPPING_ON  (1 << 10)
 
 #define ISGL3D_COLOR_BUFFER_BIT     1
 #define ISGL3D_DEPTH_BUFFER_BIT     2
@@ -68,6 +69,7 @@ typedef enum {
 
 @protected
 	Isgl3dMatrix4 _viewMatrix;
+    Isgl3dMatrix4 _inverseViewMatrix;
 	Isgl3dMatrix4 _modelMatrix;
 	Isgl3dMatrix4 _projectionMatrix;
 	
@@ -81,7 +83,6 @@ typedef enum {
 	Isgl3dMatrix4 _planarShadowsMatrix;
 	BOOL _planarShadowsActive;
 	float _shadowAlpha;
-	
 	BOOL _stencilBufferAvailable;
 	
 }
@@ -101,6 +102,7 @@ typedef enum {
 
 - (void)setProjectionMatrix:(Isgl3dMatrix4 *)projectionMatrix;
 - (void)setViewMatrix:(Isgl3dMatrix4 *)viewMatrix;
+- (void)setInverseViewMatrix:(Isgl3dMatrix4 *)inverseViewMatrix;
 - (void)setModelMatrix:(Isgl3dMatrix4 *)modelMatrix;
 - (void)setPlanarShadowsMatrix:(Isgl3dMatrix4 *)planarShadowsMatrix;
 - (void)setupMatrices;
@@ -112,6 +114,7 @@ typedef enum {
 - (void)setMaterialData:(float *)ambientColor diffuseColor:(float *)diffuseColor specularColor:(float *)specularColor withShininess:(float)shininess;
 - (void)setNormalMap:(Isgl3dGLTexture *)texture;
 - (void)setSpecularMap:(Isgl3dGLTexture *)texture;
+- (void)setEnvironmentMap:(Isgl3dGLTexture *)texture;
 
 - (void)addLight:(Isgl3dLight *)light;
 - (void)setSceneAmbient:(NSString *)ambient;
@@ -125,6 +128,7 @@ typedef enum {
 - (void)setAlphaCullingValue:(float)cullValue;
 
 - (void)enablePointSprites:(BOOL)pointSpriteEnabled;
+- (void)setReflectivity:(float)reflectivity;
 - (void)setPointAttenuation:(float *)attenuation;
 
 - (void)enableNormalization:(BOOL)nomalizationEnabled;

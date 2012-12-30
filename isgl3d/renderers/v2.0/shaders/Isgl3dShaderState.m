@@ -31,6 +31,7 @@
 @synthesize lightingEnabled = _lightingEnabled;
 @synthesize normalMappingEnabled = _normalMappingEnabled;
 @synthesize specularMappingEnabled = _specularMappingEnabled;
+@synthesize environmentMappingEnabled = _environmentMappingEnabled;
 
 - (id)init {
 	
@@ -52,6 +53,7 @@
 	_lightingEnabled = state.lightingEnabled;
 	_normalMappingEnabled = state.normalMappingEnabled;
 	_specularMappingEnabled = state.specularMappingEnabled;
+    _environmentMappingEnabled = state.environmentMappingEnabled;
 }
 
 - (void)reset {
@@ -59,6 +61,7 @@
 	_lightingEnabled = false;
     _normalMappingEnabled = false;
 	_specularMappingEnabled = false;
+    _environmentMappingEnabled = false;
 }
 
 

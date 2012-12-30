@@ -406,6 +406,13 @@
 - (void)setViewMatrix:(Isgl3dMatrix4 *)viewMatrix;
 
 /**
+ * Passes the inverse view transformation for the active camera rendering the scene
+ * Called before rendering a specific object using the shader.
+ * @param inverseViewMatrix The view transformation
+ */
+- (void)setInverseViewMatrix:(Isgl3dMatrix4 *)inverseViewMatrix;
+
+/**
  * Passes the projection matrix (perspective or ortho) used by the active camera.
  * Called before rendering a specific object using the shader.
  * @param projectionMatrix The projection matrix

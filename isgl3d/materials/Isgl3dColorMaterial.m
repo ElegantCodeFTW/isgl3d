@@ -25,11 +25,14 @@
 
 #import "Isgl3dColorMaterial.h"
 #import "Isgl3dMaterial.h"
+#import "Isgl3dGLTexture.h"
 #import "Isgl3dColorUtil.h"
 #import "Isgl3dPrimitive.h"
 #import "Isgl3dGLRenderer.h"
 
 @implementation Isgl3dColorMaterial
+@synthesize environmentMap = _environmentMap;
+@synthesize reflectivity = _reflectivity;
 
 + (void) initialize {
 	srandom(time(NULL));
@@ -51,7 +54,7 @@
 		[Isgl3dColorUtil hexColorStringToFloatArray:hexColor floatArray:_ambientColor]; 
 		[Isgl3dColorUtil hexColorStringToFloatArray:hexColor floatArray:_diffuseColor]; 
 		[Isgl3dColorUtil hexColorStringToFloatArray:hexColor floatArray:_specularColor]; 
-
+        _reflectivity = 0.0;
 		_shininess = 0.0; 
 	}
 	
@@ -73,7 +76,8 @@
 
 
 - (void)dealloc {
-	
+    [_environmentMap release];
+	_environmentMap = nil;
 	[super dealloc];
 
 }
@@ -85,6 +89,7 @@
 	copy.diffuseColor = _diffuseColor;
 	copy.specularColor = _specularColor;
 	copy.shininess = _shininess;
+    copy.environmentMap = _environmentMap;
 	
 	return copy;
 }
@@ -135,8 +140,18 @@
 
 
 - (void)prepareRenderer:(Isgl3dGLRenderer *)renderer requirements:(unsigned int)requirements alpha:(float)alpha node:(Isgl3dNode *)node {
+    
+    if(_environmentMap)
+        requirements |= ENVIRONMENT_MAPPING_ON;
+    
 	[super prepareRenderer:renderer requirements:requirements alpha:alpha node:node];
 	
+    if(_environmentMap) {
+        [renderer setEnvironmentMap:_environmentMap];
+        [renderer setReflectivity:_reflectivity];
+    }
+
+    
 	float ambient[4];
 	float diffuse[4];
 	float specular[4];

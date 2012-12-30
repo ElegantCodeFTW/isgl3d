@@ -143,6 +143,11 @@
  * @return the scene background color (rgb) as defined in the POD file.
  */
 @property (readonly) float *backgroundColor;
+/**
+ * Returns the materials in the pod file
+ * @return the materials in the pod file
+ */
+@property (nonatomic, retain, readonly) NSArray *materials;
 
 /**
  * Builds all the scene objects in the POD file without adding them to the scene. The POD objects can

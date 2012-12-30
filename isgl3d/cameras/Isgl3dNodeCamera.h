@@ -32,13 +32,14 @@
 @protected
     id<Isgl3dCameraLens> _lens;
     
-	Isgl3dMatrix4 _viewMatrix;
-    Isgl3dMatrix4 _inverseViewMatrix;
 	Isgl3dMatrix4 _viewProjectionMatrix;
+    Isgl3dMatrix4 _viewMatrix;
 	BOOL _viewProjectionMatrixDirty;
+    BOOL _viewMatrixDirty;
 }
 
 @property (nonatomic,assign,readonly) Isgl3dMatrix4 viewMatrix;
+@property (nonatomic,assign,readonly) Isgl3dMatrix4 inverseViewMatrix;
 @property (nonatomic,assign,readonly) Isgl3dMatrix4 projectionMatrix;
 @property (nonatomic,assign,readonly) Isgl3dMatrix4 viewProjectionMatrix;
 @property (nonatomic,retain) id<Isgl3dCameraLens> lens;
@@ -46,7 +47,9 @@
 
 @property (nonatomic) Isgl3dVector3 initialPosition;
 @property (nonatomic) Isgl3dVector3 initialLookAtTarget;
+@property (nonatomic,assign) BOOL tracking;
 @property (nonatomic,assign) Isgl3dVector3 lookAtTarget;
+@property (nonatomic,assign) Isgl3dNode *target;
 @property (nonatomic,assign) Isgl3dVector3 up;
 
 

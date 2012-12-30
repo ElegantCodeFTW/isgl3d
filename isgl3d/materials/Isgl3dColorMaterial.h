@@ -25,6 +25,8 @@
 
 #import "Isgl3dMaterial.h"
 
+@class Isgl3dGLTexture;
+
 /**
  * The Isgl3dColorMaterial is the most basic type of material available in iSGL3D. Colors are specified for the three
  * material properties: ambient, diffuse and specular allowing for a high level of freedom of interaction with a light
@@ -46,12 +48,20 @@
 	float _specularColor[4];
 
 	float _shininess;
+    float _reflectivity;
 }
 
 @property (nonatomic) float * ambientColor;
 @property (nonatomic) float * diffuseColor;
 @property (nonatomic) float * specularColor;
 @property (nonatomic) float shininess;
+@property (nonatomic) float reflectivity;
+
+/**
+ * Gets/sets the cubemapped Isgl3dGLTexture associated with the environment map.
+ */
+@property (nonatomic, retain) Isgl3dGLTexture *environmentMap;
+
 
 /**
  * Allocates and initialises (autorelease) material with a random color. The same color is used for all three material properties. The material has

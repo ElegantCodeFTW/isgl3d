@@ -48,7 +48,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 
 @interface Isgl3dNode ()
-- (void)updateEulerAngles;
+
 - (void)updateRotationMatrix;
 - (void)updateLocalTransformation; 
 @end
@@ -61,6 +61,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 @synthesize worldTransformation = _worldTransformation;
+@synthesize name = _name;
 @synthesize parent = _parent;
 @synthesize children = _children;
 @synthesize enableShadowRendering = _enableShadowRendering;
@@ -121,6 +122,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 - (void)dealloc {
     [_frameTransformations release];
 	[_children release];
+    [_name release];
 
 	[[Isgl3dActionManager sharedInstance] stopAllActionsForTarget:self];
 	
@@ -129,7 +131,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (id)copyWithZone:(NSZone *)zone {
     Isgl3dNode *copy = [[[self class] allocWithZone:zone] init];
-
+    // do not copy name
 	copy->_rotationX = _rotationX;
 	copy->_rotationY = _rotationY;
 	copy->_rotationZ = _rotationZ;
@@ -164,7 +166,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 #pragma mark translation rotation scaling
-
+//TODO: unsafe, doesn't check dirty
 - (float)x {
 	return _localTransformation.m30;
 }
@@ -331,11 +333,14 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (void)rotate:(float)angle x:(float)x y:(float)y z:(float)z {
-    _localTransformation = Isgl3dMatrix4Rotate(_localTransformation, Isgl3dMathDegreesToRadians(angle), x, y, z);
-	
-	_rotationMatrixDirty = NO;
-	_eulerAnglesDirty = YES;
-	_localTransformationDirty = YES;
+    if (angle != 0.0) {
+
+        _localTransformation = Isgl3dMatrix4Rotate(_localTransformation, Isgl3dMathDegreesToRadians(angle), x, y, z);
+        
+        _rotationMatrixDirty = NO;
+        _eulerAnglesDirty = YES;
+        _transformationDirty = YES;        
+    }
 }
 
 - (void)setRotation:(float)angle x:(float)x y:(float)y z:(float)z {
@@ -343,7 +348,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 	
 	_rotationMatrixDirty = NO;
 	_eulerAnglesDirty = YES;
-	_localTransformationDirty = YES;
+	_transformationDirty = YES;
 }
 
 
@@ -375,7 +380,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
     _scaleY = currentScale.y;
     _scaleZ = currentScale.z;
 
-	_localTransformationDirty = YES;
+	_transformationDirty = YES;
 	_rotationMatrixDirty = NO;
 	_eulerAnglesDirty = YES;
 }
@@ -388,7 +393,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
     _scaleY = currentScale.y;
     _scaleZ = currentScale.z;
 	
-	_localTransformationDirty = YES;
+	_transformationDirty = YES;
 	_rotationMatrixDirty = NO;
 	_eulerAnglesDirty = YES;
 }
@@ -410,8 +415,8 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (Isgl3dVector3)worldPosition {
-	return Isgl3dVector3Make(_worldTransformation.m30, _worldTransformation.m31, _worldTransformation.m32);
-	
+    Isgl3dMatrix4 matrix = self.worldTransformation;
+	return Isgl3dVector3Make(matrix.m30, matrix.m31, matrix.m32);	
 }
 
 - (float)getZTransformation:(Isgl3dMatrix4 *)viewMatrix {
@@ -456,7 +461,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 		[self updateRotationMatrix];
 	}
 	
-	// Scale transformation (no effect on translation)
+	// Scale transformation (no effect on translation) -- is this necessary? (can't we update like translate?)
 	im4Scale(&_localTransformation, _scaleX, _scaleY, _scaleZ);
 	
 	_localTransformationDirty = NO;
@@ -468,10 +473,35 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 	_transformationDirty = isDirty;
 }
 
+- (Isgl3dMatrix4)worldTransformation {
+    if (_localTransformationDirty || _rotationMatrixDirty || _transformationDirty) {
+        Isgl3dMatrix4 parentTrans = _parent.worldTransformation;
+        [self updateWorldTransformation:_parent ? &parentTrans : NULL];
+    }
+    return _worldTransformation;
+}
+
+- (void)setLocalTransformation:(Isgl3dMatrix4)localTransformation {
+    if (_localTransformationDirty || _rotationMatrixDirty) {
+        [self updateLocalTransformation];
+    }
+    _localTransformation = localTransformation;
+    _transformationDirty = YES;
+    _eulerAnglesDirty = YES;
+}
+
+- (Isgl3dMatrix4)localTransformation {
+    if (_localTransformationDirty || _rotationMatrixDirty) {
+        [self updateLocalTransformation];
+    }
+    return _localTransformation;
+}
+
+
 - (void)updateWorldTransformation:(Isgl3dMatrix4 *)parentTransformation {
 	
 	// Recalculate local transformation if necessary
-	if (_localTransformationDirty) {
+	if (_localTransformationDirty || _rotationMatrixDirty) {
 		[self updateLocalTransformation];
 	}
 	
@@ -542,7 +572,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 	if (_isRunning) {
 		[child activate];
 	}
-	
+    [self descendantAdded:child];
 	return child;
 }
 
@@ -559,6 +589,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 	if ([_children count] == 0) {
 		_hasChildren = NO;
 	}
+    [self descendantRemoved:child];
 }
 
 - (void)removeFromParent {
@@ -791,7 +822,15 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (NSString *)description {    
-    return [NSString stringWithFormat:@"<%@ [%f, %f, %f]%@>", NSStringFromClass([self class]), self.position.x, self.position.y, self.position.z, [self.additionalDescription length] ? self.additionalDescription : @""];
+    return [NSString stringWithFormat:@"<%@ position[%f, %f, %f] rotation[%f, %f, %f] %@>", NSStringFromClass([self class]), self.position.x, self.position.y, self.position.z, self.rotationX, self.rotationY, self.rotationZ, [self.additionalDescription length] ? self.additionalDescription : @""];
+}
+
+- (void)descendantAdded:(Isgl3dNode *)descendant {
+    [_parent descendantAdded:descendant];
+}
+
+- (void)descendantRemoved:(Isgl3dNode *)descendant {
+    [_parent descendantRemoved:descendant];
 }
 
 @end

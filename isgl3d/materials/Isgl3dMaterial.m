@@ -27,6 +27,7 @@
 #import "Isgl3dGLRenderer.h"
 
 @implementation Isgl3dMaterial
+@synthesize name = _name;
 
 - (id)init {
 	
@@ -37,6 +38,7 @@
 }
 
 - (void)dealloc {
+    [_name release];
 	[super dealloc];
 
 }

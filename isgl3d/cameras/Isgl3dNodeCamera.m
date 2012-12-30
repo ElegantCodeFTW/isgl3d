@@ -32,8 +32,6 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
 @interface Isgl3dNodeCamera () {
 @private
     Isgl3dVector3 _lookAtTarget;
-    Isgl3dVector3 _up;
-
 	Isgl3dVector3 _initialPosition;
 	Isgl3dVector3 _initialLookAtTarget;
 }
@@ -43,13 +41,13 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
 #pragma mark -
 #
 @implementation Isgl3dNodeCamera
-
-@synthesize viewMatrix = _viewMatrix;
 @synthesize viewProjectionMatrix = _viewProjectionMatrix;
 @synthesize lens = _lens;
 @synthesize initialPosition = _initialPosition;
 @synthesize initialLookAtTarget = _initialLookAtTarget;
 @synthesize lookAtTarget = _lookAtTarget;
+@synthesize target = _target;
+@synthesize tracking = _tracking;
 @synthesize up = _up;
 
 
@@ -59,26 +57,35 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
         [NSException raise:NSInvalidArgumentException format:@"camera must be initialized with a lens"];
     
     if (self = [super init]) {
-        _viewMatrix = Isgl3dMatrix4Identity;
         _viewProjectionMatrix = Isgl3dMatrix4Identity;
-        _viewProjectionMatrixDirty = NO;
+        _viewProjectionMatrixDirty = YES;
+        _viewMatrixDirty = NO;
 
         self.lens = lens;
         
-        self.position = position;
         _initialPosition = position;
         _initialLookAtTarget = lookAtTarget;
-        
-        _lookAtTarget = lookAtTarget;
         _up = up;
+        _tracking = YES;
+        [self reset];
     }
     return self;
+}
+
+- (void)setTracking:(BOOL)tracking {
+    if (_tracking != tracking) {
+        _transformationDirty = YES;
+        Isgl3dMatrix4 parentTransform = self.parent.worldTransformation;
+        [self updateWorldTransformation:self.parent ? &parentTransform : NULL];
+        _tracking = tracking;
+    }
 }
 
 - (void)dealloc {
     [(NSObject<Isgl3dCameraLens> *)_lens removeObserver:self forKeyPath:kLensProjectionMatrix];
     [_lens release];
     _lens = nil;
+    _target = nil;
     
     [super dealloc];
 }
@@ -92,19 +99,25 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
     return copy;
 }
 
+- (Isgl3dMatrix4)viewMatrix {
+    return _viewMatrix;
+}
 
-- (void)updateViewMatrix {
-    Isgl3dVector3 eyePosition = [self worldPosition];    
-    _viewMatrix = Isgl3dMatrix4MakeLookAt(eyePosition.x, eyePosition.y, eyePosition.z,
-                                          _lookAtTarget.x, _lookAtTarget.y, _lookAtTarget.z,
-                                          _up.x, _up.y, _up.z);
-    _viewProjectionMatrixDirty = YES;
+- (Isgl3dMatrix4)inverseViewMatrix {
+    return self.worldTransformation;
 }
 
 - (void)reset {
-    self.position = _initialPosition;
     _lookAtTarget = _initialLookAtTarget;
-    [self updateViewMatrix];
+    _transformationDirty = NO;
+    _viewMatrix = Isgl3dMatrix4MakeLookAt(_initialPosition.x, _initialPosition.y, _initialPosition.z,_lookAtTarget.x, _lookAtTarget.y, _lookAtTarget.z,  _up.x, _up.y, _up.z);
+    _worldTransformation = Isgl3dMatrix4Invert(_viewMatrix, NULL);
+    _localTransformation = _worldTransformation;
+    
+    _eulerAnglesDirty = YES;
+    _localTransformationDirty = NO;
+    _rotationMatrixDirty = NO;
+    [self updateEulerAngles];
 }
 
 
@@ -123,18 +136,6 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
 
 #pragma mark -
 #
-- (Isgl3dMatrix4)viewMatrix {
-
-	BOOL viewMatrixDirty = (_localTransformationDirty || _transformationDirty);
-    
-	if (viewMatrixDirty) {
-        Isgl3dMatrix4 identity = Isgl3dMatrix4Identity;
-        [super updateWorldTransformation:&identity];
-
-		[self updateViewMatrix];
-	}
-    return _viewMatrix;
-}
 
 - (void)setLens:(id<Isgl3dCameraLens>)lens {
     if (lens == nil)
@@ -160,7 +161,7 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
 
 - (Isgl3dMatrix4)viewProjectionMatrix {
     if (_viewProjectionMatrixDirty) {
-        _viewProjectionMatrix = Isgl3dMatrix4Multiply(self.lens.projectionMatrix, _viewMatrix);
+        _viewProjectionMatrix = Isgl3dMatrix4Multiply(self.lens.projectionMatrix, self.worldTransformation);
         _viewProjectionMatrixDirty = NO;
     }
     return _viewProjectionMatrix;
@@ -199,13 +200,35 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
 
 #pragma mark -
 #
+
 - (void)updateWorldTransformation:(Isgl3dMatrix4 *)parentTransformation {
     
 	BOOL viewMatrixDirty = (_localTransformationDirty || _transformationDirty);
-	[super updateWorldTransformation:parentTransformation];
     
+	[super updateWorldTransformation:parentTransformation];
 	if (viewMatrixDirty) {
-		[self updateViewMatrix];
+        
+        if (_tracking) {
+            Isgl3dVector3 eyePosition = self.worldPosition;
+            Isgl3dVector3 localPosition = self.position;
+
+            if (_target) {
+                _lookAtTarget = _target.worldPosition;
+            }
+            
+            _viewMatrix = Isgl3dMatrix4MakeLookAt(eyePosition.x, eyePosition.y, eyePosition.z,_lookAtTarget.x, _lookAtTarget.y, _lookAtTarget.z,                                              _up.x, _up.y, _up.z);
+            _worldTransformation = Isgl3dMatrix4Invert(_viewMatrix, NULL);
+            _localTransformation = _worldTransformation;
+            _localTransformation.m30 = localPosition.x;
+            _localTransformation.m31 = localPosition.y;
+            _localTransformation.m32 = localPosition.z;
+            //TODO: Doesn't account for scale
+            _eulerAnglesDirty = YES;
+
+        } else {
+            _viewMatrix = Isgl3dMatrix4Invert(_worldTransformation, NULL);
+        }
+        _viewProjectionMatrixDirty = YES;
 	}
 }
 

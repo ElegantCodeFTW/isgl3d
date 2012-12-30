@@ -182,6 +182,11 @@
 		if (rendererRequirements & SPECULAR_MAPPING_ON) {
 			fsPreProcHeader = [fsPreProcHeader stringByAppendingString:@"#define SPECULAR_MAPPING_ENABLED\n"];
 		}
+        if (rendererRequirements & ENVIRONMENT_MAPPING_ON) {
+            vsPreProcHeader = [vsPreProcHeader stringByAppendingString:@"#define ENVIRONMENT_MAPPING_ENABLED\n"];
+			fsPreProcHeader = [fsPreProcHeader stringByAppendingString:@"#define ENVIRONMENT_MAPPING_ENABLED\n"];
+		}
+
 		if (rendererRequirements & ALPHA_CULLING_ON) {
 			fsPreProcHeader = [fsPreProcHeader stringByAppendingString:@"#define ALPHA_TEST_ENABLED\n"];
 		}
@@ -226,7 +231,7 @@
 - (void)setRendererRequirements:(unsigned int)rendererRequirements {
 
 	// Determine which shader to use depending on requirements - create new one if needed
-	Isgl3dShader * shader = [self shaderForRendererRequirements:rendererRequirements];
+	Isgl3dShader *shader = [self shaderForRendererRequirements:rendererRequirements];
 	
 	if (shader != nil) {
 		//Isgl3dLog(Info, @"Using shader: 0x%04X", rendererRequirements);
@@ -274,6 +279,16 @@
 	}
 }
 
+- (void)setInverseViewMatrix:(Isgl3dMatrix4 *)inverseViewMatrix {
+	[super setInverseViewMatrix:inverseViewMatrix];
+	
+	// Pass view matrix to all custom shaders
+	for (NSString * key in _customShaders) {
+		Isgl3dCustomShader * shader = [_customShaders objectForKey:key];
+		[shader setInverseViewMatrix:inverseViewMatrix];
+	}
+}
+
 
 - (void)setupMatrices {
 
@@ -301,6 +316,7 @@
 	[_activeShader setModelViewMatrix:&_mvMatrix];
 	[_activeShader setModelViewProjectionMatrix:&_mvpMatrix];
     [_activeShader setNormalMatrix:&_normalMatrix];
+    [_activeShader setInverseViewMatrix:&_inverseViewMatrix];
 
 	// Send light model-view-projection matrix to generic renderer (for shadows)
     _lightModelViewProjectionMatrix = Isgl3dMatrix4Multiply(_lightViewProjectionMatrix, _modelMatrix);
@@ -348,6 +364,20 @@
 		[(Isgl3dInternalShader *)_activeShader setSpecularMapping:texture];
 	}
 }
+
+// Called only by Isgl3dColorMaterial
+- (void)setEnvironmentMap:(Isgl3dGLTexture *)texture {
+	if ([_activeShader isKindOfClass:[Isgl3dInternalShader class]]) {
+		[(Isgl3dInternalShader *)_activeShader setEnvironmentMapping:texture];
+	}
+}
+
+- (void)setReflectivity:(float)reflectivity {
+    if ([_activeShader isKindOfClass:[Isgl3dInternalShader class]]) {
+		[(Isgl3dInternalShader *)_activeShader setReflectivity:reflectivity];
+	}
+}
+
 
 // Called only by Isgl3dColorMaterial
 - (void)setMaterialData:(GLfloat *)ambientColor diffuseColor:(GLfloat *)diffuseColor specularColor:(GLfloat *)specularColor withShininess:(GLfloat)shininess {

@@ -405,7 +405,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		[self copyImage:negYImage toRawData:data + offset width:width height:height flip:NO];
 		offset += stride;
 		[self copyImage:posZImage toRawData:data + offset width:width height:height flip:NO];
-		offset += stride;
+            offset += stride;
 		[self copyImage:negZImage toRawData:data + offset width:width height:height flip:NO];
         
 		unsigned int textureId = [_state createCubemapTextureFromRawData:data width:width mipmap:YES precision:precision repeatX:repeatX repeatY:repeatY mirrorX:mirrorX mirrorY:mirrorY];
@@ -413,7 +413,7 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		free(data);
 		[images release];
 		
-		return [Isgl3dGLTexture textureWithId:textureId width:width height:height];
+		return [Isgl3dGLTexture textureWithId:textureId type:GL_TEXTURE_CUBE_MAP width:width height:height contentSize:CGSizeMake(width, height)];
 	}
     
 	Isgl3dDebugLog(Isgl3dLogLevelError, @"createCubemapTextureFromFiles: not initialised with factory state");
@@ -454,53 +454,53 @@ static Isgl3dGLTextureFactory * _instance = nil;
 }
 
 
-
-
 - (UIImage *) loadImage:(NSString *)path {
-	// cut filename into name and extension
-	NSString * extension = [path pathExtension];
-	NSString * origFileName = [path stringByDeletingPathExtension];
-	
-	NSString * fileName = origFileName;
-	if ([Isgl3dDirector sharedInstance].retinaDisplayEnabled) {
-		fileName = [origFileName stringByAppendingString:@"-hd"];
-	}
-	
-	NSString * filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
-	if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"image file not found %@.%@", fileName, extension);
+    NSString *filePath = path;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        // cut filename into name and extension
+        NSString * extension = [path pathExtension];
+        NSString * origFileName = [path stringByDeletingPathExtension];
         
-		if ([Isgl3dDirector sharedInstance].retinaDisplayEnabled) {
-			fileName = origFileName;
-			filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
+        NSString * fileName = origFileName;
+
+        if ([Isgl3dDirector sharedInstance].retinaDisplayEnabled) {
+            fileName = [origFileName stringByAppendingString:@"-hd"];
+        }
+        
+        filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
+        if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+            Isgl3dClassDebugLog(Isgl3dLogLevelError, @"image file not found %@.%@", fileName, extension);
+            if ([Isgl3dDirector sharedInstance].retinaDisplayEnabled) {
+                fileName = origFileName;
+                filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
+                
+                Isgl3dClassDebugLog(Isgl3dLogLevelInfo, @"Trying %@...", path);
+                
+                if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+                    Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Image file not found %@.%@", fileName, extension);
+                    return nil;
+                }
+                
+            } else {
+                return nil;
+            }
             
-			Isgl3dClassDebugLog(Isgl3dLogLevelInfo, @"Trying %@...", path);
-            
-			if (!filePath || ![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-				Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Image file not found %@.%@", fileName, extension);
-				return nil;
-			}
-			
-		} else {
-			return nil;
-		}
-		
-	}
-	
-	
-	filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
+        }
+        
+        
+        filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:extension];
+        if (!filePath) {
+            Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Failed to load %@.%@", fileName, extension);
+            return nil;
+        }
+    }
     
-	if (!filePath) {
-		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Failed to load %@.%@", fileName, extension);
-		return nil;
-	}
-	
 	NSData *texData = [[NSData alloc] initWithContentsOfFile:filePath];
     UIImage *image = [[UIImage alloc] initWithData:texData];
    	[texData release];
     
 	if (image == nil) {
-		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Failed to load %@.%@", fileName, extension);
+		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Failed to load %@", filePath);
 	}
     return [image autorelease];
     

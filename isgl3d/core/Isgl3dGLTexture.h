@@ -39,6 +39,7 @@
 	unsigned int _width;
 	unsigned int _height;
 	CGSize _contentSize;
+    GLenum _type; // default GL_TEXTURE_2D
 	
 	BOOL _isHighDefinition;
 }
@@ -69,6 +70,12 @@
 @property (nonatomic) BOOL isHighDefinition;
 
 /**
+ * Returns the bound texture type GL_TEXTURE_2D etc
+ */
+@property (nonatomic) GLenum type;
+
+
+/**
  * Allocates and initialises (autorelease) an Isgl3dGLTexture for an OpenGL texture object of given width and height.
  * @param textureId The OpenGL texture id.
  * @param width The width of the texture.
@@ -85,6 +92,8 @@
  * @param contentSize The size of the content.
  */
 + (id)textureWithId:(unsigned int)textureId width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize;
+
++ (id)textureWithId:(unsigned int)textureId type:(GLenum)textureType width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize;
 
 /**
  * Initialises an Isgl3dGLTexture for an OpenGL texture object of given width and height.
@@ -103,5 +112,15 @@
  * @param contentSize The size of the content.
  */
 - (id)initWithId:(unsigned int)textureId width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize;
+/**
+ * Intialises an Isgl3dGLTexture for an OpenGL texture object of given width and height and
+ * specified content size.
+ * @param textureId The OpenGL texture id.
+ * @param textureType The OpenGL texture type (GL_TEXTURE_2D etc).
+ * @param width The width of the texture.
+ * @param height The height of the texture.
+ * @param contentSize The size of the content.
+ */
+- (id)initWithId:(unsigned int)textureId type:(GLenum)textureType width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize;
 
 @end

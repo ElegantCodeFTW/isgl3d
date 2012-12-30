@@ -363,10 +363,12 @@
 		
 		// Set camera characteristics
 		Isgl3dMatrix4 viewMatrix = self.activeCamera.viewMatrix;
+		Isgl3dMatrix4 inverseViewMatrix = self.activeCamera.inverseViewMatrix;
 		Isgl3dMatrix4 projectionMatrix = self.activeCamera.projectionMatrix;
 		
 		[renderer setProjectionMatrix:&projectionMatrix];
 		[renderer setViewMatrix:&viewMatrix];
+		[renderer setInverseViewMatrix:&inverseViewMatrix];
 			
 		// Render any lights in the scene
 		[_scene renderLights:renderer];

@@ -35,7 +35,6 @@
     BOOL _eyePositionDirty;
     Isgl3dVector3 _eyePosition;
 }
-@property (nonatomic,assign,readonly) Isgl3dMatrix4 inverseViewMatrix;
 @end
 
 

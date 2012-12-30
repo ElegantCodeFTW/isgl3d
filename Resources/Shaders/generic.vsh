@@ -78,6 +78,11 @@ varying vec3 v_normal;
 varying vec3 v_lightDir;
 #endif
 
+#ifdef ENVIRONMENT_MAPPING_ENABLED
+varying mediump vec3 v_envTexCoord;
+uniform mat4 u_mInverseView;
+#endif
+
 #ifdef SHADOW_MAPPING_ENABLED
 varying highp vec4 v_shadowCoord;
 uniform vec4 u_shadowCastingLightPosition;
@@ -268,10 +273,26 @@ void main(void) {
 	
 #ifdef NORMAL_MAPPING_ENABLED
     v_normal = u_normalMatrix * a_normal;
+#endif
     
-    vec4 vPosition4 = u_mvMatrix * a_vertex;
+#if defined(NORMAL_MAPPING_ENABLED) || defined(ENVIRONMENT_MAPPING_ENABLED)
+    vec4 vPosition4 = u_mvMatrix * vertexPosition;
     vec3 vPosition3 = vPosition4.xyz / vPosition4.w;
+#endif
+    
+#ifdef NORMAL_MAPPING_ENABLED
     v_lightDir = normalize(u_light[0].position.xyz - vPosition3);
+#endif
+    
+#ifdef ENVIRONMENT_MAPPING_ENABLED    
+//    vec3 vEyeVertex = normalize(vPosition3);
+    // reflected vector
+//    vec4 vCoords = vec4(reflect(vEyeVertex, vertexNormal), 1.0);
+    vec4 vCoords = vec4(reflect(vPosition3, vertexNormal), 1.0);
+    
+    // rotate by flipped
+    vCoords = u_mInverseView * vCoords;
+    v_envTexCoord.xyz = normalize(vCoords.xyz);
 #endif
 
 #ifdef SHADOW_MAPPING_ENABLED

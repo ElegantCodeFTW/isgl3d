@@ -39,6 +39,7 @@
 		
        	_modelMatrix = Isgl3dMatrix4Identity;
        	_viewMatrix = Isgl3dMatrix4Identity;
+       	_inverseViewMatrix = Isgl3dMatrix4Identity;
        	_projectionMatrix = Isgl3dMatrix4Identity;
        	
 		_black[0] = 0.0;	
@@ -100,6 +101,10 @@
     _viewMatrix = *viewMatrix;
 }
 
+- (void)setInverseViewMatrix:(Isgl3dMatrix4 *)inverseViewMatrix {
+    _inverseViewMatrix = *inverseViewMatrix;
+}
+
 - (void)setPlanarShadowsMatrix:(Isgl3dMatrix4 *)planarShadowsMatrix {
     _planarShadowsMatrix = *planarShadowsMatrix;
 }
@@ -147,7 +152,12 @@
 }
 
 - (void)setSpecularMap:(Isgl3dGLTexture *)texture {
-    
+}
+
+- (void)setEnvironmentMap:(Isgl3dGLTexture *)texture {
+}
+
+- (void)setReflectivity:(float)reflectivity {
 }
 
 - (void)setMaterialData:(float *)ambientColor diffuseColor:(float *)diffuseColor specularColor:(float *)specularColor withShininess:(float)shininess {

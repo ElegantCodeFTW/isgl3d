@@ -360,7 +360,7 @@ static unsigned int __textureUnitIndices[32] = {
 		GLuint glTextureUnit = __textureUnitIndices[textureUnit];
 	
 		glActiveTexture(glTextureUnit);
-		glBindTexture(GL_TEXTURE_2D, texture.textureId);
+		glBindTexture(texture.type, texture.textureId);
 	}
 }
 
@@ -376,6 +376,9 @@ static unsigned int __textureUnitIndices[32] = {
 }
 
 - (void)setViewMatrix:(Isgl3dMatrix4 *)viewMatrix {
+}
+
+- (void)setInverseViewMatrix:(Isgl3dMatrix4 *)inverseViewMatrix {
 }
 
 - (void)setProjectionMatrix:(Isgl3dMatrix4 *)projectionMatrix {

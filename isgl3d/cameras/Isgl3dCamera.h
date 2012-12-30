@@ -36,6 +36,10 @@
  */
 @property (nonatomic,assign,readonly) Isgl3dMatrix4 viewMatrix;
 /**
+ * The inverse of the current view matrix.
+ */
+@property (nonatomic,assign,readonly) Isgl3dMatrix4 inverseViewMatrix;
+/**
  * The current projection matrix of the camera lens.
  */
 @property (nonatomic,assign,readonly) Isgl3dMatrix4 projectionMatrix;
@@ -91,6 +95,7 @@
 }
 
 @property (nonatomic,assign,readwrite) Isgl3dMatrix4 viewMatrix;
+@property (nonatomic,assign,readonly) Isgl3dMatrix4 inverseViewMatrix;
 @property (nonatomic,assign,readonly) Isgl3dMatrix4 projectionMatrix;
 @property (nonatomic,assign,readonly) Isgl3dMatrix4 viewProjectionMatrix;
 @property (nonatomic,retain) id<Isgl3dCameraLens> lens;

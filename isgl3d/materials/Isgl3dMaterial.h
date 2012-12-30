@@ -37,6 +37,10 @@
 @private
 
 }
+/* 
+ * Name of material
+ */
+@property (nonatomic, retain) NSString *name;
 
 /*
  * Prepares the renderer for use with this material.

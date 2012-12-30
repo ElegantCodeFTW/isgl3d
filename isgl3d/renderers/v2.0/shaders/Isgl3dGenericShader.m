@@ -93,13 +93,13 @@
 	_vertexAttributeLocation = [_glProgram getAttributeLocation:@"a_vertex"];
 	_normalAttributeLocation = [_glProgram getAttributeLocation:@"a_normal"];
 	_texCoordAttributeLocation = [_glProgram getAttributeLocation:@"a_texCoord"];
-	
-	// Uniforms
-	
+    
 	// Matrices
     _mvMatrixUniformLocation = [_glProgram getUniformLocation:@"u_mvMatrix"];
     _mvpMatrixUniformLocation = [_glProgram getUniformLocation:@"u_mvpMatrix"];
 	_normalMatrixUniformLocation = [_glProgram getUniformLocation:@"u_normalMatrix"];
+    _inverseViewUniformLocation = [_glProgram getUniformLocation:@"u_mInverseView"];
+
 
 	// Lighting
 	_sceneAmbientUniformLocation = [_glProgram getUniformLocation:@"u_sceneAmbientColor"];
@@ -125,6 +125,7 @@
 	_materialDiffuseLocation = [_glProgram getUniformLocation:@"u_material.diffuseColor"];
 	_materialSpecularLocation = [_glProgram getUniformLocation:@"u_material.specularColor"];
 	_materialShininessLocation = [_glProgram getUniformLocation:@"u_material.shininess"];
+    _reflectivityUniformLocation = [_glProgram getUniformLocation:@"u_fReflect"];
 
 	// Texture
 	_samplerLocation = [_glProgram getUniformLocation:@"s_texture"];
@@ -132,6 +133,7 @@
 	// Normal Mapping Texture
 	_normalMapSamplerLocation = [_glProgram getUniformLocation:@"s_nm_texture"];
 	_specularMapSamplerLocation = [_glProgram getUniformLocation:@"s_sm_texture"];
+    _environmentMapSamplerLocation = [_glProgram getUniformLocation:@"s_em_texture"];
     
 	// Alpha testing
 	_alphaTestValueUniformLocation = [_glProgram getUniformLocation:@"u_alphaTestValue"];
@@ -152,6 +154,10 @@
 
 - (void)setModelViewMatrix:(Isgl3dMatrix4 *)modelViewMatrix {
 	[self setUniformMatrix4:_mvMatrixUniformLocation matrix:modelViewMatrix];
+}
+
+- (void)setInverseViewMatrix:(Isgl3dMatrix4 *)inverseViewMatrix {
+	[self setUniformMatrix4:_inverseViewUniformLocation matrix:inverseViewMatrix];
 }
 
 - (void)setNormalMatrix:(Isgl3dMatrix3 *)normalMatrix {
@@ -227,6 +233,21 @@
 	}
 	
 	_currentState.specularMappingEnabled = YES;
+}
+
+- (void)setEnvironmentMapping:(Isgl3dGLTexture *)texture {
+	if (_environmentMapSamplerLocation != -1) {
+		// Bind the texture
+		[self bindTexture:texture textureUnit:ENVIRONMENTMAP_INDEX];
+		[self setUniformSampler:_environmentMapSamplerLocation forTextureUnit:ENVIRONMENTMAP_INDEX];
+	}	
+	_currentState.environmentMappingEnabled = YES;
+}
+
+- (void)setReflectivity:(float)reflectivity {
+	if (_reflectivityUniformLocation != -1) {
+        [self setUniform1f:_reflectivityUniformLocation value:reflectivity];
+	}
 }
 
 - (void)addLight:(Isgl3dLight *)light viewMatrix:(Isgl3dMatrix4 *)viewMatrix {

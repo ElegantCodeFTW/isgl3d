@@ -25,8 +25,14 @@
 
 #import "Isgl3dScene3D.h"
 #import "Isgl3dNode.h"
+@interface Isgl3dScene3D()
+@property (nonatomic, readwrite, retain) NSMutableDictionary *nodesByName;
+@property (nonatomic, readwrite, retain) NSMutableSet *cameras;
+@end
 
 @implementation Isgl3dScene3D
+@synthesize nodesByName = _nodesByName;
+@synthesize cameras = _cameras;
 
 + (id)scene {
 	return [[[self alloc] init] autorelease];
@@ -36,6 +42,8 @@
     if ((self = [super init])) {
 		_alphaNodes = [[NSMutableArray alloc] init];
 		_sortedNodes = [[NSMutableArray alloc] init];
+        _nodesByName = [[NSMutableDictionary alloc] init];
+        _cameras = [[NSMutableSet alloc] init];
     }
 	
     return self;
@@ -44,7 +52,8 @@
 - (void)dealloc {
 	[_sortedNodes release];
 	[_alphaNodes release];
-
+    [_nodesByName release];
+    [_cameras release];
 	[super dealloc];
 }
 
@@ -73,6 +82,14 @@
 	// Clear arrays
 	[_alphaNodes removeAllObjects];
 	[_sortedNodes removeAllObjects];
+}
+
+- (void)descendantAdded:(Isgl3dNode *)descendant {
+    
+}
+
+- (void)descendantRemoved:(Isgl3dNode *)descendant {
+    
 }
 
 @end

@@ -60,6 +60,11 @@ varying highp vec4 v_shadowCoord;
 uniform sampler2D s_shadowMap;
 #endif
 
+#ifdef ENVIRONMENT_MAPPING_ENABLED
+varying mediump vec3 v_envTexCoord;
+uniform samplerCube s_em_texture;
+uniform	float u_fReflect;
+#endif
 
 void main() {
 	lowp vec4 specular = v_specular;
@@ -71,6 +76,11 @@ void main() {
 	lowp vec4 color = v_color;
 #endif
 
+#ifdef ENVIRONMENT_MAPPING_ENABLED
+    lowp vec4 env_color = textureCube(s_em_texture, v_envTexCoord);
+    color = mix(color, env_color, u_fReflect);
+#endif
+    
 #ifdef ALPHA_TEST_ENABLED
 	if (color.a <= u_alphaTestValue) {
 		discard;
@@ -93,7 +103,7 @@ void main() {
     lowp float shadowFactor = 1.0;
 
 #ifdef SHADOW_MAPPING_ENABLED
-    if (v_shadowCoord.w > 0.0){
+    if (v_shadowCoord.w > 0.0) {
         highp vec4 shadowTextureCoordinate = v_shadowCoord / v_shadowCoord.w;
         shadowTextureCoordinate = (shadowTextureCoordinate + 1.0) / 2.0;
         
@@ -102,8 +112,7 @@ void main() {
         highp vec4 packedZValue = texture2D(s_shadowMap, shadowTextureCoordinate.st);
         highp float unpackedZValue = dot(packedZValue,unpackFactors);
         
-        if ((unpackedZValue+bias) < shadowTextureCoordinate.z)
-        {
+        if ((unpackedZValue+bias) < shadowTextureCoordinate.z) {
             shadowFactor = 0.5;
             specular = vec4(0.0);
         }
@@ -111,7 +120,7 @@ void main() {
 #endif
     
 #ifdef SHADOW_MAPPING_DEPTH_ENABLED
-    if (v_shadowCoord.w > 0.0){
+    if (v_shadowCoord.w > 0.0) {
         highp vec4 shadowTextureCoordinate = v_shadowCoord / v_shadowCoord.w;
         shadowTextureCoordinate = (shadowTextureCoordinate + 1.0) / 2.0;
         
@@ -119,8 +128,7 @@ void main() {
         
         const float bias = 0.0005;
         
-        if ((distanceFromLight+bias) < shadowTextureCoordinate.z)
-        {
+        if ((distanceFromLight+bias) < shadowTextureCoordinate.z) {
             shadowFactor = 0.5;
             specular = vec4(0.0);
         }

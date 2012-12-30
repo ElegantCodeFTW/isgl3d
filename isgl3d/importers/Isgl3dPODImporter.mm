@@ -43,7 +43,9 @@
 #import "isgl3dArray.h"
 #import "Isgl3dLog.h"
 #import "Isgl3dMathUtils.h"
-
+@interface Isgl3dPODImporter()
+@property (nonatomic, retain, readwrite) NSArray *materials;
+@end
 
 #pragma mark -
 @implementation Isgl3dPODImporter {
@@ -55,6 +57,7 @@
     NSMutableDictionary *_nodesByName;
 	NSMutableDictionary *_boneNodes;
     NSMutableDictionary *_textureMods;
+    NSMutableDictionary *_materialsByName;
     
     NSMutableArray *_nodes;
 	NSMutableArray *_targetIndices;
@@ -65,6 +68,8 @@
 	NSMutableArray *_lights;
     
 }
+
+@synthesize materials = _materials;
 
 + (id)podImporterWithResource:(NSString *)name {
 	return [[[self alloc] initWithResource:name] autorelease];
@@ -125,7 +130,9 @@
 		
 		_podPath = filePath;
 		_meshes = [[NSMutableArray alloc] init];
-        _nodesByName = [[NSMutableDictionary alloc] init];;
+        _nodesByName = [[NSMutableDictionary alloc] init];
+        _materialsByName = [[NSMutableDictionary alloc] init];
+        
 		_boneNodes = [[NSMutableDictionary alloc] init];
 		_targetIndices = [[NSMutableArray alloc] init];
         _nodes = [[NSMutableArray alloc] init];
@@ -157,25 +164,16 @@
 
 - (void)dealloc {
     [_targetIndices release];
-    _targetIndices = nil;
 	[_meshes release];
-    _meshes = nil;
     [_nodesByName release];
-    _nodesByName = nil;
 	[_boneNodes release];
-    _boneNodes = nil;
     [_nodes release];
-    _nodes = nil;
 	[_textures release];
-    _textures = nil;
 	[_materials release];
-    _materials = nil;
 	[_cameras release];
-    _cameras = nil;
 	[_lights release];
-    _lights = nil;
 	[_textureMods release];
-    _textureMods = nil;
+    [_materialsByName release];
     
 	delete _podModel;
     
@@ -343,23 +341,7 @@
 }
 
 - (Isgl3dMaterial *)materialWithName:(NSString *)materialName {
-	Isgl3dMaterial * material = NULL;
-	for (int i = 0; i < _podModel->nNumMaterial; i++) {
-		SPODMaterial & materialInfo = _podModel->pMaterial[i];
-		if ([materialName isEqualToString:[NSString stringWithUTF8String:materialInfo.pszName]]) {
-            
-			if (i < [_materials count]) {
-				material = [_materials objectAtIndex:i];
-				break;
-			}
-            
-		}
-	}
-    
-	if (!material) {
-		Isgl3dClassDebugLog(Isgl3dLogLevelError, @"Unable to find material with name: %@", materialName);
-	}
-	return material;
+	return _materialsByName[materialName];
 }
 
 
@@ -481,7 +463,9 @@
 			[material setDiffuseColor:materialInfo.pfMatDiffuse];
 			[material setSpecularColor:materialInfo.pfMatSpecular];
 			[material setShininess:materialInfo.fMatShininess];
-			
+            
+            material.name = [NSString stringWithUTF8String:materialInfo.pszName];
+			_materialsByName[material.name] = material;
 			[_materials addObject:material];
 		} else {
 			Isgl3dClassDebugLog(Isgl3dLogLevelWarn, @"Material has effect file and is currently not supported: %s", materialInfo.pszEffectFile);
@@ -508,6 +492,7 @@
 		Isgl3dNode *node = [self buildNodeAtIndex: i];
         [_nodes addObject:node];
         NSString *name = [NSString stringWithUTF8String:nodeInfo.pszName];
+        node.name = name;
         _nodesByName[name] = node;
 	}
     
@@ -645,6 +630,7 @@
         
     } else if (lightInfo.eType == ePODDirectional) {
         light.lightType = DirectionalLight;
+        light.constantAttenuation = .1;
         [light setDirection:dirn.x y:dirn.y z:dirn.z];
         
     } else {
@@ -680,7 +666,7 @@
     
     Isgl3dNodeCamera *nodeCamera = nil;
     if (cameraInfo.nIdxTarget > -1) {
-        nodeCamera = [[Isgl3dFollowCamera alloc] initWithLens:perspectiveLens position:Isgl3dVector3Make(eye.x, eye.y, eye.z) lookAtTarget:Isgl3dVector3Make(center.x, center.y, center.z) up:Isgl3dVector3Make(up.x, up.y, up.z)];
+        nodeCamera = [[Isgl3dFollowCamera alloc] initWithLens:perspectiveLens position:Isgl3dVector3Make(eye.x, eye.y, eye.z) lookAtTarget:Isgl3dVector3Make(center.x, center.y, center.z) up:Isgl3dVector3Make(up.x, up.y, up.z)];        
     } else {
         nodeCamera = [[Isgl3dNodeCamera alloc] initWithLens:perspectiveLens
                                                    position:Isgl3dVector3Make(eye.x, eye.y, eye.z)

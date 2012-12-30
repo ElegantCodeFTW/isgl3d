@@ -72,7 +72,7 @@
 /**
  * Returns the target node.
  */
-@property (readonly) Isgl3dNode * target;
+@property (readonly) Isgl3dNode *target;
 
 /**
  * Uses real time to calculate the changes in position and the resulting acceleration on the camera.

@@ -37,10 +37,19 @@
 @interface Isgl3dScene3D : Isgl3dNode {
 
 @private
+    NSMutableDictionary *_nodesByName;
+    NSMutableSet *_cameras;
 	NSMutableArray * _alphaNodes;
 	NSMutableArray * _sortedNodes;
 }
-
+/**
+ * Nodes indexed by name, indexed on descendantAdded/Removed callbacks.
+ */
+@property (nonatomic, readonly, retain) NSDictionary *nodesByName;
+/**
+ * Set of cameras indexed on descendantAdded/Removed callbacks.
+ */
+@property (nonatomic, readonly, retain) NSSet *cameras;
 /**
  * Allocates and initialises (autorelease) Isgl3dScene3D node.
  */

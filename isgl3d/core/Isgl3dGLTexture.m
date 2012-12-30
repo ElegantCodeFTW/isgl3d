@@ -33,21 +33,29 @@
 @synthesize height = _height;
 @synthesize contentSize = _contentSize;
 @synthesize isHighDefinition = _isHighDefinition;
+@synthesize type = _type;
 
 + (id)textureWithId:(unsigned int)textureId width:(unsigned int)width height:(unsigned int)height {
 	return [[[self alloc] initWithId:textureId width:width height:height] autorelease];
 }
 
-+ (id)textureWithId:(unsigned int)textureId width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize {
++ (id)textureWithId:(unsigned int)textureId  width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize {
 	return [[[self alloc] initWithId:textureId width:width height:height contentSize:contentSize] autorelease];
+}
+
++ (id)textureWithId:(unsigned int)textureId type:(GLenum)textureType width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize {
+	return [[[self alloc] initWithId:textureId type:textureType width:width height:height contentSize:contentSize] autorelease];
 }
 
 - (id)initWithId:(unsigned int)textureId width:(unsigned int)width height:(unsigned int)height {
 	return [self initWithId:textureId width:width height:height contentSize:CGSizeMake(_width, _height)];
 }
-
 - (id)initWithId:(unsigned int)textureId width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize {
+    return [self initWithId:textureId type:GL_TEXTURE_2D width:width height:height contentSize:contentSize];
+}
+- (id)initWithId:(unsigned int)textureId type:(GLenum)textureType width:(unsigned int)width height:(unsigned int)height contentSize:(CGSize)contentSize {
 	if ((self = [super init])) {
+        _type = textureType;
 		_textureId = textureId;
 		_width = width;
 		_height = height;

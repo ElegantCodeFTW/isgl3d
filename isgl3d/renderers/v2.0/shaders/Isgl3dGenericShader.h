@@ -25,12 +25,13 @@
 
 #import "Isgl3dInternalShader.h"
 
-#define MAX_LIGHTS 4
+#define MAX_LIGHTS 3
 
 #define TEXTURE0_INDEX 0
 #define SHADOWMAP_INDEX 1
 #define NORMALMAP_INDEX 2
 #define SPECULARMAP_INDEX 3
+#define ENVIRONMENTMAP_INDEX 4
 
 @class Isgl3dShaderState;
 
@@ -61,7 +62,8 @@
     GLint _mvMatrixUniformLocation;
     GLint _mvpMatrixUniformLocation;
 	GLint _normalMatrixUniformLocation;
-	
+    GLint _inverseViewUniformLocation;
+	GLint _reflectivityUniformLocation;
 	// light characteristics
 	GLint _includeSpecularUniformLocation;
 	GLint _lightingEnabledUniformLocation;
@@ -95,6 +97,7 @@
     // Normal Mapping
 	GLint _normalMapSamplerLocation;
 	GLint _specularMapSamplerLocation;
+    GLint _environmentMapSamplerLocation;
 
 	// Shadows
 	GLint _mcToLightMatrixUniformLocation;

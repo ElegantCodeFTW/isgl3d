@@ -85,7 +85,7 @@
 	BOOL _rotationMatrixDirty;
 
 
-
+    NSString *_name;
 	NSMutableArray * _children;
 
 	BOOL _enableShadowCasting;	
@@ -117,6 +117,10 @@
  * Returns the world transformation of the node.
  */
 @property (readonly) Isgl3dMatrix4 worldTransformation;
+/**
+ * Returns the local transformation of the node.
+ */
+@property (nonatomic, assign) Isgl3dMatrix4 localTransformation;
 
 /**
  * The local displacement along the x-axis in the objects frame of reference.
@@ -172,6 +176,10 @@
  * Subclasses implement this instead of description for extra properties.
  */
 @property (readonly) NSString *additionalDescription;
+/**
+ * The optional name of this node.
+ */
+@property (nonatomic, strong, retain) NSString *name;
 
 /**
  * The children of this node. Returns an NSArray of Isgl3dNodes.
@@ -328,7 +336,7 @@
  * @param z The z component of the axis of rotation.
  */
 - (void)setRotation:(float)angle x:(float)x y:(float)y z:(float)z;
-
+- (void)updateEulerAngles;
 /**
  * Sets a global scaling factor for the object (identical in x-, y- and z-directions).
  * @param scale The scaling factor.
@@ -686,5 +694,15 @@
  * associated with the mesh.
  */
 - (void)setFrame:(unsigned int)frameNumber;
+/*
+ * Called recursively whenever a child is added or removed.
+ * @param The added child node
+ */
+- (void)descendantAdded:(Isgl3dNode *)descendant;
+/*
+ * Called recursively whenever a child is removed.
+ * @param The removed child node
+ */
+- (void)descendantRemoved:(Isgl3dNode *)descendant;
 
 @end

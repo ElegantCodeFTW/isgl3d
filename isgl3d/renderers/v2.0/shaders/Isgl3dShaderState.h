@@ -35,7 +35,7 @@
 	BOOL _textureEnabled;
 	BOOL _lightingEnabled;
 	BOOL _normalMappingEnabled;
-	BOOL _specularMappingEnabled;
+    BOOL _environmentMappingEnabled;
 }
 
 - (id)init;
@@ -46,6 +46,6 @@
 @property (nonatomic) BOOL lightingEnabled;
 @property (nonatomic) BOOL normalMappingEnabled;
 @property (nonatomic) BOOL specularMappingEnabled;
-
+@property (nonatomic) BOOL environmentMappingEnabled;
 
 @end
