@@ -39,6 +39,8 @@
 #define TWEEN_FUNC_EASEINTHROW @"easeInThrow"
 #define TWEEN_FUNC_EASEOUTTHROW @"easeOutThrow"
 
+@class Isgl3dTween;
+typedef void(^Isgl3dTweenCompletionHandler)(Isgl3dTween *tween);
 /**
  * The Isgl3dTween provides Tweening functionality in iSGL3D.
  * 
@@ -109,7 +111,7 @@
  * An array of NSString property names to be tweened.
  */
 @property (readonly) NSArray * properties;
-
+@property (copy,nonatomic) Isgl3dTweenCompletionHandler completion;
 /**
  * Initialises the Isgl3dTween with an object to be tweened and an NSDictionary of parameters for it.
  * The parameters contains the following

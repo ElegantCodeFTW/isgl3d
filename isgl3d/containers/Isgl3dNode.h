@@ -122,6 +122,7 @@
  */
 @property (nonatomic, assign) Isgl3dMatrix4 localTransformation;
 
+@property (nonatomic, assign) Isgl3dQuaternion rotationQuaternion;
 /**
  * The local displacement along the x-axis in the objects frame of reference.
  */

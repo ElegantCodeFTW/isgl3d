@@ -26,6 +26,8 @@
 #import "Isgl3dTween.h"
 #import <objc/runtime.h>
 #import "Isgl3dLog.h"
+#import "Isgl3dMathTypes.h"
+#import "Isgl3dQuaternion.h"
 
 @interface Isgl3dTween ()
 - (void)handleParameters:(NSDictionary *)parameters;
@@ -111,17 +113,16 @@
 		
 		} else {
 			@try {
-				
+                id val = [_object valueForKeyPath:key];
 				// Verify that property value is an NSNumber
-				if (![[_object valueForKeyPath:key] isKindOfClass:[NSNumber class]]) {
-					Isgl3dClassDebugLog(Isgl3dLogLevelError, @"property %@ cannot be used for tween. Only NSNumber properties can be used", key);
-					
-				} else {
-					NSNumber *initialValue = [_object valueForKeyPath:key];
-				
-					[_initialValues setObject:initialValue forKey:key];
+                if ([val isKindOfClass:[NSNumber class]] || [val isKindOfClass:[NSValue class]]) {
+					[_initialValues setObject:val forKey:key];
 					[_finalValues setObject:[parameters objectForKey:key] forKey:key];
-				}
+				} else if ([val isKindOfClass:[NSValue class]]) {
+                    
+                } else {
+                    Isgl3dClassDebugLog(Isgl3dLogLevelError, @"property %@ cannot be used for tween. Only NSNumber or NSValue wrapped matrix properties can be used", key);
+                }
 				
 			
 			} 
@@ -163,22 +164,37 @@
 	}
 	
 	// Iterate over all properties and apply tween
-	for (NSString * key in _initialValues) {
-		float initialValue = [[_initialValues objectForKey:key] floatValue];
-		float finalValue = [[_finalValues objectForKey:key] floatValue];
-		
-		float newValue;
-		if (_isCompleted) {
-			newValue = finalValue;	
-		} else {
-			newValue = initialValue + (finalValue - initialValue) * [self tweenFunc:timeInterval / _duration];
-		}
-		
-		if (_object) {
-			[_object setValue:[NSNumber numberWithFloat:newValue] forKey:key];
-		}
-	} 
-	
+    [_initialValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [self tweenObject:_object key:key from:obj time:timeInterval];
+    }];
+}
+
+- (void)tweenObject:(id)object key:(id)key from:(id)from time:(NSTimeInterval)time {
+    id to = _finalValues[key];
+    id val;
+    if (_isCompleted) {
+        val = to;
+    } else {
+    
+        if ([from isKindOfClass:[NSNumber class]]) {
+            float initialValue = [(NSNumber *)from floatValue];
+            float finalValue = [(NSNumber *)to floatValue];
+            val = @(initialValue + (finalValue - initialValue) * [self tweenFunc:time / _duration]);
+        } else { // else quaternion
+            Isgl3dQuaternion fromQua;
+            Isgl3dQuaternion toQua;
+
+            [(NSValue *)from getValue:&fromQua];
+            [(NSValue *)to getValue:&toQua];
+            
+            Isgl3dQuaternion currentQua = Isgl3dQuaternionSlerp(fromQua, toQua, [self tweenFunc:time / _duration]);
+            
+            val = [NSValue valueWithBytes:&currentQua objCType:@encode(Isgl3dQuaternion)];
+        }
+    }
+    if (_object) {
+        [_object setValue:val forKey:key];
+    }
 }
 
 - (void)onComplete {

@@ -100,6 +100,14 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
 }
 
 - (Isgl3dMatrix4)viewMatrix {
+    if (_viewProjectionMatrixDirty || _transformationDirty || _localTransformationDirty) {
+        if (self.parent) {
+            Isgl3dMatrix4 parentTrans = self.parent.worldTransformation;
+            [self updateWorldTransformation:&parentTrans];
+        } else {
+            [self updateWorldTransformation:NULL];
+        }
+    }
     return _viewMatrix;
 }
 
@@ -160,7 +168,7 @@ static NSString *kLensProjectionMatrix = @"projectionMatrix";
 }
 
 - (Isgl3dMatrix4)viewProjectionMatrix {
-    if (_viewProjectionMatrixDirty) {
+    if (_viewProjectionMatrixDirty || _transformationDirty || _localTransformationDirty) {
         _viewProjectionMatrix = Isgl3dMatrix4Multiply(self.lens.projectionMatrix, self.worldTransformation);
         _viewProjectionMatrixDirty = NO;
     }

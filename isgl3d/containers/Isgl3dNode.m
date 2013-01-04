@@ -198,14 +198,14 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (Isgl3dVector3)position {
-	return im4ToPosition(&_localTransformation);
+    Isgl3dMatrix4 local = self.localTransformation;
+	return im4ToPosition(&local);
 }
 
 - (void)setPosition:(Isgl3dVector3)position {
 	_localTransformation.m30 = position.x;
 	_localTransformation.m31 = position.y;
 	_localTransformation.m32 = position.z;
-	
 	_transformationDirty = YES;
 }
 
@@ -831,6 +831,47 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)descendantRemoved:(Isgl3dNode *)descendant {
     [_parent descendantRemoved:descendant];
+}
+
+- (Isgl3dQuaternion)rotationQuaternion {
+    return Isgl3dQuaternionMakeWithMatrix4(self.localTransformation);
+}
+    
+- (void)setRotationQuaternion:(Isgl3dQuaternion)rotationQuaternion {
+    Isgl3dVector3 pos = self.position;
+    Isgl3dMatrix4 trans = Isgl3dMatrix4MakeWithQuaternion(rotationQuaternion);
+    self.localTransformation = trans;
+    self.position = pos;
+}
+
+- (id)valueForKey:(NSString *)key {
+    if ([key isEqualToString:@"localTransformation"]) {
+        Isgl3dMatrix4 matrix = self.localTransformation;
+        return [NSValue valueWithBytes:&matrix objCType:@encode(Isgl3dMatrix4)];
+    } else if ([key isEqualToString:@"rotationQuaternion"]) {
+        Isgl3dQuaternion qua = self.rotationQuaternion;
+        return [NSValue valueWithBytes:&qua objCType:@encode(Isgl3dQuaternion)];
+
+    } else {
+        return [super valueForKey:key];
+    }
+}
+
+- (void)setValue:(id)value forKey:(NSString *)key {
+    if ([key isEqualToString:@"localTransformation"]) {
+        NSValue *boxedTransform = value;
+        Isgl3dMatrix4 matrix;
+        [boxedTransform getValue:&matrix];
+        self.localTransformation = matrix;
+    } else if ([key isEqualToString:@"rotationQuaternion"]) {
+        NSValue *boxedQua = value;
+        Isgl3dQuaternion qua;
+        [boxedQua getValue:&qua];
+        self.rotationQuaternion = qua;
+    } else {
+        [super setValue:value forKey:key];
+    }
+    
 }
 
 @end

@@ -1438,7 +1438,7 @@
 		8B4B55A914F45592007EEFAA /* libisgl3d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAC07E0554694100DB518D /* libisgl3d.a */; };
 		8B4B55B314F455FE007EEFAA /* NormalMappingDemoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4B55B214F455FE007EEFAA /* NormalMappingDemoView.m */; };
 		8B8A870F14CF182500C17DC5 /* Isgl3dMathTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B8A870E14CF182500C17DC5 /* Isgl3dMathTypes.h */; };
-		8B8A871214CF190200C17DC5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8B8A871214CF190200C17DC5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		8B8A871314CF1CF200C17DC5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		8B92DC4E15054189007807C2 /* Isgl3dFocusZoomPerspectiveLens.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B92DC4C15054188007807C2 /* Isgl3dFocusZoomPerspectiveLens.h */; };
 		8B92DC4F15054189007807C2 /* Isgl3dFocusZoomPerspectiveLens.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B92DC4D15054189007807C2 /* Isgl3dFocusZoomPerspectiveLens.m */; };
@@ -1520,6 +1520,36 @@
 		8BDBA1D714CCFABE00BAEB8A /* PVRTShader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BDBA1C714CCFABE00BAEB8A /* PVRTShader.h */; };
 		8BDBA1D814CCFABE00BAEB8A /* PVRTTextureAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA1C814CCFABE00BAEB8A /* PVRTTextureAPI.cpp */; };
 		8BDBA1D914CCFABE00BAEB8A /* PVRTTextureAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BDBA1C914CCFABE00BAEB8A /* PVRTTextureAPI.h */; };
+		A141ECDB16965E9C00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECDD16965EA300E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECDE16965EB100E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECDF16965EB800E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE016965EBF00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE116965EC500E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE216965ECC00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE316965ED400E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE416965EDF00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE516965EE800E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE616965F1200E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE716965F1A00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE816965F2200E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECE916965F2A00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECEA16965F3100E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECEB16965F3800E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECEC16965F4400E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECED16965F4D00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECEE16965F5600E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECEF16965F5F00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF016965F6700E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF116965F7000E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF216965F7600E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF316965F7E00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF416965F8500E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF516965F8C00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF616965F9200E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF716965F9800E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF816965FAA00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
+		A141ECF916965FB100E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -2817,6 +2847,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE216965ECC00E5282E /* GLKit.framework in Frameworks */,
 				1713BAD21357979B002C3288 /* CoreGraphics.framework in Frameworks */,
 				1713BAD31357979B002C3288 /* OpenGLES.framework in Frameworks */,
 				1713BAD41357979B002C3288 /* QuartzCore.framework in Frameworks */,
@@ -2830,6 +2861,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE316965ED400E5282E /* GLKit.framework in Frameworks */,
 				1713BAF71358AFF6002C3288 /* CoreGraphics.framework in Frameworks */,
 				1713BAF81358AFF6002C3288 /* OpenGLES.framework in Frameworks */,
 				1713BAF91358AFF6002C3288 /* QuartzCore.framework in Frameworks */,
@@ -2843,6 +2875,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF116965F7000E5282E /* GLKit.framework in Frameworks */,
 				171CB85E13195C65003712F4 /* libisgl3d.a in Frameworks */,
 				171CB85F13195C65003712F4 /* Foundation.framework in Frameworks */,
 				171CB86013195C65003712F4 /* CoreGraphics.framework in Frameworks */,
@@ -2856,6 +2889,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECDB16965E9C00E5282E /* GLKit.framework in Frameworks */,
 				171CB8E513196403003712F4 /* CoreGraphics.framework in Frameworks */,
 				171CB8E613196403003712F4 /* OpenGLES.framework in Frameworks */,
 				171CB8E713196403003712F4 /* QuartzCore.framework in Frameworks */,
@@ -2869,6 +2903,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECDD16965EA300E5282E /* GLKit.framework in Frameworks */,
 				171CB91413196613003712F4 /* CoreGraphics.framework in Frameworks */,
 				171CB91513196613003712F4 /* OpenGLES.framework in Frameworks */,
 				171CB91613196613003712F4 /* QuartzCore.framework in Frameworks */,
@@ -2882,12 +2917,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B8A871314CF1CF200C17DC5 /* GLKit.framework in Frameworks */,
 				171CB93A131966E7003712F4 /* CoreGraphics.framework in Frameworks */,
 				171CB93B131966E7003712F4 /* OpenGLES.framework in Frameworks */,
 				171CB93C131966E7003712F4 /* QuartzCore.framework in Frameworks */,
 				171CB93D131966E7003712F4 /* UIKit.framework in Frameworks */,
 				171CB93E131966E7003712F4 /* Foundation.framework in Frameworks */,
-				8B8A871314CF1CF200C17DC5 /* GLKit.framework in Frameworks */,
 				171CB93F131966E7003712F4 /* libisgl3d.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2896,6 +2931,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECDE16965EB100E5282E /* GLKit.framework in Frameworks */,
 				171CB95E131967C1003712F4 /* CoreGraphics.framework in Frameworks */,
 				171CB95F131967C1003712F4 /* OpenGLES.framework in Frameworks */,
 				171CB960131967C1003712F4 /* QuartzCore.framework in Frameworks */,
@@ -2909,6 +2945,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECDF16965EB800E5282E /* GLKit.framework in Frameworks */,
 				171CB98B13196880003712F4 /* CoreGraphics.framework in Frameworks */,
 				171CB98C13196880003712F4 /* OpenGLES.framework in Frameworks */,
 				171CB98D13196880003712F4 /* QuartzCore.framework in Frameworks */,
@@ -2922,6 +2959,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE716965F1A00E5282E /* GLKit.framework in Frameworks */,
 				1731214A12FB3D6500861D84 /* CoreGraphics.framework in Frameworks */,
 				1731214B12FB3D6500861D84 /* OpenGLES.framework in Frameworks */,
 				1731214C12FB3D6500861D84 /* QuartzCore.framework in Frameworks */,
@@ -2935,6 +2973,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE816965F2200E5282E /* GLKit.framework in Frameworks */,
 				1731218412FB562900861D84 /* CoreGraphics.framework in Frameworks */,
 				1731218512FB562900861D84 /* OpenGLES.framework in Frameworks */,
 				1731218612FB562900861D84 /* QuartzCore.framework in Frameworks */,
@@ -2949,6 +2988,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE916965F2A00E5282E /* GLKit.framework in Frameworks */,
 				173121BF12FB58A000861D84 /* CoreGraphics.framework in Frameworks */,
 				173121C012FB58A000861D84 /* OpenGLES.framework in Frameworks */,
 				173121C112FB58A000861D84 /* QuartzCore.framework in Frameworks */,
@@ -2962,6 +3002,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECEB16965F3800E5282E /* GLKit.framework in Frameworks */,
 				1731226612FC764100861D84 /* CoreGraphics.framework in Frameworks */,
 				1731226712FC764100861D84 /* OpenGLES.framework in Frameworks */,
 				1731226812FC764100861D84 /* QuartzCore.framework in Frameworks */,
@@ -2975,6 +3016,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECEC16965F4400E5282E /* GLKit.framework in Frameworks */,
 				173122AA12FC797300861D84 /* CoreGraphics.framework in Frameworks */,
 				173122AB12FC797300861D84 /* OpenGLES.framework in Frameworks */,
 				173122AC12FC797300861D84 /* QuartzCore.framework in Frameworks */,
@@ -2988,6 +3030,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECEA16965F3100E5282E /* GLKit.framework in Frameworks */,
 				173122E612FC7B9300861D84 /* CoreGraphics.framework in Frameworks */,
 				173122E712FC7B9300861D84 /* OpenGLES.framework in Frameworks */,
 				173122E812FC7B9300861D84 /* QuartzCore.framework in Frameworks */,
@@ -3001,6 +3044,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECED16965F4D00E5282E /* GLKit.framework in Frameworks */,
 				1731232D12FC7DFA00861D84 /* CoreGraphics.framework in Frameworks */,
 				1731232E12FC7DFA00861D84 /* OpenGLES.framework in Frameworks */,
 				1731232F12FC7DFA00861D84 /* QuartzCore.framework in Frameworks */,
@@ -3014,6 +3058,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECEE16965F5600E5282E /* GLKit.framework in Frameworks */,
 				1731238112FC82BD00861D84 /* CoreGraphics.framework in Frameworks */,
 				1731238212FC82BD00861D84 /* OpenGLES.framework in Frameworks */,
 				1731238312FC82BD00861D84 /* QuartzCore.framework in Frameworks */,
@@ -3027,6 +3072,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECEF16965F5F00E5282E /* GLKit.framework in Frameworks */,
 				173123AE12FC841000861D84 /* CoreGraphics.framework in Frameworks */,
 				173123AF12FC841000861D84 /* OpenGLES.framework in Frameworks */,
 				173123B012FC841000861D84 /* QuartzCore.framework in Frameworks */,
@@ -3040,6 +3086,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF016965F6700E5282E /* GLKit.framework in Frameworks */,
 				173123F812FD627B00861D84 /* CoreGraphics.framework in Frameworks */,
 				173123F912FD627B00861D84 /* OpenGLES.framework in Frameworks */,
 				173123FA12FD627B00861D84 /* QuartzCore.framework in Frameworks */,
@@ -3053,6 +3100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF416965F8500E5282E /* GLKit.framework in Frameworks */,
 				175535A51360B4B700C593E3 /* CoreGraphics.framework in Frameworks */,
 				175535A61360B4B700C593E3 /* OpenGLES.framework in Frameworks */,
 				175535A71360B4B700C593E3 /* QuartzCore.framework in Frameworks */,
@@ -3067,6 +3115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE116965EC500E5282E /* GLKit.framework in Frameworks */,
 				1762383012F9CEDD008CDB4B /* CoreGraphics.framework in Frameworks */,
 				1762383112F9CEDD008CDB4B /* OpenGLES.framework in Frameworks */,
 				1762383212F9CEDD008CDB4B /* QuartzCore.framework in Frameworks */,
@@ -3080,6 +3129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE616965F1200E5282E /* GLKit.framework in Frameworks */,
 				17801A56131A955A0045803F /* CoreGraphics.framework in Frameworks */,
 				17801A57131A955A0045803F /* OpenGLES.framework in Frameworks */,
 				17801A58131A955A0045803F /* QuartzCore.framework in Frameworks */,
@@ -3093,6 +3143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF616965F9200E5282E /* GLKit.framework in Frameworks */,
 				178A62F81368558A00BEFD2C /* CoreGraphics.framework in Frameworks */,
 				178A62F91368558A00BEFD2C /* OpenGLES.framework in Frameworks */,
 				178A62FA1368558A00BEFD2C /* QuartzCore.framework in Frameworks */,
@@ -3113,6 +3164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF716965F9800E5282E /* GLKit.framework in Frameworks */,
 				17A481C513F129880098AC3F /* CoreGraphics.framework in Frameworks */,
 				17A481C613F129880098AC3F /* OpenGLES.framework in Frameworks */,
 				17A481C713F129880098AC3F /* QuartzCore.framework in Frameworks */,
@@ -3126,6 +3178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF316965F7E00E5282E /* GLKit.framework in Frameworks */,
 				17AD09E613434FD7005F5F7F /* CoreGraphics.framework in Frameworks */,
 				17AD09E713434FD7005F5F7F /* OpenGLES.framework in Frameworks */,
 				17AD09E813434FD7005F5F7F /* QuartzCore.framework in Frameworks */,
@@ -3139,6 +3192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF216965F7600E5282E /* GLKit.framework in Frameworks */,
 				17BE175C132E94E400D053BA /* CoreGraphics.framework in Frameworks */,
 				17BE175D132E94E400D053BA /* OpenGLES.framework in Frameworks */,
 				17BE175E132E94E400D053BA /* QuartzCore.framework in Frameworks */,
@@ -3152,6 +3206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF916965FB100E5282E /* GLKit.framework in Frameworks */,
 				17C2F0CD13F6CCEE0002C7D3 /* CoreGraphics.framework in Frameworks */,
 				17C2F0CE13F6CCEE0002C7D3 /* OpenGLES.framework in Frameworks */,
 				17C2F0CF13F6CCEE0002C7D3 /* QuartzCore.framework in Frameworks */,
@@ -3165,6 +3220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF516965F8C00E5282E /* GLKit.framework in Frameworks */,
 				17CDF5C2136753FA00893070 /* CoreGraphics.framework in Frameworks */,
 				17CDF5C3136753FA00893070 /* OpenGLES.framework in Frameworks */,
 				17CDF5C4136753FA00893070 /* QuartzCore.framework in Frameworks */,
@@ -3178,6 +3234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECF816965FAA00E5282E /* GLKit.framework in Frameworks */,
 				17D0775B13F4A643003F6E46 /* CoreGraphics.framework in Frameworks */,
 				17D0775C13F4A643003F6E46 /* OpenGLES.framework in Frameworks */,
 				17D0775D13F4A643003F6E46 /* QuartzCore.framework in Frameworks */,
@@ -3198,6 +3255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE416965EDF00E5282E /* GLKit.framework in Frameworks */,
 				176236CF12F9C92F008CDB4B /* libisgl3dbullet.a in Frameworks */,
 				17B7209812F8B9A100F80DFD /* libisgl3d.a in Frameworks */,
 				17B7209D12F8B9D600F80DFD /* Foundation.framework in Frameworks */,
@@ -3212,6 +3270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE016965EBF00E5282E /* GLKit.framework in Frameworks */,
 				17F7A84712FA0BB000C7BB82 /* CoreGraphics.framework in Frameworks */,
 				17F7A84812FA0BB000C7BB82 /* OpenGLES.framework in Frameworks */,
 				17F7A84912FA0BB000C7BB82 /* QuartzCore.framework in Frameworks */,
@@ -3225,6 +3284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A141ECE516965EE800E5282E /* GLKit.framework in Frameworks */,
 				17F7A87B12FA0D6100C7BB82 /* CoreGraphics.framework in Frameworks */,
 				17F7A87C12FA0D6100C7BB82 /* OpenGLES.framework in Frameworks */,
 				17F7A87D12FA0D6100C7BB82 /* QuartzCore.framework in Frameworks */,

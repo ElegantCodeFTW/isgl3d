@@ -28,6 +28,8 @@
 
 #define iqn(X, Y, Z, W) iqnCreate(X, Y, Z, W)
 
+#define Isgl3dQuaternionMakeWithMatrix4 GLKQuaternionMakeWithMatrix4
+#define Isgl3dQuaternionSlerp GLKQuaternionSlerp
 
 /**
  * Creates a quaternion with the given components.

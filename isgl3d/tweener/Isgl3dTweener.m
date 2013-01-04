@@ -135,7 +135,7 @@ static Isgl3dTweener * _instance;
 	if ([_activeTweens count] == 0) {
 		[self stopAnimation];
 	}
-
+    
 	// Handle any onCompeletion selectors and release completed tween
 	for (Isgl3dTween * tween in completedTweens) {
 		[tween onComplete];
@@ -144,7 +144,6 @@ static Isgl3dTweener * _instance;
 	// Release completed tweens
 	[completedTweens release];
 }
-
 
 - (void)startAnimation {
 	// Check to see if animation already happening
