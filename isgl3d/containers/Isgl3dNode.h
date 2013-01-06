@@ -45,6 +45,8 @@
 @class Isgl3dGLRenderer;
 @class Isgl3dActionManager;
 @class Isgl3dAction;
+@class Isgl3dNodeDynamics;
+@class Isgl3dNodePhysics;
 
 /**
  * The Isgl3dNode provides an interface to perform transformations on a node.
@@ -112,7 +114,10 @@
 
 	BOOL _hasChildren;
 }
-
+/** 
+ * Wrapper for bullet physics information about the node (rigid body etc)
+ */
+@property (nonatomic, retain) Isgl3dNodeDynamics *dynamics;
 /**
  * Returns the world transformation of the node.
  */
@@ -705,5 +710,16 @@
  * @param The removed child node
  */
 - (void)descendantRemoved:(Isgl3dNode *)descendant;
+/*
+ * Called recursively whenever a child adds physics dynamics
+ * @param The added child node
+ */
+- (void)descendantDidAddDynamics:(Isgl3dNode *)descendant;
+/*
+ * Called recursively whenever a child removes physics dynamics
+ * @param The removed child node
+ */
+- (void)descendantWillRemoveDynamics:(Isgl3dNode *)descendant;
+
 
 @end

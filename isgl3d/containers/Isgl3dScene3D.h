@@ -26,6 +26,7 @@
 #import "Isgl3dNode.h"
 
 @class Isgl3dGLRenderer;
+@class Isgl3dScenePhysics;
 
 /**
  * The Isgl3dScene3D is the root node for a scene. It is associated closely to the Isgl3dView: the
@@ -42,6 +43,16 @@
 	NSMutableArray * _alphaNodes;
 	NSMutableArray * _sortedNodes;
 }
+/**
+ * Returns the gravity vector, defaults to zero and no physics
+ */
+@property (nonatomic, assign) Isgl3dVector3 gravity;
+
+/**
+ * Wrapper for bullet physics information about the node (rigid body etc)
+ */
+@property (nonatomic, retain) Isgl3dScenePhysics *physics;
+
 /**
  * Nodes indexed by name, indexed on descendantAdded/Removed callbacks.
  */

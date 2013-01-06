@@ -120,6 +120,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (void)dealloc {
+    [_dynamics release];
     [_frameTransformations release];
 	[_children release];
     [_name release];
@@ -157,6 +158,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
     copy->_alphaCullValue = _alphaCullValue;
     copy->_interactive = _interactive;
     copy->_isVisible = _isVisible;
+    //TODO: Copy dynamics?
 
 	for (Isgl3dNode *child in _children) {
 		[copy addChild:[[child copy] autorelease]];
@@ -831,6 +833,28 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)descendantRemoved:(Isgl3dNode *)descendant {
     [_parent descendantRemoved:descendant];
+}
+
+- (void)descendantDidAddDynamics:(Isgl3dNode *)descendant {
+    [_parent descendantDidAddDynamics:descendant];
+}
+
+- (void)descendantWillRemoveDynamics:(Isgl3dNode *)descendant {
+    [_parent descendantWillRemoveDynamics:descendant];
+}
+
+- (void)setDynamics:(Isgl3dNodeDynamics *)dynamics {
+    if (_dynamics!=dynamics) {
+        if (_parent && _dynamics && !dynamics) {
+            [_parent descendantWillRemoveDynamics:self];
+        }
+        BOOL addingDynamics = !_dynamics && dynamics;
+        [_dynamics release];
+        _dynamics = [dynamics retain];
+        if (_parent && addingDynamics) {
+            [_parent descendantDidAddDynamics:self];
+        }
+    }
 }
 
 - (Isgl3dQuaternion)rotationQuaternion {

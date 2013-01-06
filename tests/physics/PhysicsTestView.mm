@@ -28,6 +28,8 @@
 #import "Isgl3dPhysicsObject3D.h"
 #import "Isgl3dMotionState.h"
 #import "Isgl3dDemoCameraController.h"
+#import "Isgl3dScene3D.h"
+#import "Isgl3dNodeDynamics.h"
 
 #import <stdlib.h>
 #import <time.h>
@@ -45,13 +47,16 @@
 
 
 #pragma mark -
-@implementation PhysicsTestView
+@implementation PhysicsTestView {
+    BOOL _useDynamics;
+}
 
 @synthesize camera = _camera;
 
 - (id)init {
 	
 	if (self = [super init]) {
+        _useDynamics = YES;
         
         Isgl3dNodeCamera *camera = (Isgl3dNodeCamera *)self.defaultCamera;
         
@@ -71,24 +76,31 @@
 		[Isgl3dDirector sharedInstance].shadowRenderingMethod = Isgl3dShadowPlanar;
 		[Isgl3dDirector sharedInstance].shadowAlpha = 0.4;
 
-
-		// Create physics world with discrete dynamics
-		_collisionConfig = new btDefaultCollisionConfiguration();
-		_broadphase = new btDbvtBroadphase();
-		_collisionDispatcher = new btCollisionDispatcher(_collisionConfig);
-		_constraintSolver = new btSequentialImpulseConstraintSolver;
-		_discreteDynamicsWorld = new btDiscreteDynamicsWorld(_collisionDispatcher, _broadphase, _constraintSolver, _collisionConfig);
-		_discreteDynamicsWorld->setGravity(btVector3(0,-10,0));
-	
-		_physicsWorld = [[Isgl3dPhysicsWorld alloc] init];
-		[_physicsWorld setDiscreteDynamicsWorld:_discreteDynamicsWorld];
-		[self.scene addChild:_physicsWorld];
-	
+        if (!_useDynamics) {
+            // Create physics world with discrete dynamics
+            _collisionConfig = new btDefaultCollisionConfiguration();
+            _broadphase = new btDbvtBroadphase();
+            _collisionDispatcher = new btCollisionDispatcher(_collisionConfig);
+            _constraintSolver = new btSequentialImpulseConstraintSolver;
+            _discreteDynamicsWorld = new btDiscreteDynamicsWorld(_collisionDispatcher, _broadphase, _constraintSolver, _collisionConfig);
+            _discreteDynamicsWorld->setGravity(btVector3(0,-10,0));
+        
+            _physicsWorld = [[Isgl3dPhysicsWorld alloc] init];
+            [_physicsWorld setDiscreteDynamicsWorld:_discreteDynamicsWorld];
+            [self.scene addChild:_physicsWorld];
+        } else {
+            self.scene.gravity = Isgl3dVector3Make(0, -10, 0);
+        }
+        
 		// Create textures
 		_beachBallMaterial = [[Isgl3dTextureMaterial alloc] initWithTextureFile:@"BeachBall.png" shininess:0.9 precision:Isgl3dTexturePrecisionMedium repeatX:NO repeatY:NO];
 		_isglLogo = [[Isgl3dTextureMaterial alloc] initWithTextureFile:@"cardboard.jpg" shininess:0.9 precision:Isgl3dTexturePrecisionMedium repeatX:NO repeatY:NO];
-		Isgl3dTextureMaterial * woodMaterial = [[Isgl3dTextureMaterial alloc] initWithTextureFile:@"wood.png" shininess:0.9 precision:Isgl3dTexturePrecisionMedium repeatX:NO repeatY:NO];
-	
+		Isgl3dTextureMaterial *woodMaterial = [[Isgl3dTextureMaterial alloc] initWithTextureFile:@"wood.png" shininess:0.9 precision:Isgl3dTexturePrecisionMedium repeatX:NO repeatY:NO];
+
+        _light  = [[Isgl3dShadowCastingLight alloc] initWithHexColor:@"111111" diffuseColor:@"FFFFFF" specularColor:@"FFFFFF" attenuation:0.003];
+		[self.scene addChild:_light];
+		_light.position = Isgl3dVector3Make(10, 20, 10);
+
 	
 		float radius = 1.0;
 		float width = 2.0;
@@ -96,30 +108,35 @@
 		_cubeMesh = [[Isgl3dCube alloc] initWithGeometry:width height:width depth:width nx:2 ny:2];
 	
 		// Create two nodes for the different meshes
-		_cubesNode = [[_physicsWorld createNode] retain];
-		_spheresNode = [[_physicsWorld createNode] retain];
+        if (!_useDynamics) {
+            _cubesNode = [[_physicsWorld createNode] retain];
+            _spheresNode = [[_physicsWorld createNode] retain];
+        }
 	
-	
+        
 		// Create the ground surface
 		Isgl3dPlane * plane = [[Isgl3dPlane alloc] initWithGeometry:10.0 height:10.0 nx:10 ny:10];
-		btCollisionShape* groundShape = new btBox2dShape(btVector3(5, 5, 0));
-		Isgl3dMeshNode * node = [_physicsWorld createNodeWithMesh:plane andMaterial:[woodMaterial autorelease]];
-        [plane release];
         
-		[node setRotation:-90 x:1 y:0 z:0];
-		node.position = Isgl3dVector3Make(0, -2, 0);
-		Isgl3dPhysicsObject3D * physicsObject = [self createPhysicsObject:node shape:groundShape mass:0 restitution:0.6 isFalling:NO];
-		
-	
-		_light  = [[Isgl3dShadowCastingLight alloc] initWithHexColor:@"111111" diffuseColor:@"FFFFFF" specularColor:@"FFFFFF" attenuation:0.003];
-		[self.scene addChild:_light];
-		_light.position = Isgl3dVector3Make(10, 20, 10);
-	
-		_light.planarShadowsNode = physicsObject.node;
+        btCollisionShape *groundShape = new btBox2dShape(btVector3(5, 5, 0));
+        Isgl3dMeshNode *node = nil;
+        if (!_useDynamics) {
+             node = [_physicsWorld createNodeWithMesh:plane andMaterial:[woodMaterial autorelease]];
+            [node setRotation:-90 x:1 y:0 z:0];
+            node.position = Isgl3dVector3Make(0, -2, 0);
+            [plane release];
+            Isgl3dPhysicsObject3D *physicsObject = [self createPhysicsObject:node shape:groundShape mass:0 restitution:0.6 isFalling:NO];
+            _light.planarShadowsNode = physicsObject.node;
+        } else {
+            node = [Isgl3dMeshNode nodeWithMesh:plane andMaterial:[woodMaterial autorelease]];
+            [node setRotation:-90 x:1 y:0 z:0];
+            node.position = Isgl3dVector3Make(0, -2, 0);
+
+            [plane release];
+            node.dynamics = [[Isgl3dNodeDynamics alloc] initWithNode:node shape:groundShape mass:0 restitution:0.6];
+            [self.scene addChild:node];
+        }
 	
 		[self setSceneAmbient:@"666666"];
-
-
 		
 		// Schedule updates
 		[self schedule:@selector(tick:)];
@@ -217,20 +234,36 @@
 
 
 - (void)createSphere {
-	
-	btCollisionShape * sphereShape = new btSphereShape(_sphereMesh.radius);
-	Isgl3dMeshNode * node = [_spheresNode createNodeWithMesh:_sphereMesh andMaterial:_beachBallMaterial];
-	[self createPhysicsObject:node shape:sphereShape mass:0.5 restitution:0.9 isFalling:YES]; 
+	btCollisionShape *sphereShape = new btSphereShape(_sphereMesh.radius);
+    Isgl3dMeshNode *node = nil;
 
+    if (_useDynamics) {
+        Isgl3dMeshNode *node = [Isgl3dMeshNode nodeWithMesh:_sphereMesh andMaterial:_beachBallMaterial];
+        [node setPositionValues:1.5 - (3.0 * random() / RAND_MAX) y:10 + (10.0 * random() / RAND_MAX) z:1.5 - (3.0 * random() / RAND_MAX)];
+
+        node.dynamics = [[Isgl3dNodeDynamics alloc] initWithNode:node shape:sphereShape mass:0.5 restitution:0.9];
+        [self.scene addChild:node];
+    } else {
+        node = [_spheresNode createNodeWithMesh:_sphereMesh andMaterial:_beachBallMaterial];
+        [self createPhysicsObject:node shape:sphereShape mass:0.5 restitution:0.9 isFalling:YES];
+    }
 	node.enableShadowCasting = YES;
 	
 }
 
 - (void)createCube {
-	
 	btCollisionShape* boxShape = new btBoxShape(btVector3(_cubeMesh.width / 2, _cubeMesh.height / 2, _cubeMesh.depth / 2));
-	Isgl3dMeshNode * node = [_cubesNode createNodeWithMesh:_cubeMesh andMaterial:_isglLogo];
-	[self createPhysicsObject:node shape:boxShape mass:2 restitution:0.4 isFalling:YES]; 
+	Isgl3dMeshNode *node = nil;
+    if (_useDynamics) {
+        Isgl3dMeshNode *node = [Isgl3dMeshNode nodeWithMesh:_cubeMesh andMaterial:_isglLogo];
+        [node setPositionValues:1.5 - (3.0 * random() / RAND_MAX) y:10 + (10.0 * random() / RAND_MAX) z:1.5 - (3.0 * random() / RAND_MAX)];
+        node.dynamics = [[Isgl3dNodeDynamics alloc] initWithNode:node shape:boxShape mass:2 restitution:0.4];
+
+        [self.scene addChild:node];
+    } else {
+        node = [_cubesNode createNodeWithMesh:_cubeMesh andMaterial:_isglLogo];
+        [self createPhysicsObject:node shape:boxShape mass:2 restitution:0.4 isFalling:YES];
+    }
 	node.enableShadowCasting = YES;
 }
 

@@ -25,6 +25,9 @@
 
 #import "Isgl3dScene3D.h"
 #import "Isgl3dNode.h"
+#import "Isgl3dNodeDynamics.h"
+#import "Isgl3dScenePhysics.h"
+
 @interface Isgl3dScene3D()
 @property (nonatomic, readwrite, retain) NSMutableDictionary *nodesByName;
 @property (nonatomic, readwrite, retain) NSMutableSet *cameras;
@@ -54,6 +57,7 @@
 	[_alphaNodes release];
     [_nodesByName release];
     [_cameras release];
+    [_physics release];
 	[super dealloc];
 }
 
@@ -84,13 +88,59 @@
 	[_sortedNodes removeAllObjects];
 }
 
+- (void)setGravity:(Isgl3dVector3)gravity {
+    if (!_physics) {
+        self.physics = [Isgl3dScenePhysics new];
+    }
+    _physics.gravity = gravity;
+}
+
+- (Isgl3dVector3)gravity {
+    if (!_physics) {
+        self.physics = [Isgl3dScenePhysics new];
+    }
+    return _physics ? _physics.gravity : Isgl3dVector3Make(0, 0, 0);
+}
+
 - (void)descendantAdded:(Isgl3dNode *)descendant {
-    
+    if (descendant.dynamics && _physics) {
+        [_physics addNodeDynamics:descendant.dynamics];
+    }
+    NSString *name = descendant.name;
+    if (name) {
+        _nodesByName[name] = descendant;
+    }
 }
 
 - (void)descendantRemoved:(Isgl3dNode *)descendant {
-    
+    if (descendant.dynamics && _physics) {
+        [_physics removeNodeDynamics:descendant.dynamics];
+    }
+    NSString *name = descendant.name;
+    if (name) { //TODO: indexing could be a performance problem with large graphs
+        [_nodesByName removeObjectForKey:name];
+    }
 }
+
+- (void)descendantDidAddDynamics:(Isgl3dNode *)descendant {
+    if (descendant.dynamics && _physics) {
+        [_physics addNodeDynamics:descendant.dynamics];
+    }
+}
+
+- (void)descendantWillRemoveDynamics:(Isgl3dNode *)descendant {
+    if (descendant.dynamics && _physics) {
+        [_physics removeNodeDynamics:descendant.dynamics];
+    }
+}
+
+- (void)updateWorldTransformation:(GLKMatrix4 *)parentTransformation {
+    if (_physics) {
+        [_physics updateDynamics];
+    }
+    [super updateWorldTransformation:parentTransformation];
+}
+
 
 @end
 
