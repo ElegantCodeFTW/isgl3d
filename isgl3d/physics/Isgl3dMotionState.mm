@@ -34,13 +34,11 @@ Isgl3dMotionState::~Isgl3dMotionState() {
 }
 
 void Isgl3dMotionState::getWorldTransform(btTransform& centerOfMassWorldTrans) const {
-	float transformation[16];
-	[_node getTransformationAsOpenGLMatrix:transformation];
-	centerOfMassWorldTrans.setFromOpenGLMatrix(transformation);
+	centerOfMassWorldTrans.setFromOpenGLMatrix(_node.bulletTransform.m);
 }
 
 void Isgl3dMotionState::setWorldTransform(const btTransform& centerOfMassWorldTrans) {
-	float transformation[16];
-	centerOfMassWorldTrans.getOpenGLMatrix(transformation);
-	[_node setTransformationFromOpenGLMatrix:transformation];
+    Isgl3dMatrix4 transform =  GLKMatrix4Identity;
+	centerOfMassWorldTrans.getOpenGLMatrix(transform.m);
+	_node.bulletTransform = transform;
 }

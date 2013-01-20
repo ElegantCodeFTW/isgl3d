@@ -156,7 +156,6 @@
 -(void) build {
 	[self buildTextures];
 	[self buildMaterials];
-	[self buildMeshes];
 	[self buildNodes];
     //TODO: Build soft body node
     //	[self buildSoftBodyNode];
@@ -378,7 +377,8 @@
             
 			PVRTMat4 podTransformation;
 			_podModel->GetWorldMatrix(podTransformation, node);
-			[light setTransformationFromOpenGLMatrix:podTransformation.f];
+            
+			light.transformation = GLKMatrix4MakeWithArray(podTransformation.f);
 			return;
 		}
 	}
@@ -473,16 +473,6 @@
 	}
 }
 
-- (void)buildMeshes {
-    // Create array of meshes
-	for (int i = 0; i < _podModel->nNumMesh; i++) {
-		SPODMesh &meshInfo = _podModel->pMesh[i];
-		
-		Isgl3dGLMesh * mesh = [self createMeshFromPODData:&meshInfo];
-		[_meshes addObject:mesh];
-	}
-}
-
 - (void)buildNodes {
 	// Build the array containing ALL nodes in the PVRT structure
     NSMutableArray *parentIndices = [NSMutableArray array];
@@ -520,6 +510,7 @@
     Isgl3dNode *node = nil;
 	if (nodeIndex < self.numberOfMeshNodes) {
 		node = [self buildMeshNodeAtIndex:nodeIndex];
+        [_meshes addObject:((Isgl3dMeshNode *)node).mesh];
         [_targetIndices addObject:@-1];
         // Then light nodes
 	} else if (nodeIndex < self.numberOfMeshNodes + self.numberOfLights) {
@@ -566,7 +557,7 @@
         if (frameCount > 1) {
             [node addFrameTransformationFromOpenGLMatrix:mOut.f];
         } else {
-            [node setTransformationFromOpenGLMatrix:mOut.f];
+            node.transformation = GLKMatrix4MakeWithArray(mOut.f);
             break;
         }
     }
@@ -577,7 +568,8 @@
     SPODMesh &meshInfo = _podModel->pMesh[meshNodeInfo.nIdx];
     
     // Get the mesh
-    Isgl3dGLMesh *mesh = _meshes[meshNodeInfo.nIdx];
+
+    Isgl3dGLMesh *mesh = [self createMeshFromPODData:&meshInfo];
     Isgl3dMaterial *material = nil;
     
     // Set the material
@@ -595,6 +587,9 @@
         Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"Bulding mesh node: %s:", meshNodeInfo.pszName);
         node = [Isgl3dMeshNode nodeWithMesh:mesh andMaterial:material];
     }
+#ifdef DEBUG
+    glLabelObjectEXT(GL_ARRAY_BUFFER, node.mesh.vboData.vboIndex, 0, meshNodeInfo.pszName);
+#endif
     
     if (material != nil) {
         // Add node alpha
@@ -743,7 +738,7 @@
 	
 	// Check if POD mesh is interleaved or not
 	if (podData->pInterleaved == 0) {
-		
+		NSLog(@"ERROR Cannot load mesh with uninterleaved vertex data!");
 	} else {
 		unsigned int vertexDataSize = podData->nNumVertex * podData->sVertex.nStride;
 		unsigned int numberOfElements = PVRTModelPODCountIndices(*podData);
@@ -753,7 +748,7 @@
 		
 		vboData.positionOffset = (int)(podData->sVertex.pData);
 		vboData.normalOffset = (int)(podData->sNormals.pData);
-		if ((podData->nNumUVW)) {
+		if ((podData->nNumUVW)) { //TODO: Process multiple UV sets of coords
 			vboData.uvOffset = (int)(podData->psUVW[0].pData);
 		}
         
@@ -765,11 +760,14 @@
 			vboData.boneWeightSize = podData->sBoneWeight.n;
 		}
         
-		[mesh setVertices:podData->pInterleaved withVertexDataSize:vertexDataSize andIndices:podData->sFaces.pData withIndexDataSize:numberOfElements * sizeof(ushort)
-      andNumberOfElements:numberOfElements andVBOData:[vboData autorelease]];
+		[mesh setVertices:podData->pInterleaved withVertexDataSize:vertexDataSize andIndices:podData->sFaces.pData withIndexDataSize:numberOfElements * sizeof(ushort) andNumberOfElements:numberOfElements andVBOData:[vboData autorelease]];
 	}
     //	mesh.normalizationEnabled = YES;
 	return mesh;
+}
+
+- (id)objectForKeyedSubscript:(id)key {
+    return _nodesByName[key];
 }
 
 @end

@@ -83,12 +83,13 @@
 	[self constructMeshData];
 
 	if (_vertexData) {
+        //TODO: These buffers create are typed as element arrays when they should just be arrays, doesn't seem to hurt though
 		_vboData.vboIndex = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_vertexData size:_vertexDataSize];
 	}
 	
 	if (_indices) {
 		_indicesBufferId = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_indices size:_indexDataSize];
-	}	
+	}
 }
 
 - (void)constructMeshData {

@@ -132,7 +132,9 @@
             node.position = Isgl3dVector3Make(0, -2, 0);
 
             [plane release];
-            node.dynamics = [[Isgl3dNodeDynamics alloc] initWithNode:node shape:groundShape mass:0 restitution:0.6];
+//            node.dynamics = [[Isgl3dNodeDynamics alloc] initWithNode:node shape:groundShape mass:0 restitution:0.6];
+            node.dynamics = [[Isgl3dNodeDynamics alloc] initWithMeshNode:node concave:YES mass:0 restitution:0.6];
+            
             [self.scene addChild:node];
         }
 	
@@ -257,7 +259,9 @@
     if (_useDynamics) {
         Isgl3dMeshNode *node = [Isgl3dMeshNode nodeWithMesh:_cubeMesh andMaterial:_isglLogo];
         [node setPositionValues:1.5 - (3.0 * random() / RAND_MAX) y:10 + (10.0 * random() / RAND_MAX) z:1.5 - (3.0 * random() / RAND_MAX)];
-        node.dynamics = [[Isgl3dNodeDynamics alloc] initWithNode:node shape:boxShape mass:2 restitution:0.4];
+//        node.dynamics = [[Isgl3dNodeDynamics alloc] initWithNode:node shape:boxShape mass:2 restitution:0.4];
+        node.dynamics = [[Isgl3dNodeDynamics alloc] initWithMeshNode:node concave:NO mass:2 restitution:0.4];
+
 
         [self.scene addChild:node];
     } else {

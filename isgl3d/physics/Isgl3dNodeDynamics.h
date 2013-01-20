@@ -10,6 +10,7 @@
 #import "Isgl3dVector3.h"
 
 @class Isgl3dNode;
+@class Isgl3dMeshNode;
 
 @interface Isgl3dNodeDynamics : NSObject
 
@@ -19,6 +20,7 @@
 
 - (id)initWithNode:(Isgl3dNode *)node shape:(void *)shape mass:(float)mass restitution:(float)restitution;
 
+- (id)initWithMeshNode:(Isgl3dMeshNode *)meshNode concave:(BOOL)concave mass:(float)mass restitution:(float)restitution;
 
 - (void *)rigidBody;
 /**
@@ -27,5 +29,6 @@
  * @param position The position at which the force is applied.
  */
 - (void)applyForce:(Isgl3dVector3)force withPosition:(Isgl3dVector3)position;
+- (void)applyCentralForce:(Isgl3dVector3)force;
 - (void)updateTransformation;
 @end

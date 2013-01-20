@@ -189,7 +189,9 @@
 }
 
 - (void)render:(Isgl3dGLRenderer *)renderer opaque:(BOOL)opaque {
-	
+#ifdef DEBUG
+	glPushGroupMarkerEXT(0, self.name ? [self.name cStringUsingEncoding:NSUTF8StringEncoding] : "Unnamed Mesh");
+#endif
 	BOOL goOn = YES;
 	if (opaque) {
 		if (_transparent || _occlusionAlpha < 1.0 || _alpha < 1.0) {
@@ -200,7 +202,7 @@
 			goOn = NO;
 		}
 	}
-	
+
 	if (goOn && _mesh && _material) {
 		// calculate transparency
 		float alpha = _alpha * _occlusionAlpha;
@@ -255,6 +257,9 @@
 	
 	// Recurse over children
 	[super render:renderer opaque:opaque];
+#ifdef DEBUG
+    glPopGroupMarkerEXT();
+#endif
 }
 
 - (void)renderForEventCapture:(Isgl3dGLRenderer *)renderer {

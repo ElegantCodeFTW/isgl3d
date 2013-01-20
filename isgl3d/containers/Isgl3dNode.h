@@ -125,7 +125,7 @@
 /**
  * Returns the local transformation of the node.
  */
-@property (nonatomic, assign) Isgl3dMatrix4 localTransformation;
+@property (nonatomic, assign) Isgl3dMatrix4 transformation;
 
 @property (nonatomic, assign) Isgl3dQuaternion rotationQuaternion;
 /**
@@ -270,6 +270,12 @@
 @property (nonatomic, readonly) NSArray *gestureRecognizers;
 
 /**
+ * Gets and sets the local transform for bullet engine -- transform always normalizes rotation matrix to scale 1,
+ * the node scale is extracted and preserved and overlayed on setter.
+ */
+@property (nonatomic, assign) Isgl3dMatrix4 bulletTransform;
+
+/**
  * Allocates and initialises (autorelease) node (position at (0, 0, 0) and zero rotation and no scaling).
  */
 + (id)node;
@@ -361,26 +367,6 @@
  * Reset's the local transformation.
  */
 - (void)resetTransformation;
-
-/**
- * Set's the object's local transformation from a given transformation matrix.
- * @param transformation The local transformation of the object.
- */
-- (void)setTransformation:(Isgl3dMatrix4)transformation;
-
-/**
- * Set's the object's local transformation from array of column-wise values representing
- * a 4x4 matrix (same format as OpenGL).
- * @param transformation The local transformation of the object as a column-wise array of values.
- */
-- (void)setTransformationFromOpenGLMatrix:(float *)transformation;
-
-/**
- * USed to obtain the local transformation as a column-wise array of values representing the 
- * 4x4 matrix.
- * @param transformation Current column-wise array of values for the local transformation is stored here.
- */
-- (void)getTransformationAsOpenGLMatrix:(float *)transformation;
 
 /**
  * Copies the current world position of the object into an array of 4 values representing the 4 translation elements of a 4x4 matrix (tx, ty, tz, tw).

@@ -251,4 +251,6 @@
  */
 - (void)modifyTexture:(NSString *)podTextureFileName withTexture:(NSString *)replacementFileName;
 
+- (id)objectForKeyedSubscript:(id)key;
+
 @end

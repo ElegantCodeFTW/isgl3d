@@ -159,7 +159,9 @@ static Isgl3dGLTextureFactory * _instance = nil;
 		texture.isHighDefinition = isHD;
 		
 		[_textures setObject:texture forKey:textureKey];
-		
+#ifdef DEBUG
+		glLabelObjectEXT(GL_TEXTURE, texture.textureId, 0, [file cStringUsingEncoding:NSUTF8StringEncoding]);
+#endif
 		return texture;
 	}
     

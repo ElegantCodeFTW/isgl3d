@@ -101,7 +101,7 @@
 	} else {
 		if (_displayCounter != -1) {
 			// Set the label text to "paused"
-			[_fpsLabel setText:[NSString stringWithFormat:@"paused", _fps]];
+			_fpsLabel.text = @"Paused";
 			_displayCounter = -1;
 		}
 	}

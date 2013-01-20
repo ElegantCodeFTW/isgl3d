@@ -58,6 +58,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 @implementation Isgl3dNode {
     NSUInteger _frameCount;
     Isgl3dArray * _frameTransformations;
+    BOOL _dynamicsNeedUpdate;
 }
 
 @synthesize worldTransformation = _worldTransformation;
@@ -175,7 +176,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setX:(float)x {
 	_localTransformation.m30 = x;
-	
+	_dynamicsNeedUpdate = YES;
 	_transformationDirty = YES;
 }
 
@@ -185,7 +186,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setY:(float)y {
 	_localTransformation.m31 = y;
-	
+	_dynamicsNeedUpdate = YES;
 	_transformationDirty = YES;
 }
 
@@ -195,12 +196,12 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setZ:(float)z {
 	_localTransformation.m32 = z;
-	
+    _dynamicsNeedUpdate = YES;
 	_transformationDirty = YES;
 }
 
 - (Isgl3dVector3)position {
-    Isgl3dMatrix4 local = self.localTransformation;
+    Isgl3dMatrix4 local = self.transformation;
 	return im4ToPosition(&local);
 }
 
@@ -208,6 +209,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 	_localTransformation.m30 = position.x;
 	_localTransformation.m31 = position.y;
 	_localTransformation.m32 = position.z;
+    _dynamicsNeedUpdate = YES;
 	_transformationDirty = YES;
 }
 
@@ -220,7 +222,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setRotationX:(float)rotationX {
 	_rotationX = rotationX;
-	
+    _dynamicsNeedUpdate = YES;
 	_rotationMatrixDirty = YES;
 	_localTransformationDirty = YES;
 }
@@ -234,7 +236,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setRotationY:(float)rotationY {
 	_rotationY = rotationY;
-	
+    _dynamicsNeedUpdate = YES;
 	_rotationMatrixDirty = YES;
 	_localTransformationDirty = YES;
 }
@@ -248,7 +250,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setRotationZ:(float)rotationZ {
 	_rotationZ = rotationZ;
-	
+    _dynamicsNeedUpdate = YES;
 	_rotationMatrixDirty = YES;
 	_localTransformationDirty = YES;
 }
@@ -259,7 +261,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setScaleX:(float)scaleX {
 	_scaleX = scaleX;
-
+	_dynamicsNeedUpdate = YES;
 	_localTransformationDirty = YES;
 }
 
@@ -269,7 +271,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setScaleY:(float)scaleY {
 	_scaleY = scaleY;
-
+	_dynamicsNeedUpdate = YES;
 	_localTransformationDirty = YES;
 }
 
@@ -279,13 +281,13 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setScaleZ:(float)scaleZ {
 	_scaleZ = scaleZ;
-
+	_dynamicsNeedUpdate = YES;
 	_localTransformationDirty = YES;
 }
 
 - (void)setPositionValues:(float)x y:(float)y z:(float)z {
 	im4SetTranslation(&_localTransformation, x, y, z);
-	
+    _dynamicsNeedUpdate = YES;
 	_transformationDirty = YES;
 }
 
@@ -294,7 +296,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 		[self updateRotationMatrix];
 	}
 	im4Translate(&_localTransformation, x, y, z);
-	
+	_dynamicsNeedUpdate = YES;
 	_transformationDirty = YES;
 }
 
@@ -303,7 +305,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 		[self updateRotationMatrix];
 	}
 	im4TranslateByVector(&_localTransformation, &vector);
-	
+	_dynamicsNeedUpdate = YES;
 	_transformationDirty = YES;
 }
 
@@ -340,6 +342,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
         _localTransformation = Isgl3dMatrix4Rotate(_localTransformation, Isgl3dMathDegreesToRadians(angle), x, y, z);
         
         _rotationMatrixDirty = NO;
+        _dynamicsNeedUpdate = YES;
         _eulerAnglesDirty = YES;
         _transformationDirty = YES;        
     }
@@ -347,7 +350,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 - (void)setRotation:(float)angle x:(float)x y:(float)y z:(float)z {
 	im4SetRotation(&_localTransformation, angle, x, y, z);
-	
+    _dynamicsNeedUpdate = YES;
 	_rotationMatrixDirty = NO;
 	_eulerAnglesDirty = YES;
 	_transformationDirty = YES;
@@ -362,52 +365,35 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 	_scaleX = scaleX;
 	_scaleY = scaleY;
 	_scaleZ = scaleZ;
-
+	_dynamicsNeedUpdate = YES;
 	_localTransformationDirty = YES;
 }
 
 - (void)resetTransformation {
 	_localTransformation = Isgl3dMatrix4Identity;
-	
+    _dynamicsNeedUpdate = YES;
 	_localTransformationDirty = YES;
 	_rotationMatrixDirty = NO;
 	_eulerAnglesDirty = YES;
 }
 
-- (void)setTransformation:(Isgl3dMatrix4)transformation {
-	_localTransformation = transformation;
-	
-    Isgl3dVector3 currentScale = im4ToScaleValues(&_localTransformation);
-    _scaleX = currentScale.x;
-    _scaleY = currentScale.y;
-    _scaleZ = currentScale.z;
 
-	_transformationDirty = YES;
-	_rotationMatrixDirty = NO;
-	_eulerAnglesDirty = YES;
-}
-
-- (void)setTransformationFromOpenGLMatrix:(float *)transformation {
-	im4SetTransformationFromOpenGLMatrix(&_localTransformation, transformation);
-
-    Isgl3dVector3 currentScale = im4ToScaleValues(&_localTransformation);
-    _scaleX = currentScale.x;
-    _scaleY = currentScale.y;
-    _scaleZ = currentScale.z;
-	
-	_transformationDirty = YES;
-	_rotationMatrixDirty = NO;
-	_eulerAnglesDirty = YES;
-}
-
-- (void)getTransformationAsOpenGLMatrix:(float *)transformation {
-	if (_localTransformationDirty) {
+- (Isgl3dMatrix4)bulletTransform {
+    if (_localTransformationDirty) {
 		[self updateLocalTransformation];
 	}
-	
-	im4GetTransformationAsOpenGLMatrix(&_localTransformation, transformation);
+	Isgl3dMatrix4 normalizedTransform = GLKMatrix4Scale(_localTransformation, 1.0 / _scaleX, 1.0 / _scaleY, 1.0 / _scaleZ);
+    return normalizedTransform;
 }
 
+- (void)setBulletTransform:(Isgl3dMatrix4)bulletTransform {
+    _localTransformation = GLKMatrix4Scale(bulletTransform, _scaleX, _scaleY, _scaleZ);
+    
+    _dynamicsNeedUpdate = NO; // this method only called by dynamics
+	_transformationDirty = YES;
+	_rotationMatrixDirty = NO;
+	_eulerAnglesDirty = YES;
+}
 
 - (void)copyWorldPositionToArray:(float *)position {
 	position[0] = _worldTransformation.m30;
@@ -455,6 +441,29 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 	_rotationMatrixDirty = NO;
 }
 
+
+- (Isgl3dMatrix4)transformation {
+    if (_localTransformationDirty || _rotationMatrixDirty) {
+        [self updateLocalTransformation];
+    }
+    return _localTransformation;
+}
+
+- (void)setTransformation:(Isgl3dMatrix4)transformation {
+	_localTransformation = transformation;
+	
+    Isgl3dVector3 currentScale = im4ToScaleValues(&_localTransformation);
+    _scaleX = currentScale.x;
+    _scaleY = currentScale.y;
+    _scaleZ = currentScale.z;
+    _localTransformationDirty = NO;
+	_dynamicsNeedUpdate = YES;
+	_transformationDirty = YES;
+	_rotationMatrixDirty = NO;
+	_eulerAnglesDirty = YES;
+}
+
+
 - (void)updateLocalTransformation {
 	// Translation already set
 	
@@ -472,6 +481,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 
 
 - (void)setTransformationDirty:(BOOL)isDirty {
+	_dynamicsNeedUpdate = YES;
 	_transformationDirty = isDirty;
 }
 
@@ -481,22 +491,6 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
         [self updateWorldTransformation:_parent ? &parentTrans : NULL];
     }
     return _worldTransformation;
-}
-
-- (void)setLocalTransformation:(Isgl3dMatrix4)localTransformation {
-    if (_localTransformationDirty || _rotationMatrixDirty) {
-        [self updateLocalTransformation];
-    }
-    _localTransformation = localTransformation;
-    _transformationDirty = YES;
-    _eulerAnglesDirty = YES;
-}
-
-- (Isgl3dMatrix4)localTransformation {
-    if (_localTransformationDirty || _rotationMatrixDirty) {
-        [self updateLocalTransformation];
-    }
-    return _localTransformation;
 }
 
 
@@ -527,7 +521,10 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 		
 		_transformationDirty = NO;
 	}
-	
+    if (_dynamics && _dynamicsNeedUpdate) {
+        //TODO: Can't move dynamic rigid body on its own, could remove, move, then add again.
+//        [_dynamics updateTransformation];
+    }
 	// Update all children transformations
 	if (_hasChildren) {
 		for (Isgl3dNode * node in _children) {
@@ -858,19 +855,19 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (Isgl3dQuaternion)rotationQuaternion {
-    return Isgl3dQuaternionMakeWithMatrix4(self.localTransformation);
+    return Isgl3dQuaternionMakeWithMatrix4(self.transformation);
 }
     
 - (void)setRotationQuaternion:(Isgl3dQuaternion)rotationQuaternion {
     Isgl3dVector3 pos = self.position;
     Isgl3dMatrix4 trans = Isgl3dMatrix4MakeWithQuaternion(rotationQuaternion);
-    self.localTransformation = trans;
+    self.transformation = trans;
     self.position = pos;
 }
 
 - (id)valueForKey:(NSString *)key {
     if ([key isEqualToString:@"localTransformation"]) {
-        Isgl3dMatrix4 matrix = self.localTransformation;
+        Isgl3dMatrix4 matrix = self.transformation;
         return [NSValue valueWithBytes:&matrix objCType:@encode(Isgl3dMatrix4)];
     } else if ([key isEqualToString:@"rotationQuaternion"]) {
         Isgl3dQuaternion qua = self.rotationQuaternion;
@@ -886,7 +883,7 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
         NSValue *boxedTransform = value;
         Isgl3dMatrix4 matrix;
         [boxedTransform getValue:&matrix];
-        self.localTransformation = matrix;
+        self.transformation = matrix;
     } else if ([key isEqualToString:@"rotationQuaternion"]) {
         NSValue *boxedQua = value;
         Isgl3dQuaternion qua;
