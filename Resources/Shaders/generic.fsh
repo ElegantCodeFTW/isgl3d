@@ -71,7 +71,16 @@ void main() {
 
 #ifdef TEXTURE_MAPPING_ENABLED
     lowp vec4 tex_color = texture2D(s_texture, v_texCoord);
-    lowp vec4 color = tex_color.a > 0.0  ? tex_color * v_color : v_color;
+    
+    lowp vec4 color; // combine material if texture has alpha
+    if (tex_color.a == 1.0) {
+        color = tex_color;
+    } else if (tex_color.a > 0.0) {
+        color = tex_color * v_color;
+    } else {
+        color = v_color;
+    }
+    
 #else
 	lowp vec4 color = v_color;
 #endif

@@ -113,6 +113,9 @@ vec3 vertexNormal;
 
 
 void pointLight(const in Light light,
+                const in vec3 eye,
+                const in vec3 ecPosition3,
+                const in vec3 normal,
 				inout vec4 ambient,
 				inout vec4 diffuse,
 				inout vec4 specular) {
@@ -126,8 +129,13 @@ void pointLight(const in Light light,
 	vec3 reflectVector;
     
     
-	// Check if light source is directional
-	if (light.position.w != 0.0) {
+	// Check if light source is NOT directional or constant attenuation is NOT 1.0
+//    if (light.position.w == 0.0 || light.attenuation.x == 1.0) {
+    if (light.position.w == 0.0) {
+        attenuation = 1.0;
+		VP = light.position.xyz;
+        VP = normalize(VP); // added
+    } else {
 		// Vector between light position and vertex
 		VP = vec3(light.position.xyz - ecPosition3);
 		
@@ -136,7 +144,8 @@ void pointLight(const in Light light,
 		
 		// Normalise
 		VP = normalize(VP);
-		
+        attenuation = 1.0;
+
 		// Calculate attenuation
 		vec3 attDist = vec3(1.0, d, d * d);
 		attenuation = 1.0 / dot(light.attenuation, attDist);
@@ -152,27 +161,23 @@ void pointLight(const in Light light,
 			}
 			attenuation *= spotFactor;
 		}
-	} else {
-		attenuation = 1.0;
-		VP = light.position.xyz;
+
 	}
     
-	// angle between normal and light-vertex vector
+	// angle between normal and light-vertex vector    
 	nDotVP = max(0.0, dot(VP, normal));
-	
+    
  	ambient += light.ambientColor * attenuation;
 	if (nDotVP > 0.0) {
-		diffuse += light.diffuseColor * (nDotVP * attenuation);
-        
+		diffuse += light.diffuseColor * (nDotVP * attenuation);;
+
 		if (u_includeSpecular) {
-			// reflected vector					
+			// reflected vector (i.e. half-vector)
 			reflectVector = normalize(reflect(-VP, normal));
 			
 			// angle between eye and reflected vector
-			eDotRV = max(0.0, dot(eye, reflectVector));
-			eDotRV = pow(eDotRV, 16.0);
-            
-			pf = pow(eDotRV, u_material.shininess);
+			eDotRV = max(0.0, dot(normal, reflectVector));
+			pf = pow(eDotRV, 128.0 * u_material.shininess); // is shininess a clamped float?
 			specular += light.specularColor * (pf * attenuation);
 		}
 	}
@@ -186,28 +191,21 @@ void doLighting() {
     
 	if (u_lightingEnabled) {
         
-		ecPosition3 = vec3(u_mvMatrix * vertexPosition);
+        vec4 ecPosition4 = u_mvMatrix * vertexPosition;
+		ecPosition3 = ecPosition4.xyz / ecPosition4.w;
         
-		eye = -normalize(ecPosition3);
+        normal = u_normalMatrix * vertexNormal;
         
-		normal = u_normalMatrix * vertexNormal;
+        eye = -normalize(ecPosition3);
 		normal = normalize(normal);
         
-       if (u_lightEnabled[0]) {
-           pointLight(u_light[0], amb, diff, spec);
-       }
-       if (u_lightEnabled[1]) {
-           pointLight(u_light[1], amb, diff, spec);
-       }
-       if (u_lightEnabled[2]) {
-           pointLight(u_light[2], amb, diff, spec);
-       }
-       if (u_lightEnabled[3]) {
-           pointLight(u_light[3], amb, diff, spec);
-       }
-        
+        for (int i=0; i<MAX_LIGHTS; i++) {
+            if (u_lightEnabled[i]) {
+                pointLight(u_light[i], eye, ecPosition3, normal, amb, diff, spec);
+            }
+        }
 		v_color.rgb = (u_sceneAmbientColor.rgb + amb.rgb) * u_material.ambientColor.rgb + diff.rgb * u_material.diffuseColor.rgb;
-		v_color.a = u_material.diffuseColor.a;
+		v_color.a = u_material.diffuseColor.a; // why do we separate alpha here?
 		
 		v_color = clamp(v_color, 0.0, 1.0);
 		v_specular.rgb = spec.rgb * u_material.specularColor.rgb;

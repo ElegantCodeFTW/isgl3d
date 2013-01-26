@@ -396,10 +396,11 @@ static Isgl3dOcclusionMode Isgl3dNode_OcclusionMode = Isgl3dOcclusionQuadDistanc
 }
 
 - (void)copyWorldPositionToArray:(float *)position {
-	position[0] = _worldTransformation.m30;
-	position[1] = _worldTransformation.m31;
-	position[2] = _worldTransformation.m32;
-	position[3] = _worldTransformation.m33;
+    Isgl3dMatrix4 trans = self.worldTransformation;
+	position[0] = trans.m30;
+	position[1] = trans.m31;
+	position[2] = trans.m32;
+	position[3] = trans.m33;
 }
 
 - (Isgl3dVector3)worldPosition {

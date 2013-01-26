@@ -625,7 +625,7 @@
         
     } else if (lightInfo.eType == ePODDirectional) {
         light.lightType = DirectionalLight;
-        light.constantAttenuation = .1;
+        light.constantAttenuation = 1.0;
         [light setDirection:dirn.x y:dirn.y z:dirn.z];
         
     } else {
