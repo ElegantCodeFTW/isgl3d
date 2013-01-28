@@ -33,6 +33,7 @@
 @implementation Isgl3dColorMaterial
 @synthesize environmentMap = _environmentMap;
 @synthesize reflectivity = _reflectivity;
+@synthesize perPixelLighting = _perPixelLighting;
 
 + (void) initialize {
 	srandom(time(NULL));
@@ -141,8 +142,9 @@
 
 - (void)prepareRenderer:(Isgl3dGLRenderer *)renderer requirements:(unsigned int)requirements alpha:(float)alpha node:(Isgl3dNode *)node {
     
-    if(_environmentMap)
-        requirements |= ENVIRONMENT_MAPPING_ON;
+    if(_environmentMap) requirements |= ENVIRONMENT_MAPPING_ON;
+    
+    if(_perPixelLighting) requirements |= PHONG_ON;
     
 	[super prepareRenderer:renderer requirements:requirements alpha:alpha node:node];
 	

@@ -113,6 +113,4 @@
 	
 }
 
-- (id)initWithVsPreProcHeader:(NSString *)vsPreProcHeader fsPreProcHeader:(NSString *)fsPreProcHeader;
-
 @end

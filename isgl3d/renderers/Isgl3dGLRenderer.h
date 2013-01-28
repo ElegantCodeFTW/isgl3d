@@ -39,6 +39,8 @@
 #define NORMAL_MAPPING_ON       (1 << 8)
 #define SPECULAR_MAPPING_ON     (1 << 9)
 #define ENVIRONMENT_MAPPING_ON  (1 << 10)
+#define PHONG_ON                (1 << 11)
+#define DECAL_BLEND_ON          (1 << 12)
 
 #define ISGL3D_COLOR_BUFFER_BIT     1
 #define ISGL3D_DEPTH_BUFFER_BIT     2

@@ -14,8 +14,6 @@
 		17116BD312FE136400C4BC65 /* Isgl3dDemoCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 178963B812FB3AA500E6272F /* Isgl3dDemoCameraController.m */; };
 		1713BAC11357979B002C3288 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		1713BAC21357979B002C3288 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		1713BAC31357979B002C3288 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		1713BAC41357979B002C3288 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		1713BAC51357979B002C3288 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		1713BAC61357979B002C3288 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		1713BAC71357979B002C3288 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -34,8 +32,6 @@
 		1713BAE113579907002C3288 /* red_checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 1731227B12FC76D100861D84 /* red_checker.png */; };
 		1713BAE61358AFF6002C3288 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		1713BAE71358AFF6002C3288 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		1713BAE81358AFF6002C3288 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		1713BAE91358AFF6002C3288 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		1713BAEA1358AFF6002C3288 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		1713BAEB1358AFF6002C3288 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		1713BAEC1358AFF6002C3288 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -284,48 +280,36 @@
 		1733548813408D34000F26F0 /* Isgl3dAppDelegateWithCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 1733548713408D34000F26F0 /* Isgl3dAppDelegateWithCamera.m */; };
 		173D5CEB13241DC10092D2EE /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		173D5CEC13241DC10092D2EE /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		173D5CED13241DC10092D2EE /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		173D5CEE13241DC10092D2EE /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		173D5CEF13241DC10092D2EE /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		173D5CF013241DC10092D2EE /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		173D5CF113241DC10092D2EE /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		173D5CF213241DC10092D2EE /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		173D5CF513241E060092D2EE /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		173D5CF613241E060092D2EE /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		173D5CF713241E060092D2EE /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		173D5CF813241E060092D2EE /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		173D5CF913241E060092D2EE /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		173D5CFA13241E060092D2EE /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		173D5CFB13241E060092D2EE /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		173D5CFC13241E060092D2EE /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		173D5D0413241E610092D2EE /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		173D5D0513241E610092D2EE /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		173D5D0613241E610092D2EE /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		173D5D0713241E610092D2EE /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		173D5D0813241E610092D2EE /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		173D5D0913241E610092D2EE /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		173D5D0A13241E610092D2EE /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		173D5D0B13241E610092D2EE /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		173D5D1113241EAE0092D2EE /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		173D5D1213241EAE0092D2EE /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		173D5D1313241EAE0092D2EE /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		173D5D1413241EAE0092D2EE /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		173D5D1513241EAE0092D2EE /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		173D5D1613241EAE0092D2EE /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		173D5D1713241EAE0092D2EE /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		173D5D1813241EAE0092D2EE /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		173D5D27132421E30092D2EE /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		173D5D28132421E30092D2EE /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		173D5D29132421E30092D2EE /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		173D5D2A132421E30092D2EE /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		173D5D2B132421E30092D2EE /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		173D5D2C132421E30092D2EE /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		173D5D2D132421E30092D2EE /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		173D5D2E132421E30092D2EE /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		175535921360B4B700C593E3 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		175535931360B4B700C593E3 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		175535941360B4B700C593E3 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		175535951360B4B700C593E3 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		175535961360B4B700C593E3 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		175535971360B4B700C593E3 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		175535981360B4B700C593E3 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -461,8 +445,6 @@
 		178A62E2136851FC00BEFD2C /* TestMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 178A62E1136851FC00BEFD2C /* TestMesh.m */; };
 		178A62E71368558A00BEFD2C /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		178A62E81368558A00BEFD2C /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		178A62E91368558A00BEFD2C /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		178A62EA1368558A00BEFD2C /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		178A62EB1368558A00BEFD2C /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		178A62EC1368558A00BEFD2C /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		178A62ED1368558A00BEFD2C /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -497,7 +479,6 @@
 		17A3E612135A18B90022BAD8 /* Isgl3dPODImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 17A3E60F135A18B90022BAD8 /* Isgl3dPODImporter.mm */; };
 		17A481B113F129880098AC3F /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A481B213F129880098AC3F /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A481B313F129880098AC3F /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
 		17A481B513F129880098AC3F /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A481B613F129880098AC3F /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A481B713F129880098AC3F /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -521,7 +502,6 @@
 		17A4821813F12A4E0098AC3F /* DemoShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4821313F12A4E0098AC3F /* DemoShader.m */; };
 		17A4821913F12A4E0098AC3F /* demoShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17A4821413F12A4E0098AC3F /* demoShader.vsh */; };
 		17A4821A13F12A4E0098AC3F /* ShaderMaterialDemoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4821613F12A4E0098AC3F /* ShaderMaterialDemoView.m */; };
-		17A4821B13F1E7820098AC3F /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A4823113F27F5E0098AC3F /* Noise.pvr in Resources */ = {isa = PBXBuildFile; fileRef = 17A4822B13F27F5E0098AC3F /* Noise.pvr */; };
 		17A4823313F27F5E0098AC3F /* PowerVRShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4822E13F27F5E0098AC3F /* PowerVRShader.m */; };
 		17A4823B13F286740098AC3F /* powervrShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17A4823913F286740098AC3F /* powervrShader.fsh */; };
@@ -530,128 +510,96 @@
 		17A4824013F2B7F40098AC3F /* Isgl3dInternalShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A4823E13F2B7F40098AC3F /* Isgl3dInternalShader.m */; };
 		17A95E9F1325752500D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EA01325752500D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EA11325752500D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EA21325752500D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EA31325752500D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EA41325752500D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EA51325752500D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EA61325752500D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EA71325753200D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EA81325753200D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EA91325753200D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EAA1325753200D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EAB1325753200D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EAC1325753200D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EAD1325753200D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EAE1325753200D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EAF1325753C00D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EB01325753C00D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EB11325753C00D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EB21325753C00D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EB31325753C00D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EB41325753C00D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EB51325753C00D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EB61325753C00D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EB71325754800D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EB81325754800D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EB91325754800D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EBA1325754800D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EBB1325754800D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EBC1325754800D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EBD1325754800D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EBE1325754800D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EBF1325754F00D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EC01325754F00D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EC11325754F00D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EC21325754F00D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EC31325754F00D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EC41325754F00D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EC51325754F00D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EC61325754F00D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EC71325755C00D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EC81325755C00D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EC91325755C00D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95ECA1325755C00D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95ECB1325755C00D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95ECC1325755C00D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95ECD1325755C00D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95ECE1325755C00D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95ECF1325756900D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95ED01325756900D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95ED11325756900D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95ED21325756900D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95ED31325756900D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95ED41325756900D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95ED51325756900D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95ED61325756900D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95ED71325757400D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95ED81325757400D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95ED91325757400D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EDA1325757400D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EDB1325757400D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EDC1325757400D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EDD1325757400D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EDE1325757400D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EDF1325757C00D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EE01325757C00D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EE11325757C00D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EE21325757C00D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EE31325757C00D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EE41325757C00D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EE51325757C00D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EE61325757C00D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EE71325759800D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EE81325759800D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EE91325759800D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EEA1325759800D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EEB1325759800D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EEC1325759800D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EED1325759800D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EEE1325759800D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EEF132575A000D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EF0132575A000D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EF1132575A000D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EF2132575A000D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EF3132575A000D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EF4132575A000D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EF5132575A000D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EF6132575A000D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EF7132575A700D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95EF8132575A700D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95EF9132575A700D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95EFA132575A700D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95EFB132575A700D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95EFC132575A700D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95EFD132575A700D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95EFE132575A700D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95EFF132575AE00D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95F00132575AE00D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95F01132575AE00D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95F02132575AE00D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95F03132575AE00D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95F04132575AE00D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95F05132575AE00D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95F06132575AE00D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95F07132575B300D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95F08132575B300D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95F09132575B300D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95F0A132575B300D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95F0B132575B300D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95F0C132575B300D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95F0D132575B300D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95F0E132575B300D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95F0F132575BA00D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95F10132575BA00D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95F11132575BA00D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95F12132575BA00D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95F13132575BA00D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95F14132575BA00D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95F15132575BA00D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
 		17A95F16132575BA00D06694 /* shadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */; };
 		17A95F17132575C300D06694 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17A95F18132575C300D06694 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17A95F19132575C300D06694 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17A95F1A132575C300D06694 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17A95F1B132575C300D06694 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17A95F1C132575C300D06694 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17A95F1D132575C300D06694 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -660,8 +608,6 @@
 		17AD09D0134270E2005F5F7F /* red_checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 1731227B12FC76D100861D84 /* red_checker.png */; };
 		17AD09D513434FD7005F5F7F /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17AD09D613434FD7005F5F7F /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17AD09D713434FD7005F5F7F /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17AD09D813434FD7005F5F7F /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17AD09D913434FD7005F5F7F /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17AD09DA13434FD7005F5F7F /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17AD09DB13434FD7005F5F7F /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -691,8 +637,6 @@
 		17BE1737132E92AF00D053BA /* Isgl3dBillboardNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BE1735132E92AF00D053BA /* Isgl3dBillboardNode.m */; };
 		17BE174A132E94E400D053BA /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17BE174B132E94E400D053BA /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17BE174C132E94E400D053BA /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17BE174D132E94E400D053BA /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17BE174E132E94E400D053BA /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17BE174F132E94E400D053BA /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17BE1750132E94E400D053BA /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -731,8 +675,6 @@
 		17C2F0AC13F5E7C70002C7D3 /* Isgl3dActionRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C2F0AA13F5E7C70002C7D3 /* Isgl3dActionRepeat.m */; };
 		17C2F0B913F6CCEE0002C7D3 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17C2F0BA13F6CCEE0002C7D3 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17C2F0BB13F6CCEE0002C7D3 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17C2F0BC13F6CCEE0002C7D3 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17C2F0BD13F6CCEE0002C7D3 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17C2F0BE13F6CCEE0002C7D3 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17C2F0BF13F6CCEE0002C7D3 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -756,8 +698,6 @@
 		17CDF5AC13674DB500893070 /* Isgl3dKeyframeMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CDF5AA13674DB500893070 /* Isgl3dKeyframeMesh.m */; };
 		17CDF5B2136753FA00893070 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17CDF5B3136753FA00893070 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17CDF5B4136753FA00893070 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17CDF5B5136753FA00893070 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17CDF5B6136753FA00893070 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17CDF5B7136753FA00893070 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17CDF5B8136753FA00893070 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -788,8 +728,6 @@
 		17D0774213F4A38C003F6E46 /* Isgl3dActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D0774013F4A38C003F6E46 /* Isgl3dActionManager.m */; };
 		17D0774713F4A643003F6E46 /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		17D0774813F4A643003F6E46 /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		17D0774913F4A643003F6E46 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		17D0774A13F4A643003F6E46 /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		17D0774B13F4A643003F6E46 /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		17D0774C13F4A643003F6E46 /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		17D0774D13F4A643003F6E46 /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -1109,8 +1047,6 @@
 		8B2AFAE114FEF1ED0040102B /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8B4B558414F45592007EEFAA /* capture.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A012FA0EB800C7BB82 /* capture.fsh */; };
 		8B4B558514F45592007EEFAA /* capture.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A112FA0EB800C7BB82 /* capture.vsh */; };
-		8B4B558614F45592007EEFAA /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A212FA0EB800C7BB82 /* generic.fsh */; };
-		8B4B558714F45592007EEFAA /* generic.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A312FA0EB800C7BB82 /* generic.vsh */; };
 		8B4B558814F45592007EEFAA /* particle.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A412FA0EB800C7BB82 /* particle.fsh */; };
 		8B4B558914F45592007EEFAA /* particle.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A512FA0EB800C7BB82 /* particle.vsh */; };
 		8B4B558A14F45592007EEFAA /* shadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */; };
@@ -1223,6 +1159,14 @@
 		8BDBA1D714CCFABE00BAEB8A /* PVRTShader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BDBA1C714CCFABE00BAEB8A /* PVRTShader.h */; };
 		8BDBA1D814CCFABE00BAEB8A /* PVRTTextureAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA1C814CCFABE00BAEB8A /* PVRTTextureAPI.cpp */; };
 		8BDBA1D914CCFABE00BAEB8A /* PVRTTextureAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BDBA1C914CCFABE00BAEB8A /* PVRTTextureAPI.h */; };
+		A140691616B49C4800B0EAD8 /* gouraud.fsh in Sources */ = {isa = PBXBuildFile; fileRef = A140691416B49C4800B0EAD8 /* gouraud.fsh */; };
+		A140691716B49C4800B0EAD8 /* gouraud.fsh in Sources */ = {isa = PBXBuildFile; fileRef = A140691416B49C4800B0EAD8 /* gouraud.fsh */; };
+		A140691816B49C4800B0EAD8 /* gouraud.vsh in Sources */ = {isa = PBXBuildFile; fileRef = A140691516B49C4800B0EAD8 /* gouraud.vsh */; };
+		A140691916B49C4800B0EAD8 /* gouraud.vsh in Sources */ = {isa = PBXBuildFile; fileRef = A140691516B49C4800B0EAD8 /* gouraud.vsh */; };
+		A140692A16B4A2B200B0EAD8 /* phong.fsh in Sources */ = {isa = PBXBuildFile; fileRef = A140692816B4A2B200B0EAD8 /* phong.fsh */; };
+		A140692B16B4A2B200B0EAD8 /* phong.fsh in Sources */ = {isa = PBXBuildFile; fileRef = A140692816B4A2B200B0EAD8 /* phong.fsh */; };
+		A140692C16B4A2B200B0EAD8 /* phong.vsh in Sources */ = {isa = PBXBuildFile; fileRef = A140692916B4A2B200B0EAD8 /* phong.vsh */; };
+		A140692D16B4A2B200B0EAD8 /* phong.vsh in Sources */ = {isa = PBXBuildFile; fileRef = A140692916B4A2B200B0EAD8 /* phong.vsh */; };
 		A141ECDB16965E9C00E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
 		A141ECDD16965EA300E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
 		A141ECDE16965EB100E5282E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8A871114CF190200C17DC5 /* GLKit.framework */; };
@@ -2461,8 +2405,6 @@
 		17F7A89B12FA0DF100C7BB82 /* mars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mars.png; sourceTree = "<group>"; };
 		17F7A8A012FA0EB800C7BB82 /* capture.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = capture.fsh; sourceTree = "<group>"; };
 		17F7A8A112FA0EB800C7BB82 /* capture.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = capture.vsh; sourceTree = "<group>"; };
-		17F7A8A212FA0EB800C7BB82 /* generic.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = generic.fsh; sourceTree = "<group>"; };
-		17F7A8A312FA0EB800C7BB82 /* generic.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = generic.vsh; sourceTree = "<group>"; };
 		17F7A8A412FA0EB800C7BB82 /* particle.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = particle.fsh; sourceTree = "<group>"; };
 		17F7A8A512FA0EB800C7BB82 /* particle.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = particle.vsh; sourceTree = "<group>"; };
 		17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shadowMap.fsh; sourceTree = "<group>"; };
@@ -2574,6 +2516,10 @@
 		8BDBA1C814CCFABE00BAEB8A /* PVRTTextureAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PVRTTextureAPI.cpp; sourceTree = "<group>"; };
 		8BDBA1C914CCFABE00BAEB8A /* PVRTTextureAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVRTTextureAPI.h; sourceTree = "<group>"; };
 		8BDBA1DE14CD006200BAEB8A /* isgl3d-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "isgl3d-Prefix.pch"; sourceTree = "<group>"; };
+		A140691416B49C4800B0EAD8 /* gouraud.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = gouraud.fsh; sourceTree = "<group>"; };
+		A140691516B49C4800B0EAD8 /* gouraud.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = gouraud.vsh; sourceTree = "<group>"; };
+		A140692816B4A2B200B0EAD8 /* phong.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = phong.fsh; sourceTree = "<group>"; };
+		A140692916B4A2B200B0EAD8 /* phong.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = phong.vsh; sourceTree = "<group>"; };
 		A1E5BB141698D6FB0087BF96 /* Isgl3dMotionState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Isgl3dMotionState.h; sourceTree = "<group>"; };
 		A1E5BB151698D6FB0087BF96 /* Isgl3dMotionState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Isgl3dMotionState.mm; sourceTree = "<group>"; };
 		A1E5BB161698D6FB0087BF96 /* Isgl3dNodeDynamics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Isgl3dNodeDynamics.h; sourceTree = "<group>"; };
@@ -4328,10 +4274,12 @@
 			children = (
 				17F7A8A012FA0EB800C7BB82 /* capture.fsh */,
 				17F7A8A112FA0EB800C7BB82 /* capture.vsh */,
-				17F7A8A212FA0EB800C7BB82 /* generic.fsh */,
-				17F7A8A312FA0EB800C7BB82 /* generic.vsh */,
+				A140691416B49C4800B0EAD8 /* gouraud.fsh */,
+				A140691516B49C4800B0EAD8 /* gouraud.vsh */,
 				17F7A8A412FA0EB800C7BB82 /* particle.fsh */,
 				17F7A8A512FA0EB800C7BB82 /* particle.vsh */,
+				A140692816B4A2B200B0EAD8 /* phong.fsh */,
+				A140692916B4A2B200B0EAD8 /* phong.vsh */,
 				17F7A8A612FA0EB800C7BB82 /* shadowMap.fsh */,
 				17F7A8A712FA0EB800C7BB82 /* shadowMap.vsh */,
 				8B52DA41150FA2B3006CE4F0 /* shadowMapDepth.fsh */,
@@ -6060,8 +6008,6 @@
 			files = (
 				1713BAC11357979B002C3288 /* capture.fsh in Resources */,
 				1713BAC21357979B002C3288 /* capture.vsh in Resources */,
-				1713BAC31357979B002C3288 /* generic.fsh in Resources */,
-				1713BAC41357979B002C3288 /* generic.vsh in Resources */,
 				1713BAC51357979B002C3288 /* particle.fsh in Resources */,
 				1713BAC61357979B002C3288 /* particle.vsh in Resources */,
 				1713BAC71357979B002C3288 /* shadowMap.fsh in Resources */,
@@ -6082,8 +6028,6 @@
 			files = (
 				1713BAE61358AFF6002C3288 /* capture.fsh in Resources */,
 				1713BAE71358AFF6002C3288 /* capture.vsh in Resources */,
-				1713BAE81358AFF6002C3288 /* generic.fsh in Resources */,
-				1713BAE91358AFF6002C3288 /* generic.vsh in Resources */,
 				1713BAEA1358AFF6002C3288 /* particle.fsh in Resources */,
 				1713BAEB1358AFF6002C3288 /* particle.vsh in Resources */,
 				1713BAEC1358AFF6002C3288 /* shadowMap.fsh in Resources */,
@@ -6104,8 +6048,6 @@
 			files = (
 				17A95EFF132575AE00D06694 /* capture.fsh in Resources */,
 				17A95F00132575AE00D06694 /* capture.vsh in Resources */,
-				17A95F01132575AE00D06694 /* generic.fsh in Resources */,
-				17A95F02132575AE00D06694 /* generic.vsh in Resources */,
 				17A95F03132575AE00D06694 /* particle.fsh in Resources */,
 				17A95F04132575AE00D06694 /* particle.vsh in Resources */,
 				17A95F05132575AE00D06694 /* shadowMap.fsh in Resources */,
@@ -6124,8 +6066,6 @@
 			files = (
 				17A95F07132575B300D06694 /* capture.fsh in Resources */,
 				17A95F08132575B300D06694 /* capture.vsh in Resources */,
-				17A95F09132575B300D06694 /* generic.fsh in Resources */,
-				17A95F0A132575B300D06694 /* generic.vsh in Resources */,
 				17A95F0B132575B300D06694 /* particle.fsh in Resources */,
 				17A95F0C132575B300D06694 /* particle.vsh in Resources */,
 				17A95F0D132575B300D06694 /* shadowMap.fsh in Resources */,
@@ -6144,8 +6084,6 @@
 			files = (
 				17A95F0F132575BA00D06694 /* capture.fsh in Resources */,
 				17A95F10132575BA00D06694 /* capture.vsh in Resources */,
-				17A95F11132575BA00D06694 /* generic.fsh in Resources */,
-				17A95F12132575BA00D06694 /* generic.vsh in Resources */,
 				17A95F13132575BA00D06694 /* particle.fsh in Resources */,
 				17A95F14132575BA00D06694 /* particle.vsh in Resources */,
 				17A95F15132575BA00D06694 /* shadowMap.fsh in Resources */,
@@ -6164,8 +6102,6 @@
 			files = (
 				17A95F17132575C300D06694 /* capture.fsh in Resources */,
 				17A95F18132575C300D06694 /* capture.vsh in Resources */,
-				17A95F19132575C300D06694 /* generic.fsh in Resources */,
-				17A95F1A132575C300D06694 /* generic.vsh in Resources */,
 				17A95F1B132575C300D06694 /* particle.fsh in Resources */,
 				17A95F1C132575C300D06694 /* particle.vsh in Resources */,
 				17A95F1D132575C300D06694 /* shadowMap.fsh in Resources */,
@@ -6186,8 +6122,6 @@
 			files = (
 				173D5CEB13241DC10092D2EE /* capture.fsh in Resources */,
 				173D5CEC13241DC10092D2EE /* capture.vsh in Resources */,
-				173D5CED13241DC10092D2EE /* generic.fsh in Resources */,
-				173D5CEE13241DC10092D2EE /* generic.vsh in Resources */,
 				173D5CEF13241DC10092D2EE /* particle.fsh in Resources */,
 				173D5CF013241DC10092D2EE /* particle.vsh in Resources */,
 				173D5CF113241DC10092D2EE /* shadowMap.fsh in Resources */,
@@ -6210,8 +6144,6 @@
 			files = (
 				173D5CF513241E060092D2EE /* capture.fsh in Resources */,
 				173D5CF613241E060092D2EE /* capture.vsh in Resources */,
-				173D5CF713241E060092D2EE /* generic.fsh in Resources */,
-				173D5CF813241E060092D2EE /* generic.vsh in Resources */,
 				173D5CF913241E060092D2EE /* particle.fsh in Resources */,
 				173D5CFA13241E060092D2EE /* particle.vsh in Resources */,
 				173D5CFB13241E060092D2EE /* shadowMap.fsh in Resources */,
@@ -6252,8 +6184,6 @@
 			files = (
 				17A95EBF1325754F00D06694 /* capture.fsh in Resources */,
 				17A95EC01325754F00D06694 /* capture.vsh in Resources */,
-				17A95EC11325754F00D06694 /* generic.fsh in Resources */,
-				17A95EC21325754F00D06694 /* generic.vsh in Resources */,
 				17A95EC31325754F00D06694 /* particle.fsh in Resources */,
 				17A95EC41325754F00D06694 /* particle.vsh in Resources */,
 				17A95EC51325754F00D06694 /* shadowMap.fsh in Resources */,
@@ -6273,8 +6203,6 @@
 			files = (
 				17A95EC71325755C00D06694 /* capture.fsh in Resources */,
 				17A95EC81325755C00D06694 /* capture.vsh in Resources */,
-				17A95EC91325755C00D06694 /* generic.fsh in Resources */,
-				17A95ECA1325755C00D06694 /* generic.vsh in Resources */,
 				17A95ECB1325755C00D06694 /* particle.fsh in Resources */,
 				17A95ECC1325755C00D06694 /* particle.vsh in Resources */,
 				17A95ECD1325755C00D06694 /* shadowMap.fsh in Resources */,
@@ -6296,8 +6224,6 @@
 			files = (
 				17A95ECF1325756900D06694 /* capture.fsh in Resources */,
 				17A95ED01325756900D06694 /* capture.vsh in Resources */,
-				17A95ED11325756900D06694 /* generic.fsh in Resources */,
-				17A95ED21325756900D06694 /* generic.vsh in Resources */,
 				17A95ED31325756900D06694 /* particle.fsh in Resources */,
 				17A95ED41325756900D06694 /* particle.vsh in Resources */,
 				17A95ED51325756900D06694 /* shadowMap.fsh in Resources */,
@@ -6319,8 +6245,6 @@
 			files = (
 				17A95ED71325757400D06694 /* capture.fsh in Resources */,
 				17A95ED81325757400D06694 /* capture.vsh in Resources */,
-				17A95ED91325757400D06694 /* generic.fsh in Resources */,
-				17A95EDA1325757400D06694 /* generic.vsh in Resources */,
 				17A95EDB1325757400D06694 /* particle.fsh in Resources */,
 				17A95EDC1325757400D06694 /* particle.vsh in Resources */,
 				17A95EDD1325757400D06694 /* shadowMap.fsh in Resources */,
@@ -6342,8 +6266,6 @@
 				17A95EDF1325757C00D06694 /* capture.fsh in Resources */,
 				17A95EE01325757C00D06694 /* capture.vsh in Resources */,
 				17BE17A8132E9A2100D053BA /* isgl3d_logo.png in Resources */,
-				17A95EE11325757C00D06694 /* generic.fsh in Resources */,
-				17A95EE21325757C00D06694 /* generic.vsh in Resources */,
 				17A95EE31325757C00D06694 /* particle.fsh in Resources */,
 				17A95EE41325757C00D06694 /* particle.vsh in Resources */,
 				17A95EE51325757C00D06694 /* shadowMap.fsh in Resources */,
@@ -6364,8 +6286,6 @@
 			files = (
 				173D5D1113241EAE0092D2EE /* capture.fsh in Resources */,
 				173D5D1213241EAE0092D2EE /* capture.vsh in Resources */,
-				173D5D1313241EAE0092D2EE /* generic.fsh in Resources */,
-				173D5D1413241EAE0092D2EE /* generic.vsh in Resources */,
 				173D5D1513241EAE0092D2EE /* particle.fsh in Resources */,
 				173D5D1613241EAE0092D2EE /* particle.vsh in Resources */,
 				173D5D1713241EAE0092D2EE /* shadowMap.fsh in Resources */,
@@ -6389,8 +6309,6 @@
 			files = (
 				17A95EE71325759800D06694 /* capture.fsh in Resources */,
 				17A95EE81325759800D06694 /* capture.vsh in Resources */,
-				17A95EE91325759800D06694 /* generic.fsh in Resources */,
-				17A95EEA1325759800D06694 /* generic.vsh in Resources */,
 				17A95EEB1325759800D06694 /* particle.fsh in Resources */,
 				17A95EEC1325759800D06694 /* particle.vsh in Resources */,
 				17A95EED1325759800D06694 /* shadowMap.fsh in Resources */,
@@ -6411,8 +6329,6 @@
 			files = (
 				17A95EEF132575A000D06694 /* capture.fsh in Resources */,
 				17A95EF0132575A000D06694 /* capture.vsh in Resources */,
-				17A95EF1132575A000D06694 /* generic.fsh in Resources */,
-				17A95EF2132575A000D06694 /* generic.vsh in Resources */,
 				17A95EF3132575A000D06694 /* particle.fsh in Resources */,
 				17A95EF4132575A000D06694 /* particle.vsh in Resources */,
 				17A95EF5132575A000D06694 /* shadowMap.fsh in Resources */,
@@ -6432,8 +6348,6 @@
 			files = (
 				173D5D0413241E610092D2EE /* capture.fsh in Resources */,
 				173D5D0513241E610092D2EE /* capture.vsh in Resources */,
-				173D5D0613241E610092D2EE /* generic.fsh in Resources */,
-				173D5D0713241E610092D2EE /* generic.vsh in Resources */,
 				173D5D0813241E610092D2EE /* particle.fsh in Resources */,
 				173D5D0913241E610092D2EE /* particle.vsh in Resources */,
 				173D5D0A13241E610092D2EE /* shadowMap.fsh in Resources */,
@@ -6453,8 +6367,6 @@
 			files = (
 				17A95EF7132575A700D06694 /* capture.fsh in Resources */,
 				17A95EF8132575A700D06694 /* capture.vsh in Resources */,
-				17A95EF9132575A700D06694 /* generic.fsh in Resources */,
-				17A95EFA132575A700D06694 /* generic.vsh in Resources */,
 				17A95EFB132575A700D06694 /* particle.fsh in Resources */,
 				17A95EFC132575A700D06694 /* particle.vsh in Resources */,
 				17A95EFD132575A700D06694 /* shadowMap.fsh in Resources */,
@@ -6478,8 +6390,6 @@
 			files = (
 				175535921360B4B700C593E3 /* capture.fsh in Resources */,
 				175535931360B4B700C593E3 /* capture.vsh in Resources */,
-				175535941360B4B700C593E3 /* generic.fsh in Resources */,
-				175535951360B4B700C593E3 /* generic.vsh in Resources */,
 				175535961360B4B700C593E3 /* particle.fsh in Resources */,
 				175535971360B4B700C593E3 /* particle.vsh in Resources */,
 				175535981360B4B700C593E3 /* shadowMap.fsh in Resources */,
@@ -6501,8 +6411,6 @@
 			files = (
 				17A95EAF1325753C00D06694 /* capture.fsh in Resources */,
 				17A95EB01325753C00D06694 /* capture.vsh in Resources */,
-				17A95EB11325753C00D06694 /* generic.fsh in Resources */,
-				17A95EB21325753C00D06694 /* generic.vsh in Resources */,
 				17A95EB31325753C00D06694 /* particle.fsh in Resources */,
 				17A95EB41325753C00D06694 /* particle.vsh in Resources */,
 				17A95EB51325753C00D06694 /* shadowMap.fsh in Resources */,
@@ -6521,8 +6429,6 @@
 			files = (
 				17A95EB71325754800D06694 /* capture.fsh in Resources */,
 				17A95EB81325754800D06694 /* capture.vsh in Resources */,
-				17A95EB91325754800D06694 /* generic.fsh in Resources */,
-				17A95EBA1325754800D06694 /* generic.vsh in Resources */,
 				17A95EBB1325754800D06694 /* particle.fsh in Resources */,
 				17A95EBC1325754800D06694 /* particle.vsh in Resources */,
 				17A95EBD1325754800D06694 /* shadowMap.fsh in Resources */,
@@ -6543,8 +6449,6 @@
 			files = (
 				178A62E71368558A00BEFD2C /* capture.fsh in Resources */,
 				178A62E81368558A00BEFD2C /* capture.vsh in Resources */,
-				178A62E91368558A00BEFD2C /* generic.fsh in Resources */,
-				178A62EA1368558A00BEFD2C /* generic.vsh in Resources */,
 				178A62EB1368558A00BEFD2C /* particle.fsh in Resources */,
 				178A62EC1368558A00BEFD2C /* particle.vsh in Resources */,
 				178A62ED1368558A00BEFD2C /* shadowMap.fsh in Resources */,
@@ -6567,8 +6471,6 @@
 			files = (
 				17A481B113F129880098AC3F /* capture.fsh in Resources */,
 				17A481B213F129880098AC3F /* capture.vsh in Resources */,
-				17A481B313F129880098AC3F /* generic.fsh in Resources */,
-				17A4821B13F1E7820098AC3F /* generic.vsh in Resources */,
 				17A481B513F129880098AC3F /* particle.fsh in Resources */,
 				17A481B613F129880098AC3F /* particle.vsh in Resources */,
 				17A481B713F129880098AC3F /* shadowMap.fsh in Resources */,
@@ -6596,8 +6498,6 @@
 			files = (
 				17AD09D513434FD7005F5F7F /* capture.fsh in Resources */,
 				17AD09D613434FD7005F5F7F /* capture.vsh in Resources */,
-				17AD09D713434FD7005F5F7F /* generic.fsh in Resources */,
-				17AD09D813434FD7005F5F7F /* generic.vsh in Resources */,
 				17AD09D913434FD7005F5F7F /* particle.fsh in Resources */,
 				17AD09DA13434FD7005F5F7F /* particle.vsh in Resources */,
 				17AD09DB13434FD7005F5F7F /* shadowMap.fsh in Resources */,
@@ -6617,8 +6517,6 @@
 			files = (
 				17BE174A132E94E400D053BA /* capture.fsh in Resources */,
 				17BE174B132E94E400D053BA /* capture.vsh in Resources */,
-				17BE174C132E94E400D053BA /* generic.fsh in Resources */,
-				17BE174D132E94E400D053BA /* generic.vsh in Resources */,
 				17BE174E132E94E400D053BA /* particle.fsh in Resources */,
 				17BE174F132E94E400D053BA /* particle.vsh in Resources */,
 				17BE1750132E94E400D053BA /* shadowMap.fsh in Resources */,
@@ -6638,8 +6536,6 @@
 			files = (
 				17C2F0B913F6CCEE0002C7D3 /* capture.fsh in Resources */,
 				17C2F0BA13F6CCEE0002C7D3 /* capture.vsh in Resources */,
-				17C2F0BB13F6CCEE0002C7D3 /* generic.fsh in Resources */,
-				17C2F0BC13F6CCEE0002C7D3 /* generic.vsh in Resources */,
 				17C2F0BD13F6CCEE0002C7D3 /* particle.fsh in Resources */,
 				17C2F0BE13F6CCEE0002C7D3 /* particle.vsh in Resources */,
 				17C2F0BF13F6CCEE0002C7D3 /* shadowMap.fsh in Resources */,
@@ -6659,8 +6555,6 @@
 			files = (
 				17CDF5B2136753FA00893070 /* capture.fsh in Resources */,
 				17CDF5B3136753FA00893070 /* capture.vsh in Resources */,
-				17CDF5B4136753FA00893070 /* generic.fsh in Resources */,
-				17CDF5B5136753FA00893070 /* generic.vsh in Resources */,
 				17CDF5B6136753FA00893070 /* particle.fsh in Resources */,
 				17CDF5B7136753FA00893070 /* particle.vsh in Resources */,
 				17CDF5B8136753FA00893070 /* shadowMap.fsh in Resources */,
@@ -6680,8 +6574,6 @@
 			files = (
 				17D0774713F4A643003F6E46 /* capture.fsh in Resources */,
 				17D0774813F4A643003F6E46 /* capture.vsh in Resources */,
-				17D0774913F4A643003F6E46 /* generic.fsh in Resources */,
-				17D0774A13F4A643003F6E46 /* generic.vsh in Resources */,
 				17D0774B13F4A643003F6E46 /* particle.fsh in Resources */,
 				17D0774C13F4A643003F6E46 /* particle.vsh in Resources */,
 				17D0774D13F4A643003F6E46 /* shadowMap.fsh in Resources */,
@@ -6702,8 +6594,6 @@
 			files = (
 				17A95E9F1325752500D06694 /* capture.fsh in Resources */,
 				17A95EA01325752500D06694 /* capture.vsh in Resources */,
-				17A95EA11325752500D06694 /* generic.fsh in Resources */,
-				17A95EA21325752500D06694 /* generic.vsh in Resources */,
 				17A95EA31325752500D06694 /* particle.fsh in Resources */,
 				17A95EA41325752500D06694 /* particle.vsh in Resources */,
 				17A95EA51325752500D06694 /* shadowMap.fsh in Resources */,
@@ -6728,8 +6618,6 @@
 				17BE17A3132E9A0B00D053BA /* isgl3d_logo.png in Resources */,
 				17A95EA71325753200D06694 /* capture.fsh in Resources */,
 				17A95EA81325753200D06694 /* capture.vsh in Resources */,
-				17A95EA91325753200D06694 /* generic.fsh in Resources */,
-				17A95EAA1325753200D06694 /* generic.vsh in Resources */,
 				17A95EAB1325753200D06694 /* particle.fsh in Resources */,
 				17A95EAC1325753200D06694 /* particle.vsh in Resources */,
 				17A95EAD1325753200D06694 /* shadowMap.fsh in Resources */,
@@ -6748,8 +6636,6 @@
 			files = (
 				173D5D27132421E30092D2EE /* capture.fsh in Resources */,
 				173D5D28132421E30092D2EE /* capture.vsh in Resources */,
-				173D5D29132421E30092D2EE /* generic.fsh in Resources */,
-				173D5D2A132421E30092D2EE /* generic.vsh in Resources */,
 				173D5D2B132421E30092D2EE /* particle.fsh in Resources */,
 				173D5D2C132421E30092D2EE /* particle.vsh in Resources */,
 				173D5D2D132421E30092D2EE /* shadowMap.fsh in Resources */,
@@ -6769,8 +6655,6 @@
 			files = (
 				8B4B558414F45592007EEFAA /* capture.fsh in Resources */,
 				8B4B558514F45592007EEFAA /* capture.vsh in Resources */,
-				8B4B558614F45592007EEFAA /* generic.fsh in Resources */,
-				8B4B558714F45592007EEFAA /* generic.vsh in Resources */,
 				8B4B558814F45592007EEFAA /* particle.fsh in Resources */,
 				8B4B558914F45592007EEFAA /* particle.vsh in Resources */,
 				8B4B558A14F45592007EEFAA /* shadowMap.fsh in Resources */,
@@ -7058,6 +6942,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A140691616B49C4800B0EAD8 /* gouraud.fsh in Sources */,
+				A140691816B49C4800B0EAD8 /* gouraud.vsh in Sources */,
+				A140692A16B4A2B200B0EAD8 /* phong.fsh in Sources */,
+				A140692C16B4A2B200B0EAD8 /* phong.vsh in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7486,6 +7374,10 @@
 				A1E5BEC71698D8240087BF96 /* btQuickprof.cpp in Sources */,
 				A1E5BECB1698D8240087BF96 /* btSerializer.cpp in Sources */,
 				A1E5BED01698D8240087BF96 /* btVector3.cpp in Sources */,
+				A140691716B49C4800B0EAD8 /* gouraud.fsh in Sources */,
+				A140691916B49C4800B0EAD8 /* gouraud.vsh in Sources */,
+				A140692B16B4A2B200B0EAD8 /* phong.fsh in Sources */,
+				A140692D16B4A2B200B0EAD8 /* phong.vsh in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

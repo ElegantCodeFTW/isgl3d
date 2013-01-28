@@ -39,6 +39,7 @@
  * rendered. For a value of 0, no specular light is rendered.
  * 
  */
+
 @interface Isgl3dColorMaterial : Isgl3dMaterial {
 	
 @private
@@ -56,6 +57,7 @@
 @property (nonatomic) float * specularColor;
 @property (nonatomic) float shininess;
 @property (nonatomic) float reflectivity;
+@property (nonatomic) BOOL perPixelLighting;
 
 /**
  * Gets/sets the cubemapped Isgl3dGLTexture associated with the environment map.

@@ -201,18 +201,21 @@
 		if (rendererRequirements & SKINNING_ON) {
 			vsPreProcHeader = [vsPreProcHeader stringByAppendingString:@"#define SKINNING_ENABLED\n"];
 		}
+        if (rendererRequirements & DECAL_BLEND_ON) {
+			vsPreProcHeader = [fsPreProcHeader stringByAppendingString:@"#define DECAL_BLEND_ON\n"];
+		}
+
 		
 		if (rendererRequirements & SHADOW_MAP_CREATION_ON) {
 			shader = [[Isgl3dShadowMapShader alloc] initWithVsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader];
-		
 		} else if (rendererRequirements & CAPTURE_ON) {
 			shader = [[Isgl3dCaptureShader alloc] initWithVsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader];
-		
 		} else if (rendererRequirements & PARTICLES_ON) {
 			shader = [[Isgl3dParticleShader alloc] initWithVsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader];
-		
+		} else if (rendererRequirements & PHONG_ON) {
+			shader = [[Isgl3dGenericShader alloc] initWithVertexShaderName:@"phong.vsh" fragmentShaderName:@"phong.fsh" vsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader];
 		} else {
-			shader = [[Isgl3dGenericShader alloc] initWithVsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader];
+			shader = [[Isgl3dGenericShader alloc] initWithVertexShaderName:@"gouraud.vsh" fragmentShaderName:@"gouraud.fsh" vsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader];
 		}
         
         if (shader) {

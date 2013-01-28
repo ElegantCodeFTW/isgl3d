@@ -41,42 +41,16 @@
 
 @implementation Isgl3dGenericShader
 
-- (id)initWithVsPreProcHeader:(NSString *)vsPreProcHeader fsPreProcHeader:(NSString *)fsPreProcHeader {
+- (id)initWithVertexShaderName:(NSString *)vertexShaderName fragmentShaderName:(NSString *)fragmentShaderName vsPreProcHeader:(NSString *)vsPreProcHeader fsPreProcHeader:(NSString *)fsPreProcHeader {
 	
-	if ((self = [super initWithVertexShaderName:@"generic.vsh" fragmentShaderName:@"generic.fsh" vsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader])) {
+	if ((self = [super initWithVertexShaderName:vertexShaderName fragmentShaderName:fragmentShaderName vsPreProcHeader:vsPreProcHeader fsPreProcHeader:fsPreProcHeader])) {
 		
-		_currentState = [[Isgl3dShaderState alloc] init];
-		_previousState = [[Isgl3dShaderState alloc] init];
-	
-		_biasMatrix = Isgl3dMatrix4Matrix(0.5f, 0.0f, 0.0f, 0.5f,
-                                               0.0f, 0.5f, 0.0f, 0.5f,
-                                               0.0f, 0.0f, 0.5f, 0.5f,
-                                               0.0f, 0.0f, 0.0f, 1.0f);
-		_shadowMapTransformMatrix = Isgl3dMatrix4Identity;
-		
-		_sceneAmbient[0] = 0.0;
-		_sceneAmbient[1] = 0.0;
-		_sceneAmbient[2] = 0.0;
-		_sceneAmbient[3] = 1.0;
-		
-		_sceneAmbientString = @"000000";
-		
-		_planarShadowsActive = NO,
-		_shadowAlpha = 1.0;
-
-		// Initialise lighting
-		for (int i = 0; i < MAX_LIGHTS; i++) {
-			[self setUniform1i:_lightEnabledLocation[i] value:0];
-		}
-		[self setUniform1i:_lightingEnabledUniformLocation value:0];
-		[self setSceneAmbient:@"000000"];
-		
-		_lightCount = 0;
-	
+        [self setup];
 	}
 	
 	return self;
 }
+
 
 - (void)dealloc {
 
@@ -86,6 +60,36 @@
 	[super dealloc];
 }
 
+- (void)setup {
+    _currentState = [[Isgl3dShaderState alloc] init];
+    _previousState = [[Isgl3dShaderState alloc] init];
+	
+    _biasMatrix = Isgl3dMatrix4Matrix(0.5f, 0.0f, 0.0f, 0.5f,
+                                      0.0f, 0.5f, 0.0f, 0.5f,
+                                      0.0f, 0.0f, 0.5f, 0.5f,
+                                      0.0f, 0.0f, 0.0f, 1.0f);
+    _shadowMapTransformMatrix = Isgl3dMatrix4Identity;
+    
+    _sceneAmbient[0] = 0.0;
+    _sceneAmbient[1] = 0.0;
+    _sceneAmbient[2] = 0.0;
+    _sceneAmbient[3] = 1.0;
+    
+    _sceneAmbientString = @"000000";
+    
+    _planarShadowsActive = NO,
+    _shadowAlpha = 1.0;
+    
+    // Initialise lighting
+    for (int i = 0; i < MAX_LIGHTS; i++) {
+        [self setUniform1i:_lightEnabledLocation[i] value:0];
+    }
+    [self setUniform1i:_lightingEnabledUniformLocation value:0];
+    [self setSceneAmbient:@"000000"];
+    
+    _lightCount = 0;
+
+}
 
 - (void)getAttributeAndUniformLocations {
 
