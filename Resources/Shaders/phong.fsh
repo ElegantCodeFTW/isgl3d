@@ -23,7 +23,7 @@
  *
  */
 
-#define MAX_LIGHTS 4
+#define MAX_LIGHTS 3
 
 precision highp float;
 
@@ -48,6 +48,7 @@ struct Material {
 uniform Light u_light[MAX_LIGHTS];
 uniform bool u_lightEnabled[MAX_LIGHTS];
 uniform Material u_material;
+uniform int u_includeSpecular;
 uniform vec4 u_sceneAmbientColor;
 
 varying vec3 v_normal;
@@ -102,25 +103,29 @@ void main() {
             ambient += u_light[i].ambientColor * v_lightAttenuation[i];
             if (lambertTerm > 0.0) {
                 diffuse += u_light[i].diffuseColor * lambertTerm * v_lightAttenuation[i];
-                vec3 reflectVector = reflect(-v_lightDir[i], v_normal);
-                float specularFactor = pow(max(dot(reflectVector, v_eyeVec3), 0.0), u_material.shininess);
-                specular += u_light[i].specularColor * specularFactor;
+                if (u_includeSpecular == 1) {
+                    vec3 reflectVector = reflect(-v_lightDir[i], v_normal);
+                    float specularFactor = pow(max(dot(reflectVector, v_eyeVec3), 0.0), u_material.shininess);
+                    specular += u_light[i].specularColor * specularFactor;
+                }
             }
         }
     }
+    vec4 ambient_material = u_material.ambientColor;
+    vec4 diffuse_material = u_material.diffuseColor;
+    
 // this is where the blend mode comes in, material vs texture
     lowp vec4 color = vec4(0.0);
 #ifdef TEXTURE_MAPPING_ENABLED
     lowp vec4 tex_color = texture2D(s_texture, v_texCoord);
 // if decal
-    color += ambient * u_material.ambientColor;
-    color += diffuse * u_material.diffuseColor;
-    color = mix(color, tex_color, tex_color.a);
-#else
-    color += ambient * u_material.ambientColor;
-    color += diffuse * u_material.diffuseColor;
+    ambient_material = mix(ambient_material, tex_color, tex_color.a);;
+    diffuse_material = mix(diffuse_material, tex_color, tex_color.a);;
 
 #endif
+    color += ambient * ambient_material;
+    color += diffuse * diffuse_material;
+    
     color.a = u_material.diffuseColor.a;
     
 #ifdef ENVIRONMENT_MAPPING_ENABLED

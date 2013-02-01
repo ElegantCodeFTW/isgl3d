@@ -25,7 +25,7 @@
 
 precision highp float;
 
-#define MAX_LIGHTS 4
+#define MAX_LIGHTS 3
 #define MAX_BONES 4
 
 struct Light {
@@ -45,6 +45,7 @@ attribute vec3 a_normal;
 uniform mat4 u_mvpMatrix;
 uniform mat4 u_mvMatrix;
 uniform mat3 u_normalMatrix;
+
 
 uniform Light u_light[MAX_LIGHTS];
 uniform bool u_lightEnabled[MAX_LIGHTS];
