@@ -569,7 +569,7 @@
     
     // Get the mesh
 
-    Isgl3dGLMesh *mesh = [self createMeshFromPODData:&meshInfo];
+    Isgl3dGLMesh *mesh = [self createMeshFromPODData:&meshInfo nodeInfo:&meshNodeInfo];
     Isgl3dMaterial *material = nil;
     
     // Set the material
@@ -587,9 +587,6 @@
         Isgl3dClassDebugLog(Isgl3dLogLevelDebug, @"Bulding mesh node: %s:", meshNodeInfo.pszName);
         node = [Isgl3dMeshNode nodeWithMesh:mesh andMaterial:material];
     }
-#ifdef DEBUG
-    glLabelObjectEXT(GL_ARRAY_BUFFER, node.mesh.vboData.vboIndex, 0, meshNodeInfo.pszName);
-#endif
     
     if (material != nil) {
         // Add node alpha
@@ -733,9 +730,11 @@
 	return animatedMeshNode;
 }
 
-- (Isgl3dGLMesh *)createMeshFromPODData:(SPODMesh *)podData {
+- (Isgl3dGLMesh *)createMeshFromPODData:(SPODMesh *)podData nodeInfo:(SPODNode *)nodeInfo {
 	Isgl3dGLMesh * mesh = [Isgl3dGLMesh mesh];
-	
+	if (nodeInfo->pszName) {
+        mesh.name = [NSString stringWithUTF8String:nodeInfo->pszName];
+    }
 	// Check if POD mesh is interleaved or not
 	if (podData->pInterleaved == 0) {
 		NSLog(@"ERROR Cannot load mesh with uninterleaved vertex data!");

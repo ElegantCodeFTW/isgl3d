@@ -55,7 +55,9 @@
 @interface Isgl3dGLVBOData : NSObject {
 
 @private
+    GLuint _vaoIndex;
 	unsigned int _vboIndex;
+    unsigned int _indicesBufferId;
 	unsigned int _stride;	// in bytes
 
 	int _positionOffset;	// in bytes
@@ -74,12 +76,21 @@
  * Initialises the Isgl3dGLVBO object. All offsets are set to -1 indicating that none are in use.
  */
 - (id)init;
-
+/**
+ * index of the vertex array object
+ */
+@property (nonatomic) unsigned int vaoIndex;
 /**
  * Contains the index (or identifier) of the VBO as stored in the GPU. This is set automatically by the 
  * iSGL3D framework when a mesh or particle is created and should only be read if necessary.
  */
 @property (nonatomic) unsigned int vboIndex;
+/**
+ * The buffer identifier for the index data as it is registered in the GPU.
+ * The equivalent Id for the vertex data is available in the Isgl3DGLVBOData object.
+ * This is called internally by iSGL3D.
+ */
+@property (nonatomic) unsigned int indicesBufferId;
 
 /**
  * Contains the stride of the vertex data. The stride is the size in bytes of all data that is necessary

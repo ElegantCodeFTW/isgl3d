@@ -28,7 +28,7 @@
 #import "Isgl3dGLVBOFactory.h"
 
 @implementation Isgl3dGLMesh
-
+@synthesize name = _name;
 @synthesize vboData = _vboData;
 @synthesize normalizationEnabled = _normalizationEnabled;
 @synthesize vertexDataSize = _vertexDataSize;
@@ -51,7 +51,7 @@
 }
 
 - (void)dealloc {
-
+    [_name release];
 
 	if (_vertexData) {
 		free(_vertexData);
@@ -63,8 +63,10 @@
 	}
 
 	// Release buffer data
-	[[Isgl3dGLVBOFactory sharedInstance] deleteBuffer:_indicesBufferId];
+	[[Isgl3dGLVBOFactory sharedInstance] deleteBuffer:_vboData.indicesBufferId];
 	[[Isgl3dGLVBOFactory sharedInstance] deleteBuffer:_vboData.vboIndex];
+    GLuint vao = _vboData.vaoIndex;
+    glDeleteVertexArraysOES(1, &vao);
 	[_vboData release];
 
 	[super dealloc];
@@ -81,15 +83,7 @@
 	}
 
 	[self constructMeshData];
-
-	if (_vertexData) {
-        //TODO: These buffers create are typed as element arrays when they should just be arrays, doesn't seem to hurt though
-		_vboData.vboIndex = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_vertexData size:_vertexDataSize];
-	}
-	
-	if (_indices) {
-		_indicesBufferId = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_indices size:_indexDataSize];
-	}
+    [self createBuffers];
 }
 
 - (void)constructMeshData {
@@ -138,22 +132,33 @@
 		[_vboData release];
 		_vboData = [vboData retain];
 		
-		if (_vertexData) {
-			_vboData.vboIndex = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_vertexData size:_vertexDataSize];
-		}
-		
-		if (_indices) {
-			_indicesBufferId = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_indices size:_indexDataSize];
-		}		
+        [self createBuffers];
 	}
 }
 
-- (unsigned int) indicesBufferId {
-	return _indicesBufferId;
+- (void)createBuffers {
+    
+    if (_vertexData) {
+        _vboData.vboIndex = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromArray:(float *)_vertexData size:_vertexDataSize / sizeof(float)];
+#ifdef DEBUG
+        if (self.name) {
+            glLabelObjectEXT(GL_ARRAY_BUFFER, _vboData.vboIndex, sizeof(float), [[self.name stringByAppendingString:@" VBO"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
+#endif
+    }
+    
+    if (_indices) {
+        _vboData.indicesBufferId = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_indices size:_indexDataSize];
+#ifdef DEBUG
+        if (self.name) {
+            glLabelObjectEXT(GL_ELEMENT_ARRAY_BUFFER, _vboData.indicesBufferId, sizeof(GLushort), [[self.name stringByAppendingString:@" Indices"] cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
+#endif
+    }
+
 }
 
-
-- (void)setVertices:(unsigned char *)vertexData withVertexDataSize:(unsigned int)vertexDataSize andIndices:(unsigned char *)indices 
+- (void)setVertices:(unsigned char *)vertexData withVertexDataSize:(unsigned int)vertexDataSize andIndices:(unsigned char *)indices
 			withIndexDataSize:(unsigned int)indexDataSize andNumberOfElements:(unsigned int)numberOfElements andVBOData:(Isgl3dGLVBOData *)vboData {
 
 	// Vertex data
@@ -178,9 +183,7 @@
 	// VBO data
 	[_vboData release];
 	_vboData = [vboData retain];
-	
-	_vboData.vboIndex = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_vertexData size:_vertexDataSize];
-	_indicesBufferId = [[Isgl3dGLVBOFactory sharedInstance] createBufferFromUnsignedCharArray:_indices size:_indexDataSize];
+	[self createBuffers];
 }
 
 

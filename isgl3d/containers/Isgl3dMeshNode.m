@@ -31,6 +31,7 @@
 #import "Isgl3dGLRenderer.h"
 #import "Isgl3dObject3DGrabber.h"
 #import "Isgl3dGLContext.h"
+#import "Isgl3dGLVBOData.h"
 
 
 @interface Isgl3dMeshNode (PrivateMethods)
@@ -189,9 +190,6 @@
 }
 
 - (void)render:(Isgl3dGLRenderer *)renderer opaque:(BOOL)opaque {
-#ifdef DEBUG
-	glPushGroupMarkerEXT(0, self.name ? [self.name cStringUsingEncoding:NSUTF8StringEncoding] : "Unnamed Mesh");
-#endif
 	BOOL goOn = YES;
 	if (opaque) {
 		if (_transparent || _occlusionAlpha < 1.0 || _alpha < 1.0) {
@@ -204,6 +202,9 @@
 	}
 
 	if (goOn && _mesh && _material) {
+#ifdef DEBUG
+        glPushGroupMarkerEXT(0, self.name ? [self.name cStringUsingEncoding:NSUTF8StringEncoding] : "Unnamed Mesh");
+#endif
 		// calculate transparency
 		float alpha = _alpha * _occlusionAlpha;
 
@@ -221,13 +222,17 @@
 		
 		// Prepare the material to be rendered
 		[_material prepareRenderer:renderer requirements:rendererRequirements alpha:alpha node:self];
-	
+#ifdef DEBUG
+        BOOL vaoNeedslabel = !_mesh.vboData.vaoIndex;
+#endif
 		// Send the vertex data to the renderer
-		[renderer setVBOData:[_mesh vboData]];
-	
-		// Bind element index buffer
-		[renderer setElementBufferData:[_mesh indicesBufferId]];
-	
+		[renderer setVBOData:_mesh.vboData];
+#ifdef DEBUG
+        if (vaoNeedslabel && self.name) {
+            glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _mesh.vboData.vaoIndex, 0, [self.name cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
+#endif
+		
 		// Enable/disable lighting
 		[renderer enableLighting:self.lightingEnabled];
 	
@@ -253,13 +258,13 @@
 		if (_isPlanarShadowsNode) {
 			[renderer enableShadowStencil:NO];
 		}
+#ifdef DEBUG
+        glPopGroupMarkerEXT();
+#endif        
 	}
 	
 	// Recurse over children
 	[super render:renderer opaque:opaque];
-#ifdef DEBUG
-    glPopGroupMarkerEXT();
-#endif
 }
 
 - (void)renderForEventCapture:(Isgl3dGLRenderer *)renderer {

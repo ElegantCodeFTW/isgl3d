@@ -63,7 +63,6 @@
 @interface Isgl3dGLMesh : NSObject {
 
 @protected
-	unsigned int _indicesBufferId;
 
 	unsigned char * _vertexData;
 	unsigned char * _indices;
@@ -76,7 +75,7 @@
 	
 	BOOL _normalizationEnabled;
 }
-
+@property (nonatomic, retain) NSString *name;
 /**
  * Returns the Isgl3dGLVBOData containing information regarding the current VBO data of the GPU. 
  */
@@ -177,13 +176,6 @@
  */
 - (void)setVertices:(unsigned char *)vertexData withVertexDataSize:(unsigned int)vertexDataSize andIndices:(unsigned char *)indices 
              withIndexDataSize:(unsigned int)indexDataSize andNumberOfElements:(unsigned int)numberOfElements andVBOData:(Isgl3dGLVBOData *)vboData;
-
-/**
- * Returns the buffer identifier for the index data as it is registered in the GPU.
- * The equivalent Id for the vertex data is available in the Isgl3DGLVBOData object. 
- * This is called internally by iSGL3D.
- */
-- (unsigned int) indicesBufferId;
 
 /**
  * Sets the raw, interlaced vertex data.

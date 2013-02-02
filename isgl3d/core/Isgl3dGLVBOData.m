@@ -27,8 +27,9 @@
 
 
 @implementation Isgl3dGLVBOData
-
-@synthesize vboIndex = _vboIndex; 
+@synthesize vaoIndex = _vaoIndex;
+@synthesize vboIndex = _vboIndex;
+@synthesize indicesBufferId = _indicesBufferId;
 @synthesize stride = _stride; 
 @synthesize positionOffset = _positionOffset; 
 @synthesize normalOffset = _normalOffset; 
@@ -43,8 +44,9 @@
 - (id)init {
 	
 	if ((self = [super init])) {
+        _vaoIndex = 0;
 		_vboIndex = 0;
-		
+        _indicesBufferId = 0;
 		_positionOffset = -1;
 		_normalOffset = -1;
 		_uvOffset = -1;

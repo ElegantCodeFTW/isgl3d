@@ -49,6 +49,7 @@
 	BOOL _shadowMapActive;
     
 	unsigned int _currentVBOIndex;
+    GLuint _currentVAOIndex;
     
 	Isgl3dGLRenderer2State * _currentState;
 	Isgl3dGLRenderer2State * _previousState;
@@ -85,6 +86,7 @@
 		
 		_shadowMapActive = NO;
 		_currentVBOIndex = 0;
+        _currentVAOIndex = 0;
 		_renderedObjects = 0;
 
 		_currentElementBufferId = 0;
@@ -330,19 +332,26 @@
 }
 
 - (void)setVBOData:(Isgl3dGLVBOData *)vboData {
-	if (_currentVBOIndex != vboData.vboIndex) {
-		[_activeShader bindVertexBuffer:vboData.vboIndex];
-		[_activeShader setVBOData:vboData];
-		_currentVBOIndex = vboData.vboIndex;
-	}
+    if (vboData.vaoIndex && _currentVAOIndex != vboData.vaoIndex) {
+        glBindVertexArrayOES(vboData.vaoIndex);
+        _currentVAOIndex = vboData.vaoIndex;
+    } else if (!vboData.vaoIndex) {
+        GLuint vao = 0;
+        glGenVertexArraysOES(1, &vao);
+        vboData.vaoIndex = vao;
+        glBindVertexArrayOES(vao);
+
+        [_activeShader bindVertexBuffer:vboData.vboIndex];
+        [_activeShader setVBOData:vboData];
+        
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboData.indicesBufferId);
+
+    }
+
 }
 
 - (void)setElementBufferData:(unsigned int)bufferId {
-	// Bind element index buffer
-	if (_currentElementBufferId != bufferId) {
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferId);
-		_currentElementBufferId = bufferId;
-	}
+
 }
 
 // Called only by Isgl3dTextureMaterial
